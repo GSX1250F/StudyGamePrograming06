@@ -5,11 +5,11 @@
 
 Actor::Actor(Game* game)
 	:mState(EActive),
-	mPosition(Vector2::Zero),
-	mVelocity(Vector2::Zero),
+	mPosition(Vector3::Zero),
+	mVelocity(Vector3::Zero),
 	mScale(1.0f),
-	mRotation(0.0f),
-	mRotSpeed(0.0f),
+	mRotation(Quaternion::Identity),
+	mRotSpeed(Quaternion::Identity),
 	mMass(1.0f),
 	mRadius(0.0f),
 	mGame(game),
@@ -50,7 +50,7 @@ void Actor::Update(float deltaTime)
 		Quaternion inc(Vector3::UnitY, angle);
 		rot = Quaternion::Concatenate(rot, inc);
 		SetRotation(rot);
-// (+Zé≤é¸ÇËÇÃâÒì]Åj
+		// (+Zé≤é¸ÇËÇÃâÒì]Åj
 		Quaternion inc(Vector3::UnitZ, angle);
 		rot = Quaternion::Concatenate(rot, inc);
 		SetRotation(rot);

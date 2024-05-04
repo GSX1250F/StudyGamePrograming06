@@ -21,7 +21,6 @@ MoveComponent::~MoveComponent()
 void MoveComponent::Update(float deltatime)
 {
 	// Actorの重心速度と回転速度を更新
-	// Actorの位置と角度はActorのUpdateで更新
 	if (!Math::NearZero(mOwner->GetMass())) {
 		mMoveAccel = mMoveForce * (1.0f / mOwner->GetMass());	//重心加速度の計算　F=ma  a=F*(1/m)
 		//抵抗力 = 速さ*抵抗係数    減速 = -速さ*抵抗係数/質量

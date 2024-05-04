@@ -71,6 +71,29 @@ void Shader::SetMatrixUniform(const char* name, const Matrix4& matrix)
 	);
 }
 
+void Shader::SetVectorUniform(const char* name, const Vector3& vector)
+{
+	// この名前のuniformを検索
+	GLuint loc = glGetUniformLocation(mShaderProgram, name);
+	// Vectorデータをuniformに送る
+	glUniform3fv(
+		loc,						// uniform ID
+		1,							// 行列の数（この場合は１個だけ）
+		vector.GetAsFloatPtr()
+	);
+}
+
+void Shader::SetFloatUniform(const char* name, const float value)
+{
+	// この名前のuniformを検索
+	GLuint loc = glGetUniformLocation(mShaderProgram, name);
+	// floatデータをuniformに送る
+	glUniform1f(
+		loc,						// uniform ID
+		value
+	);
+}
+
 bool Shader::CompileShader(const std::string& fileName, GLenum shaderType, GLuint& outShader)
 {
 	//ファイルを開く

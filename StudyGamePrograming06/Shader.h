@@ -10,13 +10,16 @@ public:
 	~Shader();
 	//指定された名前の頂点/フラグメントシェーダーを読み込む
 	bool Load(const std::string& vertName,
-		const std::string& fragName);
+	          const std::string& fragName);
 	void Unload();
 	//アクティブなシェーダープログラムとして設定
 	void SetActive();
 	// マトリックスユニフォームを設定
 	void SetMatrixUniform(const char* name, const Matrix4& matrix);
-
+	// Vector3ユニフォームを設定
+	void SetVectorUniform(const char* name, const Vector3& vector);
+	// floatユニフォームを設定
+	void SetFloatUniform(const char* name, float value);
 
 private:
 	//シェーダーをコンパイルする
