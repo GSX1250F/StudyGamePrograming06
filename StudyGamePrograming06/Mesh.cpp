@@ -24,7 +24,7 @@ bool Mesh::Load(const std::string & fileName, Renderer* renderer)
 	std::ifstream file(fileName);
 	if (!file.is_open())
 	{
-		SDL_Log("File not found: Mesh %s", fileName.c_str());
+		SDL_Log("メッシュファイルが存在しません。: %s", fileName.c_str());
 		return false;
 	}
 
@@ -37,7 +37,7 @@ bool Mesh::Load(const std::string & fileName, Renderer* renderer)
 
 	if (!doc.IsObject())
 	{
-		SDL_Log("Mesh %s is not valid json", fileName.c_str());
+		SDL_Log("メッシュファイル %s は有効なJSONファイルではありません。", fileName.c_str());
 		return false;
 	}
 
@@ -46,21 +46,20 @@ bool Mesh::Load(const std::string & fileName, Renderer* renderer)
 	// Check the version
 	if (ver != 1)
 	{
-		SDL_Log("Mesh %s not version 1", fileName.c_str());
+		SDL_Log("メッシュファイル %s のバージョンが1ではありません。", fileName.c_str());
 		return false;
 	}
 
 	mShaderName = doc["shader"].GetString();
 
-	// Skip the vertex format/shader for now
-	// (This is changed in a later chapter's code)
+	// Temporary 頂点配列フォーマット／シェーダーをスキップ
 	size_t vertSize = 8;
 
-	// Load textures
+	// テクスチャを読み込み
 	const rapidjson::Value& textures = doc["textures"];
 	if (!textures.IsArray() || textures.Size() < 1)
 	{
-		SDL_Log("Mesh %s has no textures, there should be at least one", fileName.c_str());
+		SDL_Log("メッシュファイル %s にテクスチャが見つかりません。最低でも１つ必要です。", fileName.c_str());
 		return false;
 	}
 
@@ -68,23 +67,23 @@ bool Mesh::Load(const std::string & fileName, Renderer* renderer)
 
 	for (rapidjson::SizeType i = 0; i < textures.Size(); i++)
 	{
-		// Is this texture already loaded?
+		// このテクスチャがすでに読み込まれたか？
 		std::string texName = textures[i].GetString();
 		Texture* t = renderer->GetTexture(texName);
 		if (t == nullptr)
 		{
-			// Try loading the texture
+			// テクスチャ読み込みを試行
 			t = renderer->GetTexture(texName);
 			if (t == nullptr)
 			{
-				// If it's still null, just use the default texture
+				// Nullのままの場合、デフォルトのテクスチャを使用する。
 				t = renderer->GetTexture("Assets/Default.png");
 			}
 		}
 		mTextures.emplace_back(t);
 	}
 
-	// Load in the vertices
+	// 頂点配列群をロード
 	const rapidjson::Value& vertsJson = doc["vertices"];
 	if (!vertsJson.IsArray() || vertsJson.Size() < 1)
 	{
