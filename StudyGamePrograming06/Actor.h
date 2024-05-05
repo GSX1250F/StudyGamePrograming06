@@ -31,9 +31,6 @@ public:
 	// 位置
 	const Vector3& GetPosition() const { return mPosition; }
 	void SetPosition(const Vector3& pos) { mPosition = pos; mRecomputeWorldTransform = true;}
-	// 速度
-	const Vector3& GetVelocity() const { return mVelocity; }
-	void SetVelocity(const Vector3& vel) { mVelocity = vel; mRecomputeWorldTransform = true;	}
 	// 拡大率（質量は変えない。半径に影響する）
 	const float& GetScale() const { return mScale; }
 	void SetScale(const float& scale) { mScale = scale; mRecomputeWorldTransform = true;}
@@ -43,14 +40,7 @@ public:
 	// 半径
 	const float& GetRadius() const { return mRadius * mScale; }	//拡大率を考慮
 	void SetRadius(const float& radius) { mRadius = radius; mRecomputeWorldTransform = true;}
-	// 回転速度
-	const Quaternion& GetRotSpeed() const { return mRotSpeed; }
-	void SetRotSpeed(const float& rotspeed) { mRotSpeed = rotspeed; mRecomputeWorldTransform = true;}
-	// 質量
-	const float& GetMass() const { return mMass; }
-	void SetMass(const float& mass) { mMass = mass; mRecomputeWorldTransform = true;}
-	// 慣性モーメント
-	float GetImoment();
+	
 
 	// ワールド変換
 	void ComputeWorldTransform();
@@ -76,11 +66,8 @@ private:
 
 	// 移動
 	Vector3 mPosition;		//画面上の位置(３次元）
-	Vector3 mVelocity;		//速度（3次元）
 	float mScale;			//拡大率
 	Quaternion mRotation;		//回転（クォータニオン）
-	Quaternion mRotSpeed;		//回転速度（クォータニオン）
-	float mMass;			//質量
 	float mRadius;			//半径（拡大率は無視）
 	
 	// 変換

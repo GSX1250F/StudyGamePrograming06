@@ -6,11 +6,8 @@
 Actor::Actor(Game* game)
 	:mState(EActive),
 	mPosition(Vector3::Zero),
-	mVelocity(Vector3::Zero),
 	mScale(1.0f),
 	mRotation(Quaternion::Identity),
-	mRotSpeed(Quaternion::Identity),
-	mMass(1.0f),
 	mRadius(0.0f),
 	mGame(game),
 	mRecomputeWorldTransform(true)
@@ -36,25 +33,6 @@ void Actor::Update(float deltaTime)
 		// ワールド変換
 		ComputeWorldTransform();
 
-		// 位置情報を更新
- 		SetPosition(GetPosition() + mVelocity * deltaTime);
-
-		Quaternion rot = GetRotation();
-		float angle = mRotSpeed * deltaTime;
-		// 回転を追加させるクォータニオンを作成
-		// (+X軸周りの回転）
-		Quaternion inc(Vector3::UnitX, angle);
-		rot = Quaternion::Concatenate(rot, inc);
-		SetRotation(rot);
-		// (+Y軸周りの回転）
-		Quaternion inc(Vector3::UnitY, angle);
-		rot = Quaternion::Concatenate(rot, inc);
-		SetRotation(rot);
-		// (+Z軸周りの回転）
-		Quaternion inc(Vector3::UnitZ, angle);
-		rot = Quaternion::Concatenate(rot, inc);
-		SetRotation(rot);
-		
 		UpdateComponents(deltaTime);
 		UpdateActor(deltaTime);
 
@@ -95,13 +73,6 @@ void Actor::ActorInput(const uint8_t* keyState)
 {
 }
 
-float Actor::GetImoment()
-{
-	//Actorの慣性モーメントを設定。一様密度の球とする。(I=2/5*mR^2)
-	float mImoment = 0.4f * GetMass() * GetRadius() * GetRadius();
-	return mImoment;
-}
-
 void Actor::ComputeWorldTransform()
 {
 	if (mRecomputeWorldTransform)
@@ -119,7 +90,6 @@ void Actor::ComputeWorldTransform()
 		}
 	}
 }
-
 
 void Actor::AddComponent(Component* component)
 {
