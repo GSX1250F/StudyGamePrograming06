@@ -41,11 +41,11 @@ bool Renderer::Initialize(float screenWidth, float screenHeight)
 	// Force OpenGL to use hardware acceleration
 	SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
 
-	mWindow = SDL_CreateWindow("Game Programming in C++ (Chapter 6)", 100, 100,
+	mWindow = SDL_CreateWindow("Game Programming in C++", 100, 100,
 		static_cast<int>(mScreenWidth), static_cast<int>(mScreenHeight), SDL_WINDOW_OPENGL);
 	if (!mWindow)
 	{
-		SDL_Log("Failed to create window: %s", SDL_GetError());
+		SDL_Log("windowの作成に失敗しました: %s", SDL_GetError());
 		return false;
 	}
 
@@ -56,7 +56,7 @@ bool Renderer::Initialize(float screenWidth, float screenHeight)
 	glewExperimental = GL_TRUE;
 	if (glewInit() != GLEW_OK)
 	{
-		SDL_Log("Failed to initialize GLEW.");
+		SDL_Log("GLEWの初期化に失敗しました。");
 		return false;
 	}
 
@@ -67,7 +67,7 @@ bool Renderer::Initialize(float screenWidth, float screenHeight)
 	// Make sure we can create/compile shaders
 	if (!LoadShaders())
 	{
-		SDL_Log("Failed to load shaders.");
+		SDL_Log("シェーダーの読み込みに失敗しました。");
 		return false;
 	}
 

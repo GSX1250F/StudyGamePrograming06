@@ -87,7 +87,7 @@ bool Mesh::Load(const std::string & fileName, Renderer* renderer)
 	const rapidjson::Value& vertsJson = doc["vertices"];
 	if (!vertsJson.IsArray() || vertsJson.Size() < 1)
 	{
-		SDL_Log("Mesh %s has no vertices", fileName.c_str());
+		SDL_Log("メッシュファイル %s が頂点配列群を持っていません", fileName.c_str());
 		return false;
 	}
 
@@ -100,7 +100,7 @@ bool Mesh::Load(const std::string & fileName, Renderer* renderer)
 		const rapidjson::Value& vert = vertsJson[i];
 		if (!vert.IsArray() || vert.Size() != 8)
 		{
-			SDL_Log("Unexpected vertex format for %s", fileName.c_str());
+			SDL_Log("%s が想定外の頂点配列フォーマットです。", fileName.c_str());
 			return false;
 		}
 

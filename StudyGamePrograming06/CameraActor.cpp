@@ -45,6 +45,6 @@ void CameraActor::ActorInput(const uint8_t* keys)
 		angularSpeed += Math::TwoPi;
 	}
 
-	mMoveComp->SetForwardSpeed(forwardSpeed);
-	mMoveComp->SetAngularSpeed(angularSpeed);
+	mMoveComp->SetVelocity(forwardSpeed * GetForward());
+	mMoveComp->SetRotSpeed(angularSpeed);
 }

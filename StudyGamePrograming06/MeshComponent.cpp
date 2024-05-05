@@ -24,18 +24,18 @@ void MeshComponent::Draw(Shader* shader)
 {
 	if (mMesh)
 	{
-		// Set the world transform
+		// ワールド座標変換の設定
 		shader->SetMatrixUniform("uWorldTransform", 
-			mOwner->GetWorldTransform());
-		// Set specular power
+			                     mOwner->GetWorldTransform());
+		// 
 		shader->SetFloatUniform("uSpecPower", mMesh->GetSpecPower());
-		// Set the active texture
+		// アクティブテクスチャの設定
 		Texture* t = mMesh->GetTexture(mTextureIndex);
 		if (t)
 		{
 			t->SetActive();
 		}
-		// Set the mesh's vertex array as active
+		// メッシュノ頂点配列をアクティブにする。
 		VertexArray* va = mMesh->GetVertexArray();
 		va->SetActive();
 		// Draw

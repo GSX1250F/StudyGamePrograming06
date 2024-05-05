@@ -48,15 +48,15 @@ private:
 	void CreateSpriteVerts();
 	void SetLightUniforms(class Shader* shader);
 
-	// Map of textures loaded
+	// テクスチャのマップ
 	std::unordered_map<std::string, class Texture*> mTextures;
-	// Map of meshes loaded
+	// メッシュのマップ
 	std::unordered_map<std::string, class Mesh*> mMeshes;
 
-	// All the sprite components drawn
+	// スプライトコンポーネントの配列
 	std::vector<class SpriteComponent*> mSprites;
 
-	// All mesh components drawn
+	// メッシュコンポーネントの配列
 	std::vector<class MeshComponent*> mMeshComps;
 
 	// Game
