@@ -63,6 +63,9 @@
     <ClCompile Include="MeshComponent.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="PlaneActor.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h">
@@ -107,6 +110,9 @@
     <ClInclude Include="MeshComponent.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="PlaneActor.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Basic.frag">
@@ -129,6 +135,12 @@
       <Filter>シェーダーファイル</Filter>
     </None>
     <None Include="Shaders\BasicMesh.frag">
+      <Filter>シェーダーファイル</Filter>
+    </None>
+    <None Include="Shaders\Phong.frag">
+      <Filter>シェーダーファイル</Filter>
+    </None>
+    <None Include="Shaders\Phong.vert">
       <Filter>シェーダーファイル</Filter>
     </None>
   </ItemGroup>

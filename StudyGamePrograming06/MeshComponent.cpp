@@ -35,7 +35,7 @@ void MeshComponent::Draw(Shader* shader)
 		{
 			t->SetActive();
 		}
-		// メッシュノ頂点配列をアクティブにする。
+		// メッシュの頂点配列をアクティブにする。
 		VertexArray* va = mMesh->GetVertexArray();
 		va->SetActive();
 		// Draw

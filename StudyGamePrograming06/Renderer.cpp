@@ -283,13 +283,13 @@ void Renderer::CreateSpriteVerts()
 
 void Renderer::SetLightUniforms(Shader* shader)
 {
-	// Camera position is from inverted view
+	// カメラの位置はビューを反転して求める
 	Matrix4 invView = mView;
 	invView.Invert();
 	shader->SetVectorUniform("uCameraPos", invView.GetTranslation());
-	// Ambient light
+	// 環境光
 	shader->SetVectorUniform("uAmbientLight", mAmbientLight);
-	// Directional light
+	// 平行光源
 	shader->SetVectorUniform("uDirLight.mDirection",
 		mDirLight.mDirection);
 	shader->SetVectorUniform("uDirLight.mDiffuseColor",
