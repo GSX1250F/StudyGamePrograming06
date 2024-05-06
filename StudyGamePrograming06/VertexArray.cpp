@@ -15,7 +15,7 @@ VertexArray::VertexArray(const float* verts, unsigned int numVerts,
 	glBindBuffer(GL_ARRAY_BUFFER, mVertexBuffer);
 	glBufferData(
 		GL_ARRAY_BUFFER,	// バッファの種類
-		numVerts * 5 * sizeof(float),	//コピーするバイト数
+		numVerts * 8 * sizeof(float),	//コピーするバイト数
 		verts,	//コピー元（ポインタ）
 		GL_STATIC_DRAW	//このデータの利用方法
 	);

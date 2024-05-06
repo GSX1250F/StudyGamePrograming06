@@ -32,14 +32,14 @@ public:
 	const Vector3& GetPosition() const { return mPosition; }
 	void SetPosition(const Vector3& pos) { mPosition = pos; mRecomputeWorldTransform = true;}
 	// Šg‘å—¦i¿—Ê‚Í•Ï‚¦‚È‚¢B”¼Œa‚É‰e‹¿‚·‚éj
-	const float& GetScale() const { return mScale; }
-	void SetScale(const float& scale) { mScale = scale; mRecomputeWorldTransform = true;}
+	float GetScale() const { return mScale; }
+	void SetScale(float scale) { mScale = scale; mRecomputeWorldTransform = true;}
 	// ‰ñ“]
 	const Quaternion& GetRotation() const { return mRotation; }
 	void SetRotation(const Quaternion& rotation) { mRotation = rotation; mRecomputeWorldTransform = true;}
 	// ”¼Œa
-	const float& GetRadius() const { return mRadius * mScale; }	//Šg‘å—¦‚ğl—¶
-	void SetRadius(const float& radius) { mRadius = radius; mRecomputeWorldTransform = true;}
+	float GetRadius() { return mRadius * mScale; }	//Šg‘å—¦‚ğl—¶
+	void SetRadius(float radius) { mRadius = radius; mRecomputeWorldTransform = true;}
 	
 
 	// ƒ[ƒ‹ƒh•ÏŠ·

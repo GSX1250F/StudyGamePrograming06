@@ -24,7 +24,7 @@ void main()
 	// 位置座標を同次座標系に変換
 	vec4 pos = vec4(inPosition, 1.0);
 	// 位置をワールド空間に、そしてクリップ空間に変換
-	gl_Position = pos * uWorldTransform * uViewProj;
+	pos = pos * uWorldTransform;
 	// ワールド空間の位置を保存
 	fragWorldPos = pos.xyz;
 	// クリップ空間に変換
