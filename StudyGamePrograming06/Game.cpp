@@ -137,25 +137,28 @@ void Game::GenerateOutput()
 
 void Game::LoadData()
 {
-	// Create actors
+	// アクター作成
 	Actor* a = new Actor(this);
+	// 立方体を作成
 	a->SetPosition(Vector3(200.0f, 75.0f, 0.0f));
 	a->SetScale(100.0f);
-	Quaternion q(Vector3::UnitY, -Math::PiOver2);
-	q = Quaternion::Concatenate(q, Quaternion(Vector3::UnitZ, Math::Pi + Math::Pi / 4.0f));
+	Quaternion q(Vector3::UnitY, -0.5f * Math::Pi);	//y軸中心に-90°回す
+	q = Quaternion::Concatenate(q, Quaternion(Vector3::UnitZ, -0.75f*Math::Pi));		//さらにz軸中心に-135°回す
 	a->SetRotation(q);
 	MeshComponent* mc = new MeshComponent(a);
 	mc->SetMesh(mRenderer->GetMesh("Assets/Cube.gpmesh"));
 
+	// 球体を作成
 	a = new Actor(this);
 	a->SetPosition(Vector3(200.0f, -75.0f, 0.0f));
 	a->SetScale(3.0f);
 	mc = new MeshComponent(a);
 	mc->SetMesh(mRenderer->GetMesh("Assets/Sphere.gpmesh"));
 
-	// Setup floor
+	// 床を作成（PlaneActor）
 	const float start = -1250.0f;
 	const float size = 250.0f;
+	// 10個ずつ縦横に並べる
 	for (int i = 0; i < 10; i++)
 	{
 		for (int j = 0; j < 10; j++)
@@ -165,8 +168,8 @@ void Game::LoadData()
 		}
 	}
 
-	// Left/right walls
-	q = Quaternion(Vector3::UnitX, Math::PiOver2);
+	// 左右壁を作成（PlaneActor）
+	q = Quaternion(Vector3::UnitX, 0.5f*Math::Pi);	//x軸中心に90°回す
 	for (int i = 0; i < 10; i++)
 	{
 		a = new PlaneActor(this);
@@ -178,8 +181,8 @@ void Game::LoadData()
 		a->SetRotation(q);
 	}
 
-	q = Quaternion::Concatenate(q, Quaternion(Vector3::UnitZ, Math::PiOver2));
-	// Forward/back walls
+	// 前後壁を作成（PlaneActor）
+	q = Quaternion::Concatenate(q, Quaternion(Vector3::UnitZ, 0.5f*Math::Pi));	//さらにz軸中心に90°回す
 	for (int i = 0; i < 10; i++)
 	{
 		a = new PlaneActor(this);
@@ -191,7 +194,8 @@ void Game::LoadData()
 		a->SetRotation(q);
 	}
 
-	// Setup lights
+	// 光源設定
+	// 環境光
 	mRenderer->SetAmbientLight(Vector3(0.2f, 0.2f, 0.2f));
 	DirectionalLight& dir = mRenderer->GetDirectionalLight();
 	dir.mDirection = Vector3(0.0f, -0.707f, -0.707f);
