@@ -198,14 +198,16 @@ void Game::LoadData()
 	// 環境光
 	mRenderer->SetAmbientLight(Vector3(0.2f, 0.2f, 0.2f));
 	DirectionalLight& dir = mRenderer->GetDirectionalLight();
-	dir.mDirection = Vector3(0.0f, -0.707f, -0.707f);
+	dir.mDirection = Vector3(-0.250f, -0.433f, -0.707f);
 	dir.mDiffuseColor = Vector3(0.78f, 0.88f, 1.0f);
 	dir.mSpecColor = Vector3(0.8f, 0.8f, 0.8f);
 
-	// Camera actor
+
+
+	// カメラ
 	mCameraActor = new CameraActor(this);
 
-	// UI elements
+	// その他のアクター
 	a = new Actor(this);
 	a->SetPosition(Vector3(-350.0f, -350.0f, 0.0f));
 	SpriteComponent* sc = new SpriteComponent(a);
