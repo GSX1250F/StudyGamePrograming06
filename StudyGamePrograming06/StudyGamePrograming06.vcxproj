@@ -173,6 +173,9 @@ xcopy "..\..\external\GLEW\lib\$(PlatformTarget)\*.dll" "$(OutDir)" /i/s/y
     <ClInclude Include="VertexArray.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Cube.gpmesh" />
+    <None Include="Assets\Plane.gpmesh" />
+    <None Include="Assets\Sphere.gpmesh" />
     <None Include="packages.config" />
     <None Include="Shaders\Basic.frag" />
     <None Include="Shaders\Basic.vert" />
@@ -183,6 +186,14 @@ xcopy "..\..\external\GLEW\lib\$(PlatformTarget)\*.dll" "$(OutDir)" /i/s/y
     <None Include="Shaders\Sprite.frag" />
     <None Include="Shaders\Sprite.vert" />
     <None Include="Shaders\Transform.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Cube.png" />
+    <Image Include="Assets\Default.png" />
+    <Image Include="Assets\HealthBar.png" />
+    <Image Include="Assets\Plane.png" />
+    <Image Include="Assets\Radar.png" />
+    <Image Include="Assets\Sphere.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

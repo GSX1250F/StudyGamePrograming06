@@ -143,5 +143,28 @@
     <None Include="Shaders\Phong.vert">
       <Filter>シェーダーファイル</Filter>
     </None>
+    <None Include="Assets\Cube.gpmesh" />
+    <None Include="Assets\Plane.gpmesh" />
+    <None Include="Assets\Sphere.gpmesh" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Cube.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Assets\Default.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Assets\HealthBar.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Assets\Plane.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Assets\Radar.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Assets\Sphere.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
   </ItemGroup>
 </Project>
