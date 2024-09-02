@@ -6,6 +6,8 @@
 #include "MeshComponent.h"
 #include "CameraActor.h"
 #include "PlaneActor.h"
+#include <thread>
+#include <chrono>
 
 Game::Game()
 	:mRenderer(nullptr),
@@ -83,17 +85,15 @@ void Game::ProcessInput()
 
 void Game::UpdateGame()
 {
-	// デルタタイムの計算
-	// 前のフレームから 16ms 経つまで待つ
-	while (!SDL_TICKS_PASSED(SDL_GetTicks(), mTicksCount + 16));
-
-	float deltaTime = (SDL_GetTicks() - mTicksCount) / 1000.0f;
-
-	// デルタタイムを最大値で制限する
-	if (deltaTime > 0.05f)
-	{
-		deltaTime = 0.05f;
+	// フレームレート調整（62.5fps)
+	if (SDL_GetTicks() - mTicksCount < 16) {
+		int sleep = 16 - (SDL_GetTicks() - mTicksCount);
+		std::this_thread::sleep_for(std::chrono::milliseconds(sleep));    // sleepミリ秒処理を止める
 	}
+
+	//while (!SDL_TICKS_PASSED(SDL_GetTicks(), mTicksCount + 16));	// 前のフレームから 16ms 経つまで待つ.※sleepしないのでCPU使用率が上がる。
+	float deltaTime = (SDL_GetTicks() - mTicksCount) / 1000.0f;		// デルタタイムの計算
+	if (deltaTime > 0.05f) { deltaTime = 0.05f; }			// デルタタイムを最大値で制限する
 	mTicksCount = SDL_GetTicks();
 
 	// すべてのアクターを更新
