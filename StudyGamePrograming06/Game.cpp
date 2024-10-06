@@ -1,24 +1,25 @@
 #include "Game.h"
+#include <SDL.h>
+#include <SDL_image.h>
 #include <algorithm>
-#include "Renderer.h"
-#include "Actor.h"
-#include "SpriteComponent.h"
-#include "MeshComponent.h"
-#include "CameraActor.h"
 #include <thread>
 #include <chrono>
+#include "Renderer.h"
+#include "Actor.h"
 #include "Cube.h"
 #include "Sphere.h"
 #include "Planes.h"
+#include "SpriteActors.h"
+#include "CameraActor.h"
 
 Game::Game()
-	:mRenderer(nullptr),
-	mIsRunning(true),
-	mUpdatingActors(false),
-	mWindowWidth(1024),
-	mWindowHeight(768)
-{
-}
+	: mRenderer(nullptr)
+	, mIsRunning(true)
+	, mUpdatingActors(false)
+	, mTicksCount(0)
+	, mWindowWidth(1024)
+	, mWindowHeight(768)
+{}
 
 bool Game::Initialize()
 {
@@ -160,26 +161,11 @@ void Game::LoadData()
 	mCameraActor = new CameraActor(this);
 
 	// その他のアクター
-	Actor* a = new Actor(this);
-	a->SetPosition(Vector3(-350.0f, -350.0f, 0.0f));
-	SpriteComponent* sc = new SpriteComponent(a);
-	sc->SetTexture(mRenderer->GetTexture("Assets/HealthBar.png"));
-
-	a = new Actor(this);
-	a->SetPosition(Vector3(375.0f, -275.0f, 0.0f));
-	a->SetScale(0.75f);
-	sc = new SpriteComponent(a);
-	sc->SetTexture(mRenderer->GetTexture("Assets/Radar.png"));
-
-
-	
-
-
+	SpriteActors* a = new SpriteActors(this);
 }
 
 void Game::UnloadData()
 {
-	// アクターを消去
 	while (!mActors.empty())
 	{
 		delete mActors.back();
@@ -203,7 +189,6 @@ void Game::Shutdown()
 
 void Game::AddActor(Actor* actor)
 {
-	// If we're updating actors, need to add to pending
 	if (mUpdatingActors)
 	{
 		mPendingActors.emplace_back(actor);

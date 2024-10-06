@@ -44,9 +44,9 @@ void SpriteComponent::Draw(Shader* shader)
 void SpriteComponent::SetTexture(class Texture* texture)
 {
 	mTexture = texture;
-	// Set width/height
-	mTexWidth = texture->GetWidth();
-	mTexHeight = texture->GetHeight();
-	// Actor‚Ì”¼Œa‚ðAwidth‚Æheight‚Ì•½‹Ï/2‚É‚·‚éB
+	// ‚‚³‚Æ•‚ðÝ’è
+	mTexWidth = texture->GetTexWidth();
+	mTexHeight = texture->GetTexHeight();
+	// ‚‚³‚Æ•‚Ì•½‹Ï‚ðActor‚Ì’¼Œa‚Æ‚·‚éB
 	mOwner->SetRadius((mTexWidth + mTexHeight) * 0.25f);
 }

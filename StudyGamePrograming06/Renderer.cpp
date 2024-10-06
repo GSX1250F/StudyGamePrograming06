@@ -59,8 +59,6 @@ bool Renderer::Initialize(float screenWidth, float screenHeight)
 		return false;
 	}
 
-	mContext = SDL_GL_CreateContext(mWindow);
-
 	// OpenGLコンテクストを生成（すべてのOpenGL機能にアクセスする）
 	mContext = SDL_GL_CreateContext(mWindow);
 
@@ -73,7 +71,7 @@ bool Renderer::Initialize(float screenWidth, float screenHeight)
 	}
 	glGetError();
 
-	// バーテックス配列オブジェクトの生成
+	// スプライト用バーテックス配列オブジェクトの生成
 	CreateVertexInfo();
 
 	// シェーダーの生成

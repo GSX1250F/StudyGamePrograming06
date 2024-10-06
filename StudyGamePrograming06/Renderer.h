@@ -4,6 +4,8 @@
 #include <unordered_map>
 #include <SDL.h>
 #include "Math.h"
+#include "Texture.h"
+#include "VertexInfo.h"
 
 struct DirectionalLight
 {
