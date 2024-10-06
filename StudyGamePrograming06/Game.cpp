@@ -5,9 +5,11 @@
 #include "SpriteComponent.h"
 #include "MeshComponent.h"
 #include "CameraActor.h"
-#include "PlaneActor.h"
 #include <thread>
 #include <chrono>
+#include "Cube.h"
+#include "Sphere.h"
+#include "Planes.h"
 
 Game::Game()
 	:mRenderer(nullptr),
@@ -134,64 +136,16 @@ void Game::GenerateOutput()
 
 void Game::LoadData()
 {
-	// アクター作成
-	Actor* a = new Actor(this);
 	// 立方体を作成
-	a->SetPosition(Vector3(200.0f, 75.0f, 0.0f));
-	a->SetScale(100.0f);
-	Quaternion q(Vector3::UnitY, -0.5f * Math::Pi);	//y軸中心に-90°回す
-	q = Quaternion::Concatenate(q, Quaternion(Vector3::UnitZ, -0.75f*Math::Pi));		//さらにz軸中心に-135°回す
-	a->SetRotation(q);
-	MeshComponent* mc = new MeshComponent(a);
-	mc->SetMesh(mRenderer->GetMesh("Assets/Cube.gpmesh"));
+	Actor* cube = new Cube(this);
 
 	// 球体を作成
-	a = new Actor(this);
-	a->SetPosition(Vector3(200.0f, -75.0f, 0.0f));
-	a->SetScale(3.0f);
-	mc = new MeshComponent(a);
-	mc->SetMesh(mRenderer->GetMesh("Assets/Sphere.gpmesh"));
+	Actor* sphere = new Sphere(this);
 
+	// 床と壁を作成
+	Planes* planes = new Planes(this);
 
-	// 床を作成（PlaneActor）
-	const float start = -1250.0f;
-	const float size = 250.0f;
-	// 10個ずつ縦横に並べる
-	for (int i = 0; i < 10; i++)
-	{
-		for (int j = 0; j < 10; j++)
-		{
-			a = new PlaneActor(this);
-			a->SetPosition(Vector3(start + i * size, start + j * size, -100.0f));
-		}
-	}
-
-	// 左右壁を作成（PlaneActor）
-	q = Quaternion(Vector3::UnitX, 0.5f*Math::Pi);	//x軸中心に90°回す
-	for (int i = 0; i < 10; i++)
-	{
-		a = new PlaneActor(this);
-		a->SetPosition(Vector3(start + i * size, start - size, 0.0f));
-		a->SetRotation(q);
-
-		a = new PlaneActor(this);
-		a->SetPosition(Vector3(start + i * size, -start + size, 0.0f));
-		a->SetRotation(q);
-	}
-
-	// 前後壁を作成（PlaneActor）
-	q = Quaternion::Concatenate(q, Quaternion(Vector3::UnitZ, 0.5f*Math::Pi));	//さらにz軸中心に90°回す
-	for (int i = 0; i < 10; i++)
-	{
-		a = new PlaneActor(this);
-		a->SetPosition(Vector3(start - size, start + i * size, 0.0f));
-		a->SetRotation(q);
-
-		a = new PlaneActor(this);
-		a->SetPosition(Vector3(-start + size, start + i * size, 0.0f));
-		a->SetRotation(q);
-	}
-
+	
 	// 光源設定
 	// 環境光
 	mRenderer->SetAmbientLight(Vector3(0.2f, 0.2f, 0.2f));
@@ -206,7 +160,7 @@ void Game::LoadData()
 	mCameraActor = new CameraActor(this);
 
 	// その他のアクター
-	a = new Actor(this);
+	Actor* a = new Actor(this);
 	a->SetPosition(Vector3(-350.0f, -350.0f, 0.0f));
 	SpriteComponent* sc = new SpriteComponent(a);
 	sc->SetTexture(mRenderer->GetTexture("Assets/HealthBar.png"));
@@ -226,7 +180,6 @@ void Game::LoadData()
 void Game::UnloadData()
 {
 	// アクターを消去
-	// Because ~Actor calls RemoveActor, have to use a different style loop
 	while (!mActors.empty())
 	{
 		delete mActors.back();
@@ -263,20 +216,15 @@ void Game::AddActor(Actor* actor)
 
 void Game::RemoveActor(Actor* actor)
 {
-	// Is it in pending actors?
 	auto iter = std::find(mPendingActors.begin(), mPendingActors.end(), actor);
 	if (iter != mPendingActors.end())
 	{
-		// Swap to end of vector and pop off (avoid erase copies)
 		std::iter_swap(iter, mPendingActors.end() - 1);
 		mPendingActors.pop_back();
 	}
-
-	// Is it in actors?
 	iter = std::find(mActors.begin(), mActors.end(), actor);
 	if (iter != mActors.end())
 	{
-		// Swap to end of vector and pop off (avoid erase copies)
 		std::iter_swap(iter, mActors.end() - 1);
 		mActors.pop_back();
 	}

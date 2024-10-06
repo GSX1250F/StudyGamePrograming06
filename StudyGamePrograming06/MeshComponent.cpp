@@ -5,7 +5,7 @@
 #include "Game.h"
 #include "Renderer.h"
 #include "Texture.h"
-#include "VertexArray.h"
+#include "VertexInfo.h"
 
 MeshComponent::MeshComponent(Actor* owner)
 	:Component(owner)
@@ -25,8 +25,7 @@ void MeshComponent::Draw(Shader* shader)
 	if (mMesh)
 	{
 		// ワールド座標変換の設定
-		shader->SetMatrixUniform("uWorldTransform", 
-			                     mOwner->GetWorldTransform());
+		shader->SetMatrixUniform("uWorldTransform", mOwner->GetWorldTransform());
 		// 
 		shader->SetFloatUniform("uSpecPower", mMesh->GetSpecPower());
 		// アクティブテクスチャの設定
@@ -35,8 +34,9 @@ void MeshComponent::Draw(Shader* shader)
 		{
 			t->SetActive();
 		}
-		// メッシュの頂点配列をアクティブにする。
-		VertexArray* va = mMesh->GetVertexArray();
+		// メッシュの頂点情報クラスをアクティブにする。
+		VertexInfo* va = mMesh->GetVertexInfo();
+		// メッシュの頂点配列オブジェクトをアクティブにする。
 		va->SetActive();
 		// Draw
 		glDrawElements(GL_TRIANGLES, va->GetNumIndices(), GL_UNSIGNED_INT, nullptr);

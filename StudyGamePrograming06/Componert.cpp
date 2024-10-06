@@ -5,7 +5,6 @@ Component::Component(Actor* owner, int updateOrder)
 	:mOwner(owner),	
 	mUpdateOrder(updateOrder)
 {
-	// アクターの配列に追加
 	mOwner->AddComponent(this);
 }
 

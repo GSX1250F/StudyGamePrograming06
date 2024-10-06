@@ -26,7 +26,7 @@ void CameraActor::UpdateActor(float deltaTime)
 void CameraActor::ActorInput(const SDL_Event& event)
 {
 	float forwardSpeed = 0.0f;
-	float angularSpeed = 0.0f;
+	float rotSpeed = 0.0f;
 	// wasd movement
 	if (event.type == SDL_KEYDOWN) {
 		if (event.key.keysym.sym == SDLK_UP)
@@ -39,13 +39,13 @@ void CameraActor::ActorInput(const SDL_Event& event)
 		}
 		if (event.key.keysym.sym == SDLK_LEFT)
 		{
-			angularSpeed -= Math::Pi;
+			rotSpeed -= Math::Pi;
 		}
 		if (event.key.keysym.sym == SDLK_RIGHT)
 		{
-			angularSpeed += Math::Pi;
+			rotSpeed += Math::Pi;
 		}
 	}
 	mMoveComp->SetVelocity(forwardSpeed * GetForward());
-	mMoveComp->SetRotSpeed(angularSpeed * GetUpward());
+	mMoveComp->SetRotSpeed(rotSpeed * GetUpward());
 }

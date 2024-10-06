@@ -1,23 +1,26 @@
 #include "Renderer.h"
-#include "Texture.h"
-#include "Mesh.h"
-#include <algorithm>
-#include "Shader.h"
-#include "VertexArray.h"
-#include "SpriteComponent.h"
-#include "MeshComponent.h"
+#include <SDL.h>
+#include <SDL_image.h>
 #include <glew.h>
+#include <algorithm>
+#include "VertexInfo.h"
+#include "Shader.h"
+#include "Texture.h"
+#include "SpriteComponent.h"
+#include "Mesh.h"
+#include "MeshComponent.h"
+
 
 Renderer::Renderer(Game* game)
-	:mGame(game)
-	,mSpriteShader(nullptr)
-	,mMeshShader(nullptr)
-{
-}
+	: mGame(game)
+	, mWindow(nullptr)
+	, mSpriteShader(nullptr)
+	, mMeshShader(nullptr)
+	, mVertexInfo(nullptr)
+{}
 
 Renderer::~Renderer()
-{
-}
+{}
 
 bool Renderer::Initialize(float screenWidth, float screenHeight)
 {
@@ -41,56 +44,53 @@ bool Renderer::Initialize(float screenWidth, float screenHeight)
 	// Force OpenGL to use hardware acceleration
 	SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
 
-	mWindow = SDL_CreateWindow("Game Programming in C++", 100, 100,
-		static_cast<int>(mScreenWidth), static_cast<int>(mScreenHeight), SDL_WINDOW_OPENGL);
+	mWindow = SDL_CreateWindow(
+		"Game Programming in C++",
+		100, 
+		100,
+		static_cast<int>(mScreenWidth), 
+		static_cast<int>(mScreenHeight), 
+		SDL_WINDOW_OPENGL
+	);
+
 	if (!mWindow)
 	{
 		SDL_Log("windowの作成に失敗しました: %s", SDL_GetError());
 		return false;
 	}
 
-	// Create an OpenGL context
 	mContext = SDL_GL_CreateContext(mWindow);
 
-	// Initialize GLEW
+	// OpenGLコンテクストを生成（すべてのOpenGL機能にアクセスする）
+	mContext = SDL_GL_CreateContext(mWindow);
+
+	// GLEWを初期化
 	glewExperimental = GL_TRUE;
 	if (glewInit() != GLEW_OK)
 	{
 		SDL_Log("GLEWの初期化に失敗しました。");
 		return false;
 	}
-
-	// On some platforms, GLEW will emit a benign error code,
-	// so clear it
 	glGetError();
 
-	// Make sure we can create/compile shaders
+	// バーテックス配列オブジェクトの生成
+	CreateVertexInfo();
+
+	// シェーダーの生成
 	if (!LoadShaders())
 	{
 		SDL_Log("シェーダーの読み込みに失敗しました。");
 		return false;
 	}
 
-	// Create quad for drawing sprites
-	CreateSpriteVerts();
+	// 画面クリアの色を設定
+	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
 	return true;
 }
 
-void Renderer::Shutdown()
-{
-	delete mSpriteVerts;
-	mSpriteShader->Unload();
-	delete mSpriteShader;
-	mMeshShader->Unload();
-	delete mMeshShader;
-	SDL_GL_DeleteContext(mContext);
-	SDL_DestroyWindow(mWindow);
-}
-
 void Renderer::UnloadData()
 {
-	// Destroy textures
 	for (auto i : mTextures)
 	{
 		i.second->Unload();
@@ -98,7 +98,6 @@ void Renderer::UnloadData()
 	}
 	mTextures.clear();
 
-	// Destroy meshes
 	for (auto i : mMeshes)
 	{
 		i.second->Unload();
@@ -107,39 +106,47 @@ void Renderer::UnloadData()
 	mMeshes.clear();
 }
 
+void Renderer::Shutdown()
+{
+	delete mVertexInfo;
+	mSpriteShader->Unload();
+	delete mSpriteShader;
+	mMeshShader->Unload();
+	delete mMeshShader;
+	SDL_GL_DeleteContext(mContext);
+	SDL_DestroyWindow(mWindow);
+}
+
 void Renderer::Draw()
 {
-	// Set the clear color to light grey
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	// Clear the color buffer
+	// 画面をクリア & 深度バッファをクリア
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	// Draw mesh components
-	// Enable depth buffering/disable alpha blend
+	
+	// まず、深度有効化とアルファブレンディングを無効化して描画する。
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_BLEND);
-	// Set the mesh shader active
+	// メッシュシェーダー有効化
 	mMeshShader->SetActive();
-	// Update view-projection matrix
-	mMeshShader->SetMatrixUniform("uViewProj", mView * mProjection);
+	// シェーダーのビュー変換&射影変換行列を更新
+	mMeshShader->SetMatrixUniform("uViewProj", mView * mProj);
 	// Update lighting uniforms
 	SetLightUniforms(mMeshShader);
+	// メッシュコンポーネントを描画。
 	for (auto mc : mMeshComps)
 	{
 		mc->Draw(mMeshShader);
 	}
 
-	// Draw all sprite components
-	// Disable depth buffering
+	// 深度無効化、アルファブレンディング有効化して描画。（一番手前に描画する）
 	glDisable(GL_DEPTH_TEST);
-	// Enable alpha blending on the color buffer
 	glEnable(GL_BLEND);
 	glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
 	glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
 
-	// Set shader/vao as active
+	// スプライトシェーダーとバーテックス配列オブジェクトを有効化
 	mSpriteShader->SetActive();
-	mSpriteVerts->SetActive();
+	mVertexInfo->SetActive();
 	for (auto sprite : mSprites)
 	{
 		sprite->Draw(mSpriteShader);
@@ -151,8 +158,6 @@ void Renderer::Draw()
 
 void Renderer::AddSprite(SpriteComponent* sprite)
 {
-	// Find the insertion point in the sorted vector
-	// (The first element with a higher draw order than me)
 	int myDrawOrder = sprite->GetDrawOrder();
 	auto iter = mSprites.begin();
 	for (;
@@ -165,7 +170,6 @@ void Renderer::AddSprite(SpriteComponent* sprite)
 		}
 	}
 
-	// Inserts element before position of iterator
 	mSprites.insert(iter, sprite);
 }
 
@@ -236,7 +240,7 @@ Mesh* Renderer::GetMesh(const std::string & fileName)
 
 bool Renderer::LoadShaders()
 {
-	// Create sprite shader
+	// スプライト用シェーダーを生成
 	mSpriteShader = new Shader();
 	if (!mSpriteShader->Load("Shaders/Sprite.vert", "Shaders/Sprite.frag"))
 	{
@@ -244,11 +248,13 @@ bool Renderer::LoadShaders()
 	}
 
 	mSpriteShader->SetActive();
-	// Set the view-projection matrix
-	Matrix4 viewProj = Matrix4::CreateSimpleViewProj(mScreenWidth, mScreenHeight);
-	mSpriteShader->SetMatrixUniform("uViewProj", viewProj);
+	// スプライトの描画には、平行射影を行う。
+	mView = Matrix4::Identity;
+	// Matrix4 viewProj = Matrix4::CreateSimpleViewProj(mScreenWidth, mScreenHeight);
+	mProj = Matrix4::CreateOrtho(mScreenWidth, mScreenHeight, 0.01f, 5000.0f);
+	mSpriteShader->SetMatrixUniform("uViewProj", mView * mProj);
 
-	// Create basic mesh shader
+	// メッシュ用シェーダーを生成
 	mMeshShader = new Shader();
 	if (!mMeshShader->Load("Shaders/Phong.vert", "Shaders/Phong.frag"))
 	{
@@ -256,21 +262,25 @@ bool Renderer::LoadShaders()
 	}
 
 	mMeshShader->SetActive();
-	// Set the view-projection matrix
-	mView = Matrix4::CreateLookAt(Vector3::Zero, Vector3::UnitX, Vector3::UnitZ);
-	mProjection = Matrix4::CreatePerspectiveFOV(Math::ToRadians(70.0f),
-		mScreenWidth, mScreenHeight, 25.0f, 10000.0f);
-	mMeshShader->SetMatrixUniform("uViewProj", mView * mProjection);
+	// メッシュの描画には、透視射影を行う。
+	Vector3 cameraPos = Vector3::Zero;
+	Vector3 cameraTarget = Vector3::UnitX;
+	Vector3 cameraUp = Vector3::UnitZ;
+	mView = Matrix4::CreateLookAt(cameraPos,cameraTarget,cameraUp);
+	mProj = Matrix4::CreatePerspectiveFOV(Math::ToRadians(70.0f),mScreenWidth, mScreenHeight, 0.01f, 10000.0f);
+	mMeshShader->SetMatrixUniform("uViewProj", mView * mProj);
 	return true;
 }
 
-void Renderer::CreateSpriteVerts()
+void Renderer::CreateVertexInfo()
 {
+	// 左手座標系
+	// 頂点座標(vector3), 法線ベクトル(Vector3), テクスチャ座標(Vector2)
 	float vertices[] = {
-		-0.5f, 0.5f, 0.f, 0.f, 0.f, 0.0f, 0.f, 0.f, // top left
-		0.5f, 0.5f, 0.f, 0.f, 0.f, 0.0f, 1.f, 0.f, // top right
-		0.5f,-0.5f, 0.f, 0.f, 0.f, 0.0f, 1.f, 1.f, // bottom right
-		-0.5f,-0.5f, 0.f, 0.f, 0.f, 0.0f, 0.f, 1.f  // bottom left
+		-0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,	 // top left
+		 0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,	 // top right
+		 0.5f,-0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,	 // bottom right
+		-0.5f,-0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f		 // bottom left
 	};
 
 	unsigned int indices[] = {
@@ -278,7 +288,7 @@ void Renderer::CreateSpriteVerts()
 		2, 3, 0
 	};
 
-	mSpriteVerts = new VertexArray(vertices, 4, indices, 6);
+	mVertexInfo = new VertexInfo(vertices, 4, indices, 6);
 }
 
 void Renderer::SetLightUniforms(Shader* shader)
@@ -290,10 +300,7 @@ void Renderer::SetLightUniforms(Shader* shader)
 	// 環境光
 	shader->SetVectorUniform("uAmbientLight", mAmbientLight);
 	// 平行光源
-	shader->SetVectorUniform("uDirLight.mDirection",
-		mDirLight.mDirection);
-	shader->SetVectorUniform("uDirLight.mDiffuseColor",
-		mDirLight.mDiffuseColor);
-	shader->SetVectorUniform("uDirLight.mSpecColor",
-		mDirLight.mSpecColor);
+	shader->SetVectorUniform("uDirLight.mDirection", mDirLight.mDirection);
+	shader->SetVectorUniform("uDirLight.mDiffuseColor",	mDirLight.mDiffuseColor);
+	shader->SetVectorUniform("uDirLight.mSpecColor", mDirLight.mSpecColor);
 }
