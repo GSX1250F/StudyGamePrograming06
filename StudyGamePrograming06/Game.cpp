@@ -58,29 +58,27 @@ void Game::RunLoop()
 void Game::ProcessInput()
 {
 	SDL_Event event;
-	// キューにイベントがあれば繰り返す
 	while (SDL_PollEvent(&event))
 	{
-		switch (event.type)
+		if (event.type == SDL_QUIT)
 		{
-		case SDL_QUIT:
 			mIsRunning = false;
-			break;
 		}
-	}
+		if (event.type == SDL_KEYDOWN)
+		{
+			if (event.key.keysym.sym == SDLK_ESCAPE)
+			{
+				mIsRunning = false;
+			}
+		}
 
-	const Uint8* keyState = SDL_GetKeyboardState(NULL);
-	if (keyState[SDL_SCANCODE_ESCAPE])
-	{
-		mIsRunning = false;
+		mUpdatingActors = true;
+		for (auto actor : mActors)
+		{
+			actor->ProcessInput(event);
+		}
+		mUpdatingActors = false;
 	}
-
-	mUpdatingActors = true;
-	for (auto actor : mActors)
-	{
-		actor->ProcessInput(keyState);
-	}
-	mUpdatingActors = false;
 }
 
 void Game::UpdateGame()
@@ -154,6 +152,7 @@ void Game::LoadData()
 	mc = new MeshComponent(a);
 	mc->SetMesh(mRenderer->GetMesh("Assets/Sphere.gpmesh"));
 
+
 	// 床を作成（PlaneActor）
 	const float start = -1250.0f;
 	const float size = 250.0f;
@@ -217,6 +216,10 @@ void Game::LoadData()
 	a->SetScale(0.75f);
 	sc = new SpriteComponent(a);
 	sc->SetTexture(mRenderer->GetTexture("Assets/Radar.png"));
+
+
+	
+
 
 }
 

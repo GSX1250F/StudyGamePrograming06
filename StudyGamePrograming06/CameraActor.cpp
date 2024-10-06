@@ -23,28 +23,29 @@ void CameraActor::UpdateActor(float deltaTime)
 	GetGame()->GetRenderer()->SetViewMatrix(view);
 }
 
-void CameraActor::ActorInput(const uint8_t* keys)
+void CameraActor::ActorInput(const SDL_Event& event)
 {
 	float forwardSpeed = 0.0f;
 	float angularSpeed = 0.0f;
 	// wasd movement
-	if (keys[SDL_SCANCODE_UP])
-	{
-		forwardSpeed += 300.0f;
+	if (event.type == SDL_KEYDOWN) {
+		if (event.key.keysym.sym == SDLK_UP)
+		{
+			forwardSpeed += 300.0f;
+		}
+		if (event.key.keysym.sym == SDLK_DOWN)
+		{
+			forwardSpeed -= 300.0f;
+		}
+		if (event.key.keysym.sym == SDLK_LEFT)
+		{
+			angularSpeed -= Math::Pi;
+		}
+		if (event.key.keysym.sym == SDLK_RIGHT)
+		{
+			angularSpeed += Math::Pi;
+		}
 	}
-	if (keys[SDL_SCANCODE_DOWN])
-	{
-		forwardSpeed -= 300.0f;
-	}
-	if (keys[SDL_SCANCODE_LEFT])
-	{
-		angularSpeed -= Math::Pi;
-	}
-	if (keys[SDL_SCANCODE_RIGHT])
-	{
-		angularSpeed += Math::Pi;
-	}
-
 	mMoveComp->SetVelocity(forwardSpeed * GetForward());
-	mMoveComp->SetRotSpeed(angularSpeed);
+	mMoveComp->SetRotSpeed(angularSpeed * GetUpward());
 }
