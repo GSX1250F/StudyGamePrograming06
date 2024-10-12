@@ -2,25 +2,23 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <algorithm>
-#include "Actor.h"
-#include "Renderer.h"
-#include "Random.h"
-#include "Maze.h"
-#include "Brave.h"
-#include "Shadow.h"
-#include "ClearPict.h"
-#include "Tile.h"
-#include "Treasure.h"
 #include <thread>
 #include <chrono>
+#include "Renderer.h"
+#include "Actor.h"
+#include "CameraActor.h"
+#include "Dice.h"
+#include "Sphere.h"
+#include "Planes.h"
+
 
 Game::Game()
 	: mRenderer(nullptr)
 	, mIsRunning(true)
 	, mUpdatingActors(false)
 	, mTicksCount(0)
-	, mWindowWidth(1600)
-	, mWindowHeight(900)
+	, mWindowWidth(1024)
+	, mWindowHeight(768)
 {}
 
 bool Game::Initialize()
@@ -40,8 +38,6 @@ bool Game::Initialize()
 		mRenderer = nullptr;
 		return false;
 	}
-
-	Random::Init();		//乱数設定の初期化?
 
 	LoadData();
 
@@ -137,8 +133,17 @@ void Game::GenerateOutput()
 
 void Game::LoadData()
 {
-	mMaze = new Maze(this, 51, 29);		//迷路クラス
-	//mMaze = new Maze(this, 7, 7);		//テスト用
+	// カメラ
+	Actor* cameraActor = new CameraActor(this);
+	
+	// サイコロを作成
+	Actor* dice = new Dice(this);
+
+	// 球を作成
+	Actor* sphere = new Sphere(this);
+
+	// 壁と床を作成
+	Actor* planes = new Planes(this);
 }
 
 void Game::UnloadData()
