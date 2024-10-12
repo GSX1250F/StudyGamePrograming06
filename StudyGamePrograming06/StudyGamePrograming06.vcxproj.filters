@@ -81,6 +81,9 @@
     <ClCompile Include="SpriteActors.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Dice.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h">
@@ -140,21 +143,15 @@
     <ClInclude Include="SpriteActors.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Dice.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\Basic.frag">
-      <Filter>シェーダーファイル</Filter>
-    </None>
-    <None Include="Shaders\Basic.vert">
-      <Filter>シェーダーファイル</Filter>
-    </None>
     <None Include="Shaders\Sprite.frag">
       <Filter>シェーダーファイル</Filter>
     </None>
     <None Include="Shaders\Sprite.vert">
-      <Filter>シェーダーファイル</Filter>
-    </None>
-    <None Include="Shaders\Transform.vert">
       <Filter>シェーダーファイル</Filter>
     </None>
     <None Include="Shaders\BasicMesh.vert">
