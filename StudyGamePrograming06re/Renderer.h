@@ -7,6 +7,13 @@
 #include "Texture.h"
 #include "VertexInfo.h"
 
+struct DirectionalLight
+{
+	Vector3 mDirection;		// Œõ‚Ì•ûŒü
+	Vector3 mDiffuseColor;	// ŠgU”½ËF
+	Vector3 mSpecColor;		// ‹¾–Ê”½ËF
+};
+
 class Renderer
 {
 public:
@@ -32,12 +39,16 @@ public:
 	void SetViewMatrix(const Matrix4& matrix) { mView = matrix; }
 	void SetProjMatrix(const Matrix4& matrix) { mProj = matrix; }
 
+	void SetAmbientLight(const Vector3& ambient) { mAmbientLight = ambient; }
+	DirectionalLight& GetDirectionalLight() { return mDirLight; }
+
 	float GetScreenWidth() const { return mScreenWidth; }
 	float GetScreenHeight() const { return mScreenHeight; }
 
 private:
 	void CreateVertexInfo();
 	bool LoadShaders();
+	void SetLightUniforms(class Shader* shader);
 
 	std::unordered_map<std::string, class Texture*> mTextures;
 	std::unordered_map<std::string, class Mesh*> mMeshes; 
@@ -59,5 +70,7 @@ private:
 	Matrix4 mView;
 	Matrix4 mProj;
 
-	
+	// ŠÂ‹«Œõ‚ÆŒõŒ¹
+	Vector3 mAmbientLight;
+	DirectionalLight mDirLight;
 };

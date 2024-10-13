@@ -276,3 +276,17 @@ bool Renderer::LoadShaders()
 
 	return true;
 }
+
+void Renderer::SetLightUniforms(Shader* shader)
+{
+	// カメラの位置はビューを反転して求める
+	Matrix4 invView = mView;
+	invView.Invert();
+	shader->SetVectorUniform("uCameraPos", invView.GetTranslation());
+	// 環境光
+	shader->SetVectorUniform("uAmbientLight", mAmbientLight);
+	// 平行光源
+	shader->SetVectorUniform("uDirLight.mDirection", mDirLight.mDirection);
+	shader->SetVectorUniform("uDirLight.mDiffuseColor", mDirLight.mDiffuseColor);
+	shader->SetVectorUniform("uDirLight.mSpecColor", mDirLight.mSpecColor);
+}
