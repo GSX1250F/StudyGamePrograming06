@@ -10,6 +10,7 @@
 #include "Dice.h"
 #include "Sphere.h"
 #include "Planes.h"
+#include "SpriteActors.h"
 
 
 Game::Game()
@@ -144,6 +145,9 @@ void Game::LoadData()
 
 	// 壁と床を作成
 	Actor* planes = new Planes(this);
+
+	// スプライト描画のアクター類
+	Actor* spriteActors = new SpriteActors(this);
 }
 
 void Game::UnloadData()

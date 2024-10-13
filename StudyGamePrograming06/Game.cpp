@@ -145,7 +145,7 @@ void Game::LoadData()
 	Actor* sphere = new Sphere(this);
 
 	// 床と壁を作成
-	Planes* planes = new Planes(this);
+	Actor* planes = new Planes(this);
 
 	// サイコロを作成
 	Actor* dice = new Dice(this);
@@ -162,10 +162,10 @@ void Game::LoadData()
 
 
 	// カメラ
-	mCameraActor = new CameraActor(this);
+	Actor* camera = new CameraActor(this);
 
 	// その他のアクター
-	SpriteActors* a = new SpriteActors(this);
+	Actor* spriteActors = new SpriteActors(this);
 }
 
 void Game::UnloadData()
