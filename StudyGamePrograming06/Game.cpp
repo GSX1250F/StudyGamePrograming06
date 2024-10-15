@@ -6,12 +6,12 @@
 #include <chrono>
 #include "Renderer.h"
 #include "Actor.h"
-#include "Cube.h"
+#include "CameraActor.h"
+#include "Dice.h"
 #include "Sphere.h"
 #include "Planes.h"
-#include "Dice.h"
 #include "SpriteActors.h"
-#include "CameraActor.h"
+
 
 Game::Game()
 	: mRenderer(nullptr)
@@ -30,7 +30,6 @@ bool Game::Initialize()
 		SDL_Log("SDLを初期化できません: %s", SDL_GetError());
 		return false;
 	}
-
 	// レンダラー作成
 	mRenderer = new Renderer(this);
 	if (!mRenderer->Initialize(mWindowWidth, mWindowHeight))
@@ -43,10 +42,7 @@ bool Game::Initialize()
 
 	LoadData();
 
-	mTicksCount = SDL_GetTicks();
-
 	return true;
-
 }
 
 void Game::RunLoop()
@@ -98,7 +94,7 @@ void Game::UpdateGame()
 	if (deltaTime > 0.05f) { deltaTime = 0.05f; }			// デルタタイムを最大値で制限する
 	mTicksCount = SDL_GetTicks();
 
-	// すべてのアクターを更新
+	// アクターを更新
 	mUpdatingActors = true;
 	for (auto actor : mActors)
 	{
@@ -106,7 +102,7 @@ void Game::UpdateGame()
 	}
 	mUpdatingActors = false;
 
-	// 待ちアクターをmActorsに移動
+	// 待ちになっていたアクターをmActorsに移動
 	for (auto pending : mPendingActors)
 	{
 		pending->ComputeWorldTransform();
@@ -138,47 +134,43 @@ void Game::GenerateOutput()
 
 void Game::LoadData()
 {
-	// 立方体を作成
-	Actor* cube = new Cube(this);
-
-	// 球体を作成
-	Actor* sphere = new Sphere(this);
-
-	// 床と壁を作成
-	Actor* planes = new Planes(this);
-
+	// カメラ
+	Actor* cameraActor = new CameraActor(this);
+	
 	// サイコロを作成
 	Actor* dice = new Dice(this);
 
-	
-	// 光源設定
-	// 環境光
-	mRenderer->SetAmbientLight(Vector3(0.4f, 0.4f, 0.4f));
-	DirectionalLight& dir = mRenderer->GetDirectionalLight();
-	dir.mDirection = Vector3(-0.250f, -0.433f, -0.707f);
-	dir.mDiffuseColor = Vector3(0.78f, 0.88f, 1.0f);
-	dir.mSpecColor = Vector3(0.8f, 0.8f, 0.8f);
+	// 球を作成
+	Actor* sphere = new Sphere(this);
 
+	// 壁と床を作成
+	Actor* planes = new Planes(this);
 
-
-	// カメラ
-	Actor* camera = new CameraActor(this);
-
-	// その他のアクター
+	// スプライト描画のアクター類
 	Actor* spriteActors = new SpriteActors(this);
+
+	// 光源
+	// 環境光
+	mRenderer->SetAmbientLight(Vector3(0.3f, 0.3f, 0.3f));
+	// 平行光源
+	DirectionalLight& dir = mRenderer->GetDirectionalLight();
+	dir.mDirection = Vector3::Normalize(Vector3(1.0f, -1.0f, -2.0f));
+	dir.mDiffuseColor = Vector3(0.9f, 0.9f, 0.9f);
+	dir.mSpecColor = Vector3(0.8f, 0.8f, 0.8f);	
 }
 
 void Game::UnloadData()
 {
+	// actorsを消去
 	while (!mActors.empty())
 	{
 		delete mActors.back();
 	}
 
-	if(mRenderer)
+	if (mRenderer)
 	{
 		mRenderer->UnloadData();
-	}
+	}	
 }
 
 void Game::Shutdown()
@@ -193,6 +185,7 @@ void Game::Shutdown()
 
 void Game::AddActor(Actor* actor)
 {
+	// アクターの更新中ならmPendingActorsに追加
 	if (mUpdatingActors)
 	{
 		mPendingActors.emplace_back(actor);

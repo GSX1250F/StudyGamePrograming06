@@ -146,10 +146,30 @@ xcopy "..\..\external\GLEW\lib\$(PlatformTarget)\*.dll" "$(OutDir)" /i/s/y
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="Assets\Cube.gpmesh" />
+    <None Include="Assets\Dice.gpmesh" />
+    <None Include="Assets\Plane.gpmesh" />
+    <None Include="Assets\Sphere.gpmesh" />
+    <None Include="packages.config" />
+    <None Include="Shaders\Basic.frag" />
+    <None Include="Shaders\Basic.vert" />
+    <None Include="Shaders\MeshShader.frag" />
+    <None Include="Shaders\MeshShader.vert" />
+    <None Include="Shaders\SpriteShader.frag" />
+    <None Include="Shaders\SpriteShader.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Cube.png" />
+    <Image Include="Assets\Default.png" />
+    <Image Include="Assets\HealthBar.png" />
+    <Image Include="Assets\Plane.png" />
+    <Image Include="Assets\Radar.png" />
+    <Image Include="Assets\Sphere.png" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="CameraActor.cpp" />
-    <ClCompile Include="Componert.cpp" />
-    <ClCompile Include="Cube.cpp" />
+    <ClCompile Include="Component.cpp" />
     <ClCompile Include="Dice.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -159,7 +179,6 @@ xcopy "..\..\external\GLEW\lib\$(PlatformTarget)\*.dll" "$(OutDir)" /i/s/y
     <ClCompile Include="MoveComponent.cpp" />
     <ClCompile Include="Plane.cpp" />
     <ClCompile Include="Planes.cpp" />
-    <ClCompile Include="Random.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Sphere.cpp" />
@@ -172,7 +191,6 @@ xcopy "..\..\external\GLEW\lib\$(PlatformTarget)\*.dll" "$(OutDir)" /i/s/y
     <ClInclude Include="Actor.h" />
     <ClInclude Include="CameraActor.h" />
     <ClInclude Include="Component.h" />
-    <ClInclude Include="Cube.h" />
     <ClInclude Include="Dice.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Math.h" />
@@ -181,7 +199,6 @@ xcopy "..\..\external\GLEW\lib\$(PlatformTarget)\*.dll" "$(OutDir)" /i/s/y
     <ClInclude Include="MoveComponent.h" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="Planes.h" />
-    <ClInclude Include="Random.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Sphere.h" />
@@ -189,26 +206,6 @@ xcopy "..\..\external\GLEW\lib\$(PlatformTarget)\*.dll" "$(OutDir)" /i/s/y
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="VertexInfo.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\Cube.gpmesh" />
-    <None Include="Assets\Plane.gpmesh" />
-    <None Include="Assets\Sphere.gpmesh" />
-    <None Include="packages.config" />
-    <None Include="Shaders\BasicMesh.frag" />
-    <None Include="Shaders\BasicMesh.vert" />
-    <None Include="Shaders\Phong.frag" />
-    <None Include="Shaders\Phong.vert" />
-    <None Include="Shaders\Sprite.frag" />
-    <None Include="Shaders\Sprite.vert" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Assets\Cube.png" />
-    <Image Include="Assets\Default.png" />
-    <Image Include="Assets\HealthBar.png" />
-    <Image Include="Assets\Plane.png" />
-    <Image Include="Assets\Radar.png" />
-    <Image Include="Assets\Sphere.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

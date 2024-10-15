@@ -82,7 +82,7 @@ bool Renderer::Initialize(float screenWidth, float screenHeight)
 	}
 
 	// 画面クリアの色を設定
-	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
 	return true;
 }
@@ -127,6 +127,10 @@ void Renderer::Draw()
 	// メッシュを描画
 	mMeshShader->SetActive();
 	mMeshShader->SetMatrixUniform("uViewProj", mView * mProj);
+
+	// 光源のUniform変数を更新
+	SetLightUniforms(mMeshShader);
+
 	for (auto mc : mMeshComps)
 	{
 		mc->Draw(mMeshShader);

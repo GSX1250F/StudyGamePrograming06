@@ -23,4 +23,3 @@ private:
 	int mTexWidth;
 	int mTexHeight;
 };
-

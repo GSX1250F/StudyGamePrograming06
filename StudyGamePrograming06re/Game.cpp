@@ -148,6 +148,15 @@ void Game::LoadData()
 
 	// スプライト描画のアクター類
 	Actor* spriteActors = new SpriteActors(this);
+
+	// 光源
+	// 環境光
+	mRenderer->SetAmbientLight(Vector3(0.3f, 0.3f, 0.3f));
+	// 平行光源
+	DirectionalLight& dir = mRenderer->GetDirectionalLight();
+	dir.mDirection = Vector3::Normalize(Vector3(1.0f, -1.0f, -2.0f));
+	dir.mDiffuseColor = Vector3(0.9f, 0.9f, 0.9f);
+	dir.mSpecColor = Vector3(0.8f, 0.8f, 0.8f);	
 }
 
 void Game::UnloadData()

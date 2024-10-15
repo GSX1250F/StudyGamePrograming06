@@ -10,14 +10,14 @@
 
 Mesh::Mesh()
 	:mVertexInfo(nullptr)
-	,mRadius(0.0f)
-	,mSpecPower(100.0f)
+	, mRadius(0.0f)
+	, mSpecPower(100.0f)
 {}
 
 Mesh::~Mesh()
 {}
 
-bool Mesh::Load(const std::string & fileName, Renderer* renderer)
+bool Mesh::Load(const std::string& fileName, Renderer* renderer)
 {
 	std::ifstream file(fileName);
 	if (!file.is_open())

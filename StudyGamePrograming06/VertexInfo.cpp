@@ -2,7 +2,7 @@
 #include <glew.h>
 
 VertexInfo::VertexInfo(const float* verts, unsigned int numVerts,
-	const unsigned int* indices, unsigned int numIndices)
+					   const unsigned int* indices,unsigned int numIndices)
 	: mNumVerts(numVerts)
 	, mNumIndices(numIndices)
 {
@@ -14,55 +14,56 @@ VertexInfo::VertexInfo(const float* verts, unsigned int numVerts,
 	glGenBuffers(1, &mIndexBuffer);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mIndexBuffer);
 	glBufferData(
-		GL_ELEMENT_ARRAY_BUFFER,				// インデックスバッファの指定
-		mNumIndices * sizeof(unsigned int),		// データのサイズ
-		indices,								// コピー元の配列
-		GL_STATIC_DRAW							// このデータを1回だけロードしてその後頻繁に使う
+		GL_ELEMENT_ARRAY_BUFFER,			// インデックスバッファの指定
+		mNumIndices * sizeof(unsigned int),	// データのサイズ
+		indices,							// コピー元の配列
+		GL_STATIC_DRAW						// このデータを1回だけロードしてその後頻繁に使うとき
 	);
 
-	// 頂点情報バッファを作成
+	//VertexAttribute layout0 = position
 	unsigned int cnt = 8;					//要素数	
 	glGenBuffers(1, &mVertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, mVertexBuffer);
 	glBufferData(
-		GL_ARRAY_BUFFER,						// バッファの種類
-		cnt * mNumVerts * sizeof(float),		// コピーするバイト数
+		GL_ARRAY_BUFFER,							// バッファの種類にバーテックスバッファを指定
+		cnt * mNumVerts * sizeof(float),			// コピーするバイト数
 		verts,									// コピー元の配列
-		GL_STATIC_DRAW							// このデータを1回だけロードしてその後頻繁に使う
+		GL_STATIC_DRAW								// このデータを1回だけロードしてその後頻繁に使うとき
 	);
-
-	// 頂点属性を指定する。
-	// レイアウト0 は　頂点座標(Vector3)
+	glVertexAttribPointer(
+		0,											// 属性インデックス（１つ目はゼロ）
+		3,											// 要素数
+		GL_FLOAT,									// 要素の型
+		GL_FALSE,									// 整数型のみ使用する。
+		cnt * sizeof(float),						// ストライド（通常は各バーテックス属性のデータ数
+		0											// 頂点データの開始位置からこの属性までのオフセット
+	);
 	glEnableVertexAttribArray(0);
+
+	// VertexAttribute layout1 = Normal Vector
 	glVertexAttribPointer(
-		0,										// 属性インデックス（１つ目はゼロ）
-		3,										// 要素数（ここでは3）
-		GL_FLOAT,								// 要素の型
-		GL_FALSE,								// 整数型はTrue。
-		sizeof(float) * cnt,					// ストライド（通常は頂点情報のサイズ）
-		0										// 頂点データの開始位置からこの属性までのオフセット
+		1,											// 属性インデックス（１つ目はゼロ）
+		3,											// 要素数
+		GL_FLOAT,									// 要素の型
+		GL_FALSE,									// 整数型のみ使用する。
+		cnt * sizeof(float),						// ストライド（通常は各バーテックス属性のデータ数
+		reinterpret_cast<void*>(sizeof(float) * 3)	// 頂点データの開始位置からこの属性までのオフセット
 	);
-	// レイアウト1 は　法線ベクトル(Vector3)
 	glEnableVertexAttribArray(1);
+
+	// VertexAttribute layout2 = TexCoord
 	glVertexAttribPointer(
-		1,											// 頂点属性インデックス
-		3,											// 成分の数
-		GL_FLOAT,									// 各成分の型
-		GL_FALSE,									// 整数型はTrue。
-		sizeof(float) * cnt,							// ストライド（通常は頂点情報のサイズ）
-		reinterpret_cast<void*>(sizeof(float) * 3)	// オフセットポインタ
+		2,											// 属性インデックス（１つ目はゼロ）
+		2,											// 要素数
+		GL_FLOAT,									// 要素の型
+		GL_FALSE,									// 整数型のみ使用する。
+		cnt * sizeof(float),						// ストライド（通常は各バーテックス属性のデータ数
+		reinterpret_cast<void*>(sizeof(float) * 6)	// 頂点データの開始位置からこの属性までのオフセット
 	);
-	// レイアウト2 は　テクスチャ座標(Vector2)
 	glEnableVertexAttribArray(2);
-	glVertexAttribPointer(
-		2,											// 頂点属性インデックス
-		2,											// 成分の数
-		GL_FLOAT,									// 各成分の型
-		GL_FALSE,									// 整数型はTrue。
-		sizeof(float) * cnt,							// ストライド（通常は各頂点のサイズ）
-		reinterpret_cast<void*>(sizeof(float) * 6)	// オフセットポインタ
-	);
+
 }
+
 
 VertexInfo::~VertexInfo()
 {

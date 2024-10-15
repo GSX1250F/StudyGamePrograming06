@@ -9,12 +9,9 @@
 
 struct DirectionalLight
 {
-	// Direction of light
-	Vector3 mDirection;
-	// Diffuse color
-	Vector3 mDiffuseColor;
-	// Specular color
-	Vector3 mSpecColor;
+	Vector3 mDirection;		// 光の方向
+	Vector3 mDiffuseColor;	// 拡散反射色
+	Vector3 mSpecColor;		// 鏡面反射色
 };
 
 class Renderer
@@ -24,8 +21,8 @@ public:
 	~Renderer();
 
 	bool Initialize(float screenWidth, float screenHeight);
-	void Shutdown();
 	void UnloadData();
+	void Shutdown();
 
 	void Draw();
 
@@ -39,7 +36,7 @@ public:
 	class Mesh* GetMesh(const std::string& fileName);
 	class VertexInfo* GetVertexInfo() { return mVertexInfo; }
 
-	void SetViewMatrix(const Matrix4& view) { mView = view; }
+	void SetViewMatrix(const Matrix4& matrix) { mView = matrix; }
 	void SetProjMatrix(const Matrix4& matrix) { mProj = matrix; }
 
 	void SetAmbientLight(const Vector3& ambient) { mAmbientLight = ambient; }
@@ -50,33 +47,30 @@ public:
 
 private:
 	void CreateVertexInfo();
-	bool LoadShaders();	
+	bool LoadShaders();
 	void SetLightUniforms(class Shader* shader);
 
 	std::unordered_map<std::string, class Texture*> mTextures;
-	std::unordered_map<std::string, class Mesh*> mMeshes;
-	std::vector<class SpriteComponent*> mSprites;
+	std::unordered_map<std::string, class Mesh*> mMeshes; 
+	std::vector<class SpriteComponent*> mSprites;	
 	std::vector<class MeshComponent*> mMeshComps;
 
 	class Game* mGame;
 	SDL_Window* mWindow;
+	SDL_Renderer* mRenderer;
 	SDL_GLContext mContext;
-
-	class Shader* mSpriteShader;
-	class Shader* mMeshShader;
-	class VertexInfo* mVertexInfo;
 	
-	// ビュー変換と射影変換行列
-	Matrix4 mView;
-	Matrix4 mProj;
-	
-	// Width/height of screen
 	float mScreenWidth;
 	float mScreenHeight;
 
-	// Lighting data
+	class VertexInfo* mVertexInfo;
+	class Shader* mSpriteShader;
+	class Shader* mMeshShader;
+	
+	Matrix4 mView;
+	Matrix4 mProj;
+
+	// 環境光と光源
 	Vector3 mAmbientLight;
 	DirectionalLight mDirLight;
-
-	
 };

@@ -3,7 +3,6 @@
 #version 330
 
 // 入力変数（３次元）の位置情報の宣言
-// 今は位置座標だけ
 in vec3 inPosition;
 
 void main()

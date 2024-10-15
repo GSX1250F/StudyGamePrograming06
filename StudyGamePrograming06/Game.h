@@ -1,9 +1,7 @@
 #pragma once
-#include <SDL.h>
-#include <unordered_map>
+#include "SDL.h"
 #include <string>
 #include <vector>
-#include "Math.h"
 
 class Game
 {
@@ -20,9 +18,13 @@ public:
 
 	void SetRunning(bool isrunning) { mIsRunning = isrunning; }
 
-	//ゲームウィンドウの大きさ
-	int mWindowWidth;
-	int mWindowHeight;
+	//画面サイズ
+	const int mWindowWidth;
+	const int mWindowHeight;
+
+	//Game-specific	
+	class Maze* GetMaze() { return mMaze; }
+
 
 private:
 	void ProcessInput();
@@ -31,18 +33,15 @@ private:
 	void LoadData();
 	void UnloadData();
 
-	// すべてのアクター
 	std::vector<class Actor*> mActors;
-	// すべての待ちアクター
 	std::vector<class Actor*> mPendingActors;
 
 	class Renderer* mRenderer;
-
 	Uint32 mTicksCount;
 	bool mIsRunning;
-	// アクターが更新中か
 	bool mUpdatingActors;
 
-	// Game-specific
-	class CameraActor* mCameraActor;
+	//Game-specific	
+	class Maze* mMaze;
+
 };

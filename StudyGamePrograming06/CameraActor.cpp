@@ -1,6 +1,5 @@
 #include "CameraActor.h"
 #include "MoveComponent.h"
-#include "SDL_scancode.h"
 #include "Renderer.h"
 #include "Game.h"
 
@@ -14,12 +13,12 @@ void CameraActor::UpdateActor(float deltaTime)
 {
 	Actor::UpdateActor(deltaTime);
 
-	// Compute new camera from this actor
+	// カメラの位置と方向を更新
 	Vector3 cameraPos = GetPosition();
-	Vector3 target = GetPosition() + GetForward() * 100.0f;
-	Vector3 up = Vector3::UnitZ;
+	Vector3 cameraTarget = GetPosition() + GetForward() * 100.0f;
+	Vector3 cameraUp = Vector3::UnitZ;
 
-	Matrix4 view = Matrix4::CreateLookAt(cameraPos, target, up);
+	Matrix4 view = Matrix4::CreateLookAt(cameraPos, cameraTarget, cameraUp);
 	GetGame()->GetRenderer()->SetViewMatrix(view);
 }
 
@@ -27,7 +26,6 @@ void CameraActor::ActorInput(const SDL_Event& event)
 {
 	float forwardSpeed = 0.0f;
 	float rotSpeed = 0.0f;
-	// wasd movement
 	if (event.type == SDL_KEYDOWN) {
 		if (event.key.keysym.sym == SDLK_UP)
 		{

@@ -16,7 +16,7 @@ Planes::Planes(Game* game) :Actor(game)
 			Plane* a = new Plane(game);
 			a->SetPosition(Vector3(start + i * size, start + j * size, -100.0f));
 			a->SetScale(10.0f);
-			
+
 		}
 	}
 
@@ -28,11 +28,11 @@ Planes::Planes(Game* game) :Actor(game)
 		a->SetPosition(Vector3(start + i * size, start - size, 0.0f));
 		a->SetScale(10.0f);
 		a->SetRotation(q);
-		
+
 		a = new Plane(game);
 		a->SetPosition(Vector3(start + i * size, -start + size, 0.0f));
 		a->SetScale(10.0f);
-		a->SetRotation(q);		
+		a->SetRotation(q);
 	}
 
 	// ‘OŒã•Ç‚ðì¬
@@ -43,11 +43,11 @@ Planes::Planes(Game* game) :Actor(game)
 		a->SetPosition(Vector3(start - size, start + i * size, 0.0f));
 		a->SetScale(10.0f);
 		a->SetRotation(q);
-		
+
 		a = new Plane(game);
 		a->SetPosition(Vector3(-start + size, start + i * size, 0.0f));
 		a->SetScale(10.0f);
-		a->SetRotation(q);		
+		a->SetRotation(q);
 	}
 
 }
