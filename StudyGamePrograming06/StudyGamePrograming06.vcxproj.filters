@@ -16,24 +16,9 @@
     <Filter Include="シェーダーファイル">
       <UniqueIdentifier>{23a847cf-3e0c-41fd-897a-c55054a43e4d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="メッシュファイル">
-      <UniqueIdentifier>{147a041f-47a4-4a5c-b891-5543a8b9a65d}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Cube.gpmesh">
-      <Filter>メッシュファイル</Filter>
-    </None>
-    <None Include="Assets\Plane.gpmesh">
-      <Filter>メッシュファイル</Filter>
-    </None>
-    <None Include="Assets\Sphere.gpmesh">
-      <Filter>メッシュファイル</Filter>
-    </None>
     <None Include="packages.config" />
-    <None Include="Assets\Dice.gpmesh">
-      <Filter>メッシュファイル</Filter>
-    </None>
     <None Include="Shaders\Basic.frag">
       <Filter>シェーダーファイル</Filter>
     </None>
@@ -52,26 +37,6 @@
     <None Include="Shaders\SpriteShader.vert">
       <Filter>シェーダーファイル</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Assets\Cube.png">
-      <Filter>リソース ファイル</Filter>
-    </Image>
-    <Image Include="Assets\Default.png">
-      <Filter>リソース ファイル</Filter>
-    </Image>
-    <Image Include="Assets\HealthBar.png">
-      <Filter>リソース ファイル</Filter>
-    </Image>
-    <Image Include="Assets\Plane.png">
-      <Filter>リソース ファイル</Filter>
-    </Image>
-    <Image Include="Assets\Radar.png">
-      <Filter>リソース ファイル</Filter>
-    </Image>
-    <Image Include="Assets\Sphere.png">
-      <Filter>リソース ファイル</Filter>
-    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp">

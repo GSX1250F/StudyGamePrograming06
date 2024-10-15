@@ -146,10 +146,6 @@ xcopy "..\..\external\GLEW\lib\$(PlatformTarget)\*.dll" "$(OutDir)" /i/s/y
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="Assets\Cube.gpmesh" />
-    <None Include="Assets\Dice.gpmesh" />
-    <None Include="Assets\Plane.gpmesh" />
-    <None Include="Assets\Sphere.gpmesh" />
     <None Include="packages.config" />
     <None Include="Shaders\Basic.frag" />
     <None Include="Shaders\Basic.vert" />
@@ -157,14 +153,6 @@ xcopy "..\..\external\GLEW\lib\$(PlatformTarget)\*.dll" "$(OutDir)" /i/s/y
     <None Include="Shaders\MeshShader.vert" />
     <None Include="Shaders\SpriteShader.frag" />
     <None Include="Shaders\SpriteShader.vert" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Assets\Cube.png" />
-    <Image Include="Assets\Default.png" />
-    <Image Include="Assets\HealthBar.png" />
-    <Image Include="Assets\Plane.png" />
-    <Image Include="Assets\Radar.png" />
-    <Image Include="Assets\Sphere.png" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
