@@ -9,6 +9,7 @@
 #include "CameraActor.h"
 #include "Dice.h"
 #include "Sphere.h"
+#include "RacingCar.h"
 #include "Planes.h"
 #include "SpriteActors.h"
 
@@ -142,6 +143,9 @@ void Game::LoadData()
 
 	// 球を作成
 	Actor* sphere = new Sphere(this);
+
+	// レーシングカーを作成
+	Actor* racingCar = new RacingCar(this);
 
 	// 壁と床を作成
 	Actor* planes = new Planes(this);
