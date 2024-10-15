@@ -6,7 +6,7 @@
 
 RacingCar::RacingCar(Game* game) :Actor(game)
 {
-	SetPosition(Vector3(0.0f, 0.0f, 0.0f));
+	SetPosition(Vector3(0.0f, 800.0f, -100.0f));
 	SetScale(1.0f);
 	MeshComponent* mc = new MeshComponent(this);
 	mc->SetMesh(game->GetRenderer()->GetMesh("Assets/RacingCar.gpmesh"));
@@ -17,10 +17,5 @@ void RacingCar::UpdateActor(float deltaTime)
 {
 	Actor::UpdateActor(deltaTime);
 
-	Vector3 axis = Vector3(1.0f, -1.0f, 1.0f);
-	axis.Normalize();
-	float rotSpeedMax = 100.0f * Math::Pi;
-	float rotSpeed = rotSpeedMax * deltaTime;
-	Vector3 v = rotSpeed * axis;
-	mMoveComp->SetRotSpeed(v);
+	
 }
