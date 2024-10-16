@@ -33,7 +33,8 @@ void MeshComponent::Draw(Shader* shader)
 		{
 			t->SetActive();
 		}
-		// 反射強度の設定 
+		// 鏡面反射係数の設定 
+		float sp = mMesh->GetSpecPower();
 		shader->SetFloatUniform("uSpecPower", mMesh->GetSpecPower());
 		// メッシュの頂点情報クラスをアクティブにする。
 		VertexInfo* vi = mMesh->GetVertexInfo();

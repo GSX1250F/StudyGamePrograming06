@@ -37,6 +37,9 @@
     <None Include="Shaders\SpriteShader.vert">
       <Filter>シェーダーファイル</Filter>
     </None>
+    <None Include="_MeshShader.frag">
+      <Filter>シェーダーファイル</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp">

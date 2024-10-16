@@ -26,14 +26,21 @@ void main()
 	vec3 V = normalize(uCameraPos - fragWorldPos);
 	vec3 R = normalize(reflect(-L, N));
 
-	vec3 lightColor = uAmbientLight;
+	vec3 ka = uAmbientLight;
+	vec3 kd = uDirLight.mDiffuseColor;
+	vec3 ks = uDirLight.mSpecColor;
+	
+	vec3 lightColor = ka;
 	float NdotL = dot(N, L);
 	if (NdotL > 0)
 	{
-		vec3 Diffuse = uDirLight.mDiffuseColor * NdotL;
-		vec3 Specular = uDirLight.mSpecColor * pow(max(0.0, dot(R, V)), uSpecPower);
-		lightColor += Diffuse + Specular;
+		lightColor += kd * NdotL;
 	}
-
+	float RdotV = dot(R, V);
+	if (RdotV > 0)
+	{
+		lightColor += ks * pow(RdotV, uSpecPower);
+	}
+	
 	outColor = texture(uTexture, fragTexCoord) * vec4(lightColor, 1.0);	
 }

@@ -155,11 +155,11 @@ void Game::LoadData()
 
 	// ŒõŒ¹
 	// ŠÂ‹«Œõ
-	mRenderer->SetAmbientLight(Vector3(0.3f, 0.3f, 0.3f));
+	mRenderer->SetAmbientLight(Vector3(0.1f, 0.1f, 0.1f));
 	// •½sŒõŒ¹
 	DirectionalLight& dir = mRenderer->GetDirectionalLight();
-	dir.mDirection = Vector3::Normalize(Vector3(1.0f, -1.0f, -2.0f));
-	dir.mDiffuseColor = Vector3(0.9f, 0.9f, 0.9f);
+	dir.mDirection = Vector3::Normalize(Vector3(-0.0f, -1.0f, -1.0f));
+	dir.mDiffuseColor = Vector3(0.78f, 0.88f, 1.0f);
 	dir.mSpecColor = Vector3(0.8f, 0.8f, 0.8f);	
 }
 
