@@ -11,6 +11,7 @@ public:
 	void Update(float deltatime) override;
 
 	// 全座標系
+	float GetMass() { return mMass; }
 	void SetMass(float v) { mMass = v; }		// 質量
 	float GetImoment() const;		// 慣性モーメント
 	void SetMoveResist(float v) { mResist = v; }		//移動の抵抗率

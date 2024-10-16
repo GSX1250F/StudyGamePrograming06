@@ -42,5 +42,6 @@ void main()
 		lightColor += ks * RdotV;
 	}
 	
+	//outColor = texture(uTexture, fragTexCoord);	
 	outColor = texture(uTexture, fragTexCoord) * vec4(lightColor, 1.0);	
 }
