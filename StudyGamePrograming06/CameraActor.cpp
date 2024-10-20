@@ -30,11 +30,11 @@ void CameraActor::ActorInput(const SDL_Event& event)
 	if (event.type == SDL_KEYDOWN) {
 		if (event.key.keysym.sym == SDLK_UP)
 		{
-			forwardSpeed += 300.0f;
+			forwardSpeed += 500.0f;
 		}
 		if (event.key.keysym.sym == SDLK_DOWN)
 		{
-			forwardSpeed -= 300.0f;
+			forwardSpeed -= 500.0f;
 		}
 		if (event.key.keysym.sym == SDLK_LEFT)
 		{

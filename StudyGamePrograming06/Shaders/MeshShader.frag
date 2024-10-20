@@ -27,13 +27,9 @@ void main()
 	vec3 R = normalize(reflect(-L, N));
 
 	vec3 lightColor = uAmbientLight;
-	float NdotL = dot(N, L);
-	if (NdotL > 0)
-	{
-		vec3 Diffuse = uDirLight.mDiffuseColor * NdotL;
-		vec3 Specular = uDirLight.mSpecColor * pow(max(0.0, dot(R, V)), uSpecPower);
-		lightColor += Diffuse + Specular;
-	}
-
+	vec3 Diffuse = uDirLight.mDiffuseColor * max(0.0, dot(N, L));
+	vec3 Specular = uDirLight.mSpecColor * pow(max(0.0, dot(R, V)), uSpecPower);
+	lightColor += Diffuse + Specular;
+	
 	outColor = texture(uTexture, fragTexCoord) * vec4(lightColor, 1.0);	
 }

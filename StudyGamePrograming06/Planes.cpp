@@ -21,30 +21,36 @@ Planes::Planes(Game* game) :Actor(game)
 	}
 
 	// 左右壁を作成
-	Quaternion q = Quaternion(Vector3::UnitX, 0.5f * Math::Pi);	//x軸中心に90°回す
+	Quaternion q = Quaternion(Vector3::UnitX, -0.5f * Math::Pi);
 	for (int i = 0; i < 10; i++)
 	{
 		Plane* a = new Plane(game);
 		a->SetPosition(Vector3(start + i * size, start - size, 0.0f));
 		a->SetScale(10.0f);
 		a->SetRotation(q);
-
-		a = new Plane(game);
+	}
+	q = Quaternion(Vector3::UnitX, 0.5f * Math::Pi);
+	for (int i = 0; i < 10; i++)
+	{
+		Plane* a = new Plane(game);
 		a->SetPosition(Vector3(start + i * size, -start + size, 0.0f));
 		a->SetScale(10.0f);
 		a->SetRotation(q);
 	}
 
 	// 前後壁を作成
-	q = Quaternion::Concatenate(q, Quaternion(Vector3::UnitZ, 0.5f * Math::Pi));	//さらにz軸中心に90°回す
+	q = Quaternion::Concatenate(q, Quaternion(Vector3::UnitZ, 0.5f * Math::Pi));
 	for (int i = 0; i < 10; i++)
 	{
 		Plane* a = new Plane(game);
 		a->SetPosition(Vector3(start - size, start + i * size, 0.0f));
 		a->SetScale(10.0f);
 		a->SetRotation(q);
-
-		a = new Plane(game);
+	}
+	q = Quaternion::Concatenate(q, Quaternion(Vector3::UnitZ, Math::Pi));
+	for (int i = 0; i < 10; i++)
+	{
+		Plane* a = new Plane(game);
 		a->SetPosition(Vector3(-start + size, start + i * size, 0.0f));
 		a->SetScale(10.0f);
 		a->SetRotation(q);

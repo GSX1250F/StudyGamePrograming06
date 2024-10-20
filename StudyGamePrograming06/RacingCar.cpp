@@ -15,7 +15,7 @@ RacingCar::RacingCar(Game* game) :Actor(game)
 
 void RacingCar::UpdateActor(float deltaTime)
 {
-	float w = Math::Pi;
+	float w = Math::PiOver2;
 	float r = Math::Sqrt(GetPosition().x * GetPosition().x + GetPosition().y * GetPosition().y);
 	float x = GetPosition().x * Math::Cos(w * deltaTime) - GetPosition().y * Math::Sin(w * deltaTime);
 	float y = GetPosition().y * Math::Cos(w * deltaTime) + GetPosition().x * Math::Sin(w * deltaTime);
