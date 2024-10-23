@@ -8,18 +8,68 @@
 
   <ItemGroup>
     <None Remove="Assets\ClearPict.png" />
+    <None Remove="Assets\Cube.gpmesh" />
+    <None Remove="Assets\Cube.png" />
     <None Remove="Assets\Default.png" />
+    <None Remove="Assets\Dice.gpmesh" />
+    <None Remove="Assets\Dice.png" />
+    <None Remove="Assets\HealthBar.png" />
+    <None Remove="Assets\Plane.gpmesh" />
+    <None Remove="Assets\Plane.png" />
+    <None Remove="Assets\RacingCar.gpmesh" />
+    <None Remove="Assets\RacingCar.png" />
+    <None Remove="Assets\Radar.png" />
+    <None Remove="Assets\Sphere.gpmesh" />
+    <None Remove="Assets\Sphere.png" />
     <None Remove="Assets\Treasure.png" />
     <None Remove="Assets\wall.png" />
-    <None Remove="Shaders\shader.frag" />
-    <None Remove="Shaders\shader.vert" />
+    <None Remove="Shaders\MeshShader.frag" />
+    <None Remove="Shaders\MeshShader.vert" />
+    <None Remove="Shaders\SpriteShader.frag" />
+    <None Remove="Shaders\SpriteShader.vert" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Assets\ClearPict.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Cube.gpmesh">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Cube.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Default.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Dice.gpmesh">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Dice.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\HealthBar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Plane.gpmesh">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Plane.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\RacingCar.gpmesh">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\RacingCar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Radar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Sphere.gpmesh">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Sphere.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Treasure.png">
@@ -28,10 +78,16 @@
     <Content Include="Assets\wall.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Shaders\shader.frag">
+    <Content Include="Shaders\MeshShader.frag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Shaders\shader.vert">
+    <Content Include="Shaders\MeshShader.vert">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Shaders\SpriteShader.frag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Shaders\SpriteShader.vert">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

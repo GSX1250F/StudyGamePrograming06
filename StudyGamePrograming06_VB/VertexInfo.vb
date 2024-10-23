@@ -7,9 +7,8 @@ Public Class VertexInfo
     Implements IDisposable      '明示的にクラスを開放するために必要
 
     'public
-    Public Sub New(ByRef vertPos As Single(), ByRef texCoord As Single(),
-                   ByRef vertColor As Single(), ByRef indices As UInteger(),
-                   ByVal numVerts As Integer, ByVal numIndices As Integer)
+    Public Sub New(ByRef verts As Single(), ByVal numVerts As Integer,
+                   ByRef indices As UInteger(), ByVal numIndices As Integer)
         mNumVerts = numVerts
         mNumIndices = numIndices
 
@@ -24,51 +23,37 @@ Public Class VertexInfo
                       BufferUsageHint.StaticDraw)
 
         'VertexAttribute layout0 = position
-        Dim cnt As Integer = 3      '要素数
-        mVertPosBuffer = GL.GenBuffer()
-        GL.BindBuffer(BufferTarget.ArrayBuffer, mVertPosBuffer)
+        Dim cnt As Integer = 8      '要素数
+        mVertexBuffer = GL.GenBuffer()
+        GL.BindBuffer(BufferTarget.ArrayBuffer, mVertexBuffer)
         GL.BufferData(BufferTarget.ArrayBuffer,
                       cnt * mNumVerts * Marshal.SizeOf(Of Single),
-                      vertPos,
+                      verts,
                       BufferUsageHint.StaticDraw)
         GL.VertexAttribPointer(0,
-                               cnt,
+                               3,
                                VertexAttribPointerType.Float,
                                False,
                                cnt * Marshal.SizeOf(Of Single),
                                0)
         GL.EnableVertexAttribArray(0)
 
-        'VertexAttribute layout1 = texCoord
-        cnt = 2
-        mTexCoordBuffer = GL.GenBuffer()
-        GL.BindBuffer(BufferTarget.ArrayBuffer, mTexCoordBuffer)
-        GL.BufferData(BufferTarget.ArrayBuffer,
-                      cnt * mNumVerts * Marshal.SizeOf(Of Single),
-                      texCoord,
-                      BufferUsageHint.StaticDraw)
+        'VertexAttribute layout1 = Noraml Vector
         GL.VertexAttribPointer(1,
-                               cnt,
+                               3,
                                VertexAttribPointerType.Float,
                                False,
                                cnt * Marshal.SizeOf(Of Single),
-                               0)
+                               3 * Marshal.SizeOf(Of Single))
         GL.EnableVertexAttribArray(1)
 
-        'VertexAttribute layout2 = vertColor
-        cnt = 4
-        mVertColorBuffer = GL.GenBuffer()
-        GL.BindBuffer(BufferTarget.ArrayBuffer, mVertColorBuffer)
-        GL.BufferData(BufferTarget.ArrayBuffer,
-                      cnt * mNumVerts * Marshal.SizeOf(Of Single),
-                      vertColor,
-                      BufferUsageHint.StaticDraw)
+        'VertexAttribute layout2 = TexCoord
         GL.VertexAttribPointer(2,
-                               cnt,
+                               2,
                                VertexAttribPointerType.Float,
                                False,
                                cnt * Marshal.SizeOf(Of Single),
-                               0)
+                               6 * Marshal.SizeOf(Of Single))
         GL.EnableVertexAttribArray(2)
 
     End Sub
@@ -80,9 +65,7 @@ Public Class VertexInfo
         If Not Me.disposed Then
             If disposing Then
                 '*** アンマネージリソースの開放
-                GL.DeleteBuffers(1, mVertPosBuffer)
-                GL.DeleteBuffers(1, mTexCoordBuffer)
-                GL.DeleteBuffers(1, mVertColorBuffer)
+                GL.DeleteBuffers(1, mVertexBuffer)
                 GL.DeleteBuffers(1, mIndexBuffer)
                 GL.DeleteVertexArrays(1, mVertexArray)
             End If
@@ -101,15 +84,16 @@ Public Class VertexInfo
     Public Function GetNumVerts() As Integer
         Return mNumVerts
     End Function
+    Public Function GetNumIndices() As Integer
+        Return mNumIndices
+    End Function
 
     'private
     Private disposedValue As Boolean
+    Private mVertexArray As Integer         ' バーテックス配列オブジェクトのOpenGL ID
     Private mNumVerts As Integer         ' 頂点の数
     Private mNumIndices As Integer          ' インデックスの数
-    Private mVertexArray As Integer         ' バーテックス配列オブジェクトのOpenGL ID
+    Private mVertexBuffer As Integer        ' 頂点バッファのOpenGL ID
     Private mIndexBuffer As Integer         ' インデックスバッファのOpenGL ID
-    Private mVertPosBuffer As Integer        ' 頂点座標バッファのOpenGL ID
-    Private mTexCoordBuffer As Integer        ' テクスチャ座標バッファのOpenGL ID
-    Private mVertColorBuffer As Integer        ' 頂点カラーバッファのOpenGL ID
 
 End Class

@@ -54,7 +54,7 @@ public:
 	void SetRotation(const Quaternion& rotation) { mRotation = rotation; mRecomputeWorldTransform = true; }
 	// 向きの単位ベクトル
 	Vector3 GetForward() const { return Vector3::Transform(Vector3::UnitX, mRotation); }
-	Vector3 GetStrafe() const { return Vector3::Transform(Vector3::UnitY, mRotation); }
+	Vector3 GetRightward() const { return Vector3::Transform(Vector3::UnitY, mRotation); }
 	Vector3 GetUpward() const { return Vector3::Transform(Vector3::UnitZ, mRotation); }
 
 

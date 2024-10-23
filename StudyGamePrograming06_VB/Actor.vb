@@ -16,7 +16,7 @@ Public Class Actor
         mState = State.EActive
         mPosition = Vector3.Zero
         mScale = 1.0
-        mRotation = 0.0
+        mRotation = Quaternion.Identity
         mRadius = 0.0
         mRecomputeWorldTransform = True
         mGame = game
@@ -58,7 +58,6 @@ Public Class Actor
             comp.Update(deltaTime)
         Next
     End Sub
-
     Public Overridable Sub UpdateActor(ByVal deltaTime As Double)
     End Sub
     Public Sub ProcessInput(ByVal keyState As KeyboardState)
@@ -103,6 +102,12 @@ Public Class Actor
     End Sub
     Public Function GetForward() As Vector3
         Return Vector3.Transform(Vector3.UnitX, mRotation)
+    End Function
+    Public Function GetRightward() As Vector3
+        Return Vector3.Transform(-Vector3.UnitY, mRotation)
+    End Function
+    Public Function GetUpward() As Vector3
+        Return Vector3.Transform(Vector3.UnitZ, mRotation)
     End Function
     Public Function GetState() As State
         Return mState
@@ -150,13 +155,15 @@ Public Class Actor
     End Sub
 
     'private
-    Private mState As State             ' アクターの状態
-    Private mPosition As Vector3        '位置
-    Private mScale As Double            '拡大率
-    Private mRotation As Quaternion         '回転
-    Private mRadius As Double           '半径（拡大率は無視）
-    Private mComponents As New List(Of Component)   '各コンポーネントのリスト
     Private mGame As Game   'Gameクラスのメンバにアクセスするための変数
-    Private mRecomputeWorldTransform As Boolean
+    Private mComponents As New List(Of Component)   '各コンポーネントのリスト
     Private mWorldTransform As Matrix4
+    Private mRecomputeWorldTransform As Boolean
+
+    Private mState As State              ' アクターの状態
+    Private mScale As Double            '拡大率
+    Private mRadius As Double           '半径（拡大率は無視）
+    Private mPosition As Vector3        '位置
+    Private mRotation As Quaternion         '回転
+
 End Class
