@@ -84,13 +84,6 @@ Public Class Game
     Public mWindowWidth As Integer
     Public mWindowHeight As Integer
 
-    'Game Specific
-    Public Function GetMaze() As Maze
-        Return mMaze
-    End Function
-
-
-
     'private
     Private Sub ProcessInput()
         Dim keyState As KeyboardState = KeyboardState
@@ -151,8 +144,7 @@ Public Class Game
     End Sub
 
     Private Sub LoadData()
-        mMaze = New Maze(Me, 51, 29)        '迷路クラス
-        'mMaze = New Maze(Me, 7, 7)        'テスト用
+
     End Sub
 
     Private Sub UnloadData()
@@ -171,10 +163,6 @@ Public Class Game
     Private mUpdatingActors As Boolean      'アクター更新中
     Private mActors As New List(Of Actor)   'すべてのアクター
     Private mPendingActors As New List(Of Actor)    'すべての待ちアクター
-
-    'Game-specific
-    Private mMaze As Maze
-
 
 
     'OpenTK original function

@@ -6,6 +6,13 @@ Imports OpenTK.Graphics.OpenGL
 Imports OpenTK.Mathematics
 Imports OpenTK.Windowing.Common
 
+Structure DirectionalLight
+    Dim mDirection As Vector3       '光の方向
+    Dim mDiffuseColor As Vector3    '拡散反射色
+    Dim mSpecColor As Vector3       '鏡面反射色
+End Structure
+
+
 Public Class Renderer
     Implements IDisposable      '明示的にクラスを開放するために必要
 
@@ -110,6 +117,27 @@ Public Class Renderer
         End If
     End Sub
 
+    Public Sub AddMeshComp(ByRef mesh As MeshComponent)
+        Dim myDrawOrder As Integer = sprite.GetDrawOrder()
+        Dim cnt As Integer = mSprites.Count     '配列の要素数
+        Dim iter As Integer
+        If cnt > 0 Then
+            For iter = 0 To mSprites.Count - 1
+                If myDrawOrder < mSprites(iter).GetDrawOrder() Then
+                    Exit For
+                End If
+            Next
+        End If
+        mSprites.Insert(iter, sprite)
+    End Sub
+    Public Sub RemoveMeshComp(ByRef mesh As MeshComponent)
+        Dim iter As Integer = mSprites.IndexOf(sprite)
+        '見つからなかったら-1が返される。
+        If iter >= 0 Then
+            mSprites.RemoveAt(iter)
+        End If
+    End Sub
+
     Public Function GetTexture(ByRef filename As String) As Texture
         Dim tex As Texture = Nothing
         '画像ファイルが連想配列になければ追加する。
@@ -129,6 +157,26 @@ Public Class Renderer
         End If
         Return tex
     End Function
+    Public Function GetMesh(ByRef filename As String) As Texture
+        Dim tex As Texture = Nothing
+        '画像ファイルが連想配列になければ追加する。
+        Dim b As Boolean = mTextures.ContainsKey(filename)
+        If b = True Then
+            'すでに読み込み済みなので、そのデータを返す。
+            tex = mTextures(filename)
+        Else
+            'Textureクラスを生成し、連想配列に追加する。
+            tex = New Texture()
+            If (tex.Load(filename)) Then
+                mTextures.Add(filename, tex)
+            Else
+                tex.Dispose()
+                tex = Nothing
+            End If
+        End If
+        Return tex
+    End Function
+
 
     Public Function GetScreenWidth() As Double
         Return mScreenWidth
