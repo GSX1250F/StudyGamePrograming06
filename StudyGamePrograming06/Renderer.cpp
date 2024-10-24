@@ -82,7 +82,7 @@ bool Renderer::Initialize(float screenWidth, float screenHeight)
 	}
 
 	// 画面クリアの色を設定
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 
 	return true;
 }
@@ -258,7 +258,7 @@ bool Renderer::LoadShaders()
 		return false;
 	}
 	mSpriteShader->SetActive();
-	// ビュー変換と射影変換行列を作成。
+	// スプライトの描画には、平行射影を行う。
 	mView = Matrix4::Identity;
 	mProj = Matrix4::CreateOrtho(mScreenWidth, mScreenHeight, 0.01f, 5000.0f);
 	mSpriteShader->SetMatrixUniform("uViewProj", mView * mProj);

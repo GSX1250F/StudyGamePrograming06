@@ -1,10 +1,9 @@
 ﻿Imports System.IO
 Imports System.Reflection.Metadata
 Imports System.Runtime.CompilerServices
-Imports OpenTK
-Imports OpenTK.Graphics
 Imports OpenTK.Graphics.OpenGL
 Imports OpenTK.Mathematics
+
 Public Class Shader
     Implements IDisposable      '明示的にクラスを開放するために必要
     'public
@@ -63,6 +62,19 @@ Public Class Shader
         'matrixで上書き
         GL.UniformMatrix4(uniformId, True, matrix)
     End Sub
+    Public Sub SetVectorUniform(ByVal name As String, ByRef vector As Vector3)
+        'nameと同じuniform変数をシェーダープログラムから探し、そのIDを受け取る。
+        Dim uniformId As Integer = GL.GetUniformLocation(mShaderProgram, name)
+        'matrixで上書き
+        GL.Uniform3(uniformId, vector)
+    End Sub
+    Public Sub SetFloatUniform(ByVal name As String, ByRef value As Single)
+        'nameと同じuniform変数をシェーダープログラムから探し、そのIDを受け取る。
+        Dim uniformId As Integer = GL.GetUniformLocation(mShaderProgram, name)
+        'matrixで上書き
+        GL.Uniform1(uniformId, value)
+    End Sub
+
 
     'private
     Private disposedValue As Boolean
