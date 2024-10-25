@@ -66,7 +66,7 @@ Public Class Shader
         'nameと同じuniform変数をシェーダープログラムから探し、そのIDを受け取る。
         Dim uniformId As Integer = GL.GetUniformLocation(mShaderProgram, name)
         'matrixで上書き
-        GL.Uniform3(uniformId, vector)
+        GL.Uniform3(uniformId, vector.X, vector.Y, vector.Z)
     End Sub
     Public Sub SetFloatUniform(ByVal name As String, ByRef value As Single)
         'nameと同じuniform変数をシェーダープログラムから探し、そのIDを受け取る。
@@ -90,11 +90,11 @@ Public Class Shader
             GL.CompileShader(outShader)
 
             If (IsCompiled(outShader) <> True) Then
-                Console.WriteLine("シェーダー %s のコンパイルに失敗しました", fileName)
+                Console.WriteLine("シェーダーのコンパイルに失敗しました", fileName)
                 Return False
             End If
         Else
-            Console.WriteLine("シェーダーファイル %s が見つかりません", fileName)
+            Console.WriteLine("シェーダーファイルが見つかりません", fileName)
             Return False
         End If
 

@@ -9,7 +9,7 @@
 #include "Math.h"
 
 Mesh::Mesh()
-	:mVertexInfo(nullptr)
+	: mVertexInfo(nullptr)
 	, mRadius(0.0f)
 	, mSpecPower(100.0f)
 {}

@@ -144,6 +144,13 @@ Public Class Game
     End Sub
 
     Private Sub LoadData()
+        'カメラ
+        Dim cameraActor As Actor = New CameraActor(Me)
+
+        'サイコロ
+
+
+
 
     End Sub
 

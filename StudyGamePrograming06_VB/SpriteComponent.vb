@@ -1,6 +1,4 @@
-﻿Imports OpenTK
-Imports OpenTK.Graphics
-Imports OpenTK.Graphics.OpenGL
+﻿Imports OpenTK.Graphics.OpenGL
 Imports OpenTK.Mathematics
 
 Public Class SpriteComponent
@@ -37,9 +35,13 @@ Public Class SpriteComponent
             ' 現在のテクスチャをセット
             mTexture.SetActive()
             ' 短形を描画
-            GL.DrawElements(PrimitiveType.Triangles, 24, DrawElementsType.UnsignedInt, 0)
+            GL.DrawElements(
+                PrimitiveType.Triangles,
+                mOwner.GetGame().GetRenderer().GetVertexInfo().GetNumIndices(),
+                DrawElementsType.UnsignedInt,
+                0
+            )
         End If
-
     End Sub
 
     Public Function GetDrawOrder() As Integer
