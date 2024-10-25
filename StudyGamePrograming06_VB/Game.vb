@@ -148,7 +148,7 @@ Public Class Game
         Dim cameraActor As Actor = New CameraActor(Me)
 
         'サイコロ
-
+        Dim dice As Actor = New Dice(Me)
 
 
 
