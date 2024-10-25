@@ -30,9 +30,11 @@ Public Class Mesh
 	Public Function Load(ByRef fileName As String, ByRef renderer As Renderer)
 		If System.IO.File.Exists(fileName) Then
 			'すべてのテキストを1つの文字列に読み込む
-			Dim contents As String = File.ReadAllText(fileName)
+			Dim jsonText As String = File.ReadAllText(fileName)
+			Dim root As Newtonsoft.Json.Linq.JObject = DirectCast(Newtonsoft.Json.JsonConvert.DeserializeObject(jsonText), Newtonsoft.Json.Linq.JObject)
+			Dim version As Integer = root("version")
 
-
+			Return True
 		Else
 			Console.WriteLine("メッシュファイルが存在しません。")
 			Return False
