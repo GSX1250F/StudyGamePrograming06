@@ -45,7 +45,7 @@ Public Class Actor
         Dispose(False)
     End Sub
 
-    Public Sub Update(ByVal deltaTime As Double)
+    Public Sub Update(ByVal deltaTime As Single)
         If mState = State.EActive Or mState = State.EPaused Then
             ComputeWorldTransform()
             UpdateComponents(deltaTime)
@@ -53,12 +53,12 @@ Public Class Actor
             ComputeWorldTransform()
         End If
     End Sub
-    Public Sub UpdateComponents(ByVal deltaTime As Double)
+    Public Sub UpdateComponents(ByVal deltaTime As Single)
         For Each comp In mComponents
             comp.Update(deltaTime)
         Next
     End Sub
-    Public Overridable Sub UpdateActor(ByVal deltaTime As Double)
+    Public Overridable Sub UpdateActor(ByVal deltaTime As Single)
     End Sub
     Public Sub ProcessInput(ByVal keyState As KeyboardState)
         If mState = State.EActive Then
@@ -79,10 +79,10 @@ Public Class Actor
         mPosition = pos
         mRecomputeWorldTransform = True
     End Sub
-    Public Function GetScale() As Double
+    Public Function GetScale() As Single
         Return mScale
     End Function
-    Public Sub SetScale(ByRef scale As Double)
+    Public Sub SetScale(ByRef scale As Single)
         mScale = scale
         mRecomputeWorldTransform = True
     End Sub
@@ -93,10 +93,10 @@ Public Class Actor
         mRotation = rotation
         mRecomputeWorldTransform = True
     End Sub
-    Public Function GetRadius() As Double
+    Public Function GetRadius() As Single
         Return mRadius * mScale
     End Function
-    Public Sub SetRadius(ByRef radius As Double)
+    Public Sub SetRadius(ByRef radius As Single)
         mRadius = radius
         mRecomputeWorldTransform = True
     End Sub
@@ -161,8 +161,8 @@ Public Class Actor
     Private mRecomputeWorldTransform As Boolean
 
     Private mState As State              ' アクターの状態
-    Private mScale As Double            '拡大率
-    Private mRadius As Double           '半径（拡大率は無視）
+    Private mScale As Single            '拡大率
+    Private mRadius As Single           '半径（拡大率は無視）
     Private mPosition As Vector3        '位置
     Private mRotation As Quaternion         '回転
 

@@ -138,16 +138,16 @@ void Game::LoadData()
 	// カメラ
 	Actor* cameraActor = new CameraActor(this);
 	
-	// サイコロを作成
+	// サイコロ
 	Actor* dice = new Dice(this);
 
-	// 球を作成
+	// 球
 	Actor* sphere = new Sphere(this);
 
-	// レーシングカーを作成
+	// レーシングカー
 	Actor* racingCar = new RacingCar(this);
 
-	// 壁と床を作成
+	// 壁と床
 	Actor* planes = new Planes(this);
 
 	// スプライト描画のアクター類

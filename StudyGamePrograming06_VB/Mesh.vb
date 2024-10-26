@@ -54,7 +54,7 @@ Public Class Mesh
 				Console.WriteLine("メッシュファイル " & fileName & " にテクスチャが見つかりません。最低でも１つ必要です。")
 				Return False
 			End If
-			mSpecPower = Convert.ToDouble(doc("specularPower"))
+			mSpecPower = Convert.ToSingle(doc("specularPower"))
 			For i As Integer = 0 To textures.Count - 1
 				'このテクスチャがすでに読み込まれたか？
 				Dim texName As String = textures(i).ToString
@@ -136,18 +136,18 @@ Public Class Mesh
 	Public Function GetShaderName() As String
         Return mShaderName
     End Function
-    Public Function GetRadius() As Double
-        Return mRadius
-    End Function
-    Public Function GetSpecPower() As Double
-        Return mSpecPower
-    End Function
+	Public Function GetRadius() As Single
+		Return mRadius
+	End Function
+	Public Function GetSpecPower() As Single
+		Return mSpecPower
+	End Function
 
 
 	'private
 	Private mTextures As New List(Of Texture)
 	Private mVertexInfo As VertexInfo
     Private mShaderName As String
-    Private mRadius As Double
-    Private mSpecPower As Double
+	Private mRadius As Single
+	Private mSpecPower As Single
 End Class

@@ -17,7 +17,7 @@ Public Class MoveComponent
         mRotResist = 0.0
     End Sub
 
-    Public Overrides Sub Update(deltaTime As Double)
+    Public Overrides Sub Update(deltaTime As Single)
         If (mVelocity.Length > 0) Then
             mOwner.SetPosition(mOwner.GetPosition() + mVelocity * deltaTime)    ' Actorの位置を更新
         End If
@@ -26,7 +26,7 @@ Public Class MoveComponent
             '向きを更新
             'クォータニオン生成。回転速度モーメントベクトルの大きさが角速度の大きさ
             Dim axis As Vector3 = Vector3.Normalize(mRotSpeed)
-            Dim angle As Double = deltaTime * mRotSpeed.Length()    '角度変化量
+            Dim angle As Single = deltaTime * mRotSpeed.Length()    '角度変化量
             Dim inc = Quaternion.FromAxisAngle(axis, angle)
             'もとのrotと増分のクォータニオンを結合
             mOwner.SetRotation(Quaternion.Multiply(mOwner.GetRotation(), inc))
@@ -36,17 +36,17 @@ Public Class MoveComponent
         SetVelocity(mVelocity + GetMoveAccel() * deltaTime)     'v = v0 + at
         SetRotSpeed(mRotSpeed + GetRotAccel() * deltaTime)     'ω = ωo + bt
     End Sub
-    Public Sub SetMass(ByVal v As Double)
+    Public Sub SetMass(ByVal v As Single)
         mMass = v
     End Sub
-    Public Function GetImoment() As Double
+    Public Function GetImoment() As Single
         ' 慣性モーメント計算　※※2次元においては、一様密度の円板とする。 I=0.5*質量*半径^2
         Return 0.5 * mMass * mOwner.GetRadius() * mOwner.GetRadius()
     End Function
-    Public Sub SetMoveResist(ByVal v As Double)
+    Public Sub SetMoveResist(ByVal v As Single)
         mMoveResist = v
     End Sub
-    Public Sub SetRotResist(ByVal v As Double)
+    Public Sub SetRotResist(ByVal v As Single)
         mRotResist = v
     End Sub
 
@@ -57,7 +57,7 @@ Public Class MoveComponent
         Return mVelocity
     End Function
     Public Sub SetRotSpeed(ByVal v As Vector3)
-        'Public Sub SetRotSpeed(ByVal v As Double)
+        'Public Sub SetRotSpeed(ByVal v As Single)
         mRotSpeed = v
     End Sub
     Public Function GetRotSpeed() As Vector3
@@ -67,7 +67,7 @@ Public Class MoveComponent
         mMoveForce = v
     End Sub
     Public Sub SetRotForce(ByVal v As Vector3)
-        'Public Sub SetRotForce(ByVal v As Double)
+        'Public Sub SetRotForce(ByVal v As Single)
         mRotForce = v
     End Sub
     Public Function GetMoveAccel() As Vector3
@@ -81,12 +81,12 @@ Public Class MoveComponent
         End If
     End Function
     Public Function GetTorque() As Vector3
-        'Public Function GetTorque() As Double
+        'Public Function GetTorque() As Single
         'トルク計算　トルク=回転方向の力 * 半径
         Return mRotForce * mOwner.GetRadius()
     End Function
     Public Function GetRotAccel() As Vector3
-        'Public Function GetRotAccel() As Double
+        'Public Function GetRotAccel() As Single
         If GetImoment() = 0 Then
             'Return 0
             Return Vector3.Zero
@@ -100,15 +100,15 @@ Public Class MoveComponent
     End Function
 
     'private
-    Private mMass As Double      '質量
-    Private mMoveResist As Double        '重心速度抵抗率(%)
-    Private mRotResist As Double     '回転速度抵抗率(%)
+    Private mMass As Single      '質量
+    Private mMoveResist As Single        '重心速度抵抗率(%)
+    Private mRotResist As Single     '回転速度抵抗率(%)
 
     Private mVelocity As Vector3     '並進移動速度
-    'Private mRotSpeed As Double      '回転速度
+    'Private mRotSpeed As Single      '回転速度
     Private mRotSpeed As Vector3      '回転速度
     Private mMoveForce As Vector3        '重心にかかる力
-    'Private mRotForce As Double          '回転方向の力F　 トルク=RotForce * Radius = Imoment * RotAccel
+    'Private mRotForce As Single          '回転方向の力F　 トルク=RotForce * Radius = Imoment * RotAccel
     Private mRotForce As Vector3          '回転方向の力F　 トルク=RotForce * Radius = Imoment * RotAccel
 
 End Class

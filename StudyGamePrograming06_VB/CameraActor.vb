@@ -12,7 +12,7 @@ Public Class CameraActor
         mMoveComp = New MoveComponent(Me, 30)
     End Sub
 
-    Public Overrides Sub UpdateActor(deltaTime As Double)
+    Public Overrides Sub UpdateActor(deltaTime As Single)
         MyBase.UpdateActor(deltaTime)
 
         ' カメラの位置と方向を更新
@@ -26,15 +26,15 @@ Public Class CameraActor
 
     Public Overrides Sub ActorInput(keyState As KeyboardState)
         MyBase.ActorInput(keyState)
-        Dim forwardSpeed As Double = 0.0
-		Dim rotSpeed As Double = 0.0
-		If (keyState.IsKeyDown(Keys.Up)) Then
+        Dim forwardSpeed As Single = 0.0
+        Dim rotSpeed As Single = 0.0
+        If (keyState.IsKeyDown(Keys.Up)) Then
 			forwardSpeed += 500
 		ElseIf (keyState.IsKeyDown(Keys.Down)) Then
 			forwardSpeed += -500
 		ElseIf (keyState.IsKeyDown(Keys.Left)) Then
-			rotSpeed += Math.PI
-		ElseIf (keyState.IsKeyDown(Keys.Right)) Then
+            rotSpeed += Math.PI
+        ElseIf (keyState.IsKeyDown(Keys.Right)) Then
             rotSpeed -= Math.PI
         End If
 		mMoveComp.SetVelocity(forwardSpeed * GetForward())

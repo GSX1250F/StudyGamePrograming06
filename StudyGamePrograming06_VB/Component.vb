@@ -32,7 +32,7 @@ Public Class Component
         MyBase.Finalize()
     End Sub
 
-    Public Overridable Sub Update(deltaTime As Double)
+    Public Overridable Sub Update(deltaTime As Single)
 
     End Sub
 

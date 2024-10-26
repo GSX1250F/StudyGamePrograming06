@@ -150,7 +150,11 @@ Public Class Game
         'サイコロ
         Dim dice As Actor = New Dice(Me)
 
+        '球
+        Dim sphere As Actor = New Sphere(Me)
 
+        '壁と床
+        Dim planes As Actor = New Planes(Me)
 
     End Sub
 

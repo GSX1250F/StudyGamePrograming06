@@ -178,10 +178,10 @@ Public Class Renderer
     Public Function GetVertexInfo() As VertexInfo
         Return mVertexInfo
     End Function
-    Public Function GetScreenWidth() As Double
+    Public Function GetScreenWidth() As Single
         Return mScreenWidth
     End Function
-    Public Function GetScreenHeight() As Double
+    Public Function GetScreenHeight() As Single
         Return mScreenHeight
     End Function
     Public Sub SetViewMatrix(ByRef matrix As Matrix4)
@@ -238,7 +238,7 @@ Public Class Renderer
         Dim cameraTarget As Vector3 = Vector3.UnitX
         Dim cameraUp As Vector3 = Vector3.UnitZ
         mView = Matrix4.LookAt(cameraPos, cameraTarget, cameraUp)
-        mProj = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(70.0), mScreenWidth / mScreenHeight, 0.01, 10000.0)
+        mProj = Matrix4.CreatePerspectiveFieldOfView(70.0 / 180.0 * Math.PI, mScreenWidth / mScreenHeight, 0.01, 10000.0)
         mMeshShader.SetMatrixUniform("uViewProj", mView * mProj)
 
         Return True
