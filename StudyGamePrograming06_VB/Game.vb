@@ -153,6 +153,9 @@ Public Class Game
         '球
         Dim sphere As Actor = New Sphere(Me)
 
+        'レーシングカー
+        Dim racingCar As Actor = New RacingCar(Me)
+
         '壁と床
         Dim planes As Actor = New Planes(Me)
 
