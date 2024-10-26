@@ -5,7 +5,7 @@ Public Class Dice
     'public
     Sub New(ByRef game As Game)
         MyBase.New(game)
-        Dim v As Vector3 = New Vector3(200.0, 100.0, 0.0)
+        Dim v As Vector3 = New Vector3(200.0, -100.0, 0.0)
         SetPosition(v)
         SetScale(100.0)
         Dim mc As MeshComponent = New MeshComponent(Me)

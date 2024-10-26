@@ -66,8 +66,8 @@ Public Class Mesh
 						'Nullのままの場合、デフォルトのテクスチャを使用する。
 						t = renderer.GetTexture("Assets/Default.png")
 					End If
-					mTextures.Add(t)
 				End If
+				mTextures.Add(t)
 			Next
 			'頂点配列群をロード
 			Dim vertsJson = doc("vertices")
@@ -144,9 +144,9 @@ Public Class Mesh
     End Function
 
 
-    'private
-    Private mTextures As List(Of Texture)
-    Private mVertexInfo As VertexInfo
+	'private
+	Private mTextures As New List(Of Texture)
+	Private mVertexInfo As VertexInfo
     Private mShaderName As String
     Private mRadius As Double
     Private mSpecPower As Double

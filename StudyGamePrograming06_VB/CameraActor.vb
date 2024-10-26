@@ -7,7 +7,7 @@ Public Class CameraActor
     'public
     Sub New(ByRef game As Game)
         MyBase.New(game)
-        Dim v As Vector3 = New Vector3(0.0, 0.0, 150.0)
+        Dim v As Vector3 = New Vector3(-200.0, 0.0, 150.0)
         SetPosition(v)
         mMoveComp = New MoveComponent(Me, 30)
     End Sub
@@ -35,8 +35,8 @@ Public Class CameraActor
 		ElseIf (keyState.IsKeyDown(Keys.Left)) Then
 			rotSpeed += Math.PI
 		ElseIf (keyState.IsKeyDown(Keys.Right)) Then
-			rotSpeed -= -Math.PI
-		End If
+            rotSpeed -= Math.PI
+        End If
 		mMoveComp.SetVelocity(forwardSpeed * GetForward())
         mMoveComp.SetRotSpeed(rotSpeed * GetUpward())
     End Sub
