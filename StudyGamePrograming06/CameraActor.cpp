@@ -6,7 +6,7 @@
 CameraActor::CameraActor(Game* game)
 	:Actor(game)
 {
-	SetPosition(Vector3(-200.0f, 0.0f, 150.0f));
+	SetPosition(Vector3(-1000.0f, 0.0f, 150.0f));
 	mMoveComp = new MoveComponent(this);
 }
 

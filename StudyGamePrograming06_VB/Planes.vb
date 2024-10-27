@@ -12,8 +12,7 @@ Public Class Planes
 		For i As Integer = 0 To 9
 			For j As Integer = 0 To 9
 				Dim a As Plane = New Plane(game)
-				Dim v As Vector3 = New Vector3(start + i * size, start + j * size, -100.0)
-				a.SetPosition(v)
+				a.SetPosition(New Vector3(start + i * size, start + j * size, -100.0))
 				a.SetScale(10.0)
 			Next
 		Next
@@ -22,16 +21,14 @@ Public Class Planes
 		Dim q = Quaternion.FromAxisAngle(Vector3.UnitX, 0.5 * Math.PI)
 		For i As Integer = 0 To 9
 			Dim a As Plane = New Plane(game)
-			Dim v As Vector3 = New Vector3(start + i * size, start - size, 0.0)
-			a.SetPosition(v)
+			a.SetPosition(New Vector3(start + i * size, start - size, 0.0))
 			a.SetScale(10.0)
 			a.SetRotation(q)
 		Next
 		q = Quaternion.FromAxisAngle(Vector3.UnitX, -0.5 * Math.PI)
 		For i As Integer = 0 To 9
 			Dim a As Plane = New Plane(game)
-			Dim v As Vector3 = New Vector3(start + i * size, -start + size, 0.0)
-			a.SetPosition(v)
+			a.SetPosition(New Vector3(start + i * size, -start + size, 0.0))
 			a.SetScale(10.0)
 			a.SetRotation(q)
 		Next
@@ -40,16 +37,14 @@ Public Class Planes
 		q = Quaternion.Multiply(Quaternion.FromAxisAngle(Vector3.UnitZ, 0.5 * Math.PI), q)
 		For i As Integer = 0 To 9
 			Dim a As Plane = New Plane(game)
-			Dim v = New Vector3(start - size, start + i * size, 0.0)
-			a.SetPosition(v)
+			a.SetPosition(New Vector3(start - size, start + i * size, 0.0))
 			a.SetScale(10.0)
 			a.SetRotation(q)
 		Next
 		q = Quaternion.Multiply(Quaternion.FromAxisAngle(Vector3.UnitZ, Math.PI), q)
 		For i As Integer = 0 To 9
 			Dim a As Plane = New Plane(game)
-			Dim v = New Vector3(-start + size, start + i * size, 0.0)
-			a.SetPosition(v)
+			a.SetPosition(New Vector3(-start + size, start + i * size, 0.0))
 			a.SetScale(10.0)
 			a.SetRotation(q)
 		Next

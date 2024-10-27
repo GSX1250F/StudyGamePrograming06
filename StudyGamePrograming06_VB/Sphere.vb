@@ -5,8 +5,7 @@ Public Class Sphere
     'public
     Sub New(ByRef game As Game)
         MyBase.New(game)
-        Dim v As Vector3 = New Vector3(200.0, 100.0, 0.0)
-        SetPosition(v)
+        SetPosition(New Vector3(200.0, 100.0, 0.0))
         Dim q As Quaternion = New Quaternion(Vector3.UnitX, -23.5 / 180.0 * Math.PI)
         SetRotation(q)
         SetScale(5.0)
@@ -20,8 +19,7 @@ Public Class Sphere
         Dim mAxis As Vector3 = New Vector3(0.0, Math.Cos(66.5 / 180.0 * Math.PI), Math.Sin(66.5 / 180.0 * Math.PI))
         Dim rotSpeedMax As Single = 5.0 * Math.PI
         Dim rotSpeed As Single = rotSpeedMax * deltaTime
-        Dim v As Vector3 = rotSpeed * mAxis
-        mMoveComp.SetRotSpeed(v)
+        mMoveComp.SetRotSpeed(rotSpeed * mAxis)
     End Sub
 
     'private

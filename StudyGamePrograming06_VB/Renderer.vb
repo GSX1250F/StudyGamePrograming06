@@ -105,6 +105,8 @@ Public Class Renderer
         'スプライトを描画
         mSpriteShader.SetActive()
         mVertexInfo.SetActive()
+
+
         For Each sprite In mSprites
             If sprite.GetVisible() = True Then
                 sprite.Draw(mSpriteShader)
@@ -224,7 +226,7 @@ Public Class Renderer
         mSpriteShader.SetActive()
         'スプライトの描画には、平行射影を行う。
         mView = Matrix4.Identity
-        mProj = Matrix4.CreateOrthographic(mScreenWidth, mScreenHeight, 0.01, 5000.0)
+        mProj = Matrix4.CreateOrthographic(mScreenWidth, mScreenHeight, -5000.0, 5000.0)
         mSpriteShader.SetMatrixUniform("uViewProj", mView * mProj)
 
         'メッシュ用シェーダーを生成

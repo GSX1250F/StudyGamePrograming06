@@ -7,8 +7,7 @@ Public Class CameraActor
     'public
     Sub New(ByRef game As Game)
         MyBase.New(game)
-        Dim v As Vector3 = New Vector3(-200.0, 0.0, 150.0)
-        SetPosition(v)
+        SetPosition(New Vector3(-1000.0, 0.0, 150.0))
         mMoveComp = New MoveComponent(Me, 30)
     End Sub
 

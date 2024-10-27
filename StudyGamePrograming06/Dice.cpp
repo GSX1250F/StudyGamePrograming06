@@ -17,10 +17,8 @@ void Dice::UpdateActor(float deltaTime)
 {
 	Actor::UpdateActor(deltaTime);
 
-	Vector3 axis = Vector3(1.0f, -1.0f,1.0f);
-	axis.Normalize();
+	Vector3 axis = Vector3::Normalize(Vector3(1.0f, -1.0f,1.0f));
 	float rotSpeedMax = 30.0f * Math::Pi;
 	float rotSpeed = rotSpeedMax * deltaTime;
-	Vector3 v = rotSpeed * axis;
-	mMoveComp->SetRotSpeed(v);
+	mMoveComp->SetRotSpeed(rotSpeed * axis);
 }

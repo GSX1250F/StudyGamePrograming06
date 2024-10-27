@@ -19,9 +19,8 @@ void Sphere::UpdateActor(float deltaTime)
 {
 	Actor::UpdateActor(deltaTime);
 
-	Vector3 mAxis = Vector3(0.0f, Math::Cos(Math::ToRadians(66.5f)), Math::Sin(Math::ToRadians(66.5f)));
+	Vector3 axis = Vector3(0.0f, Math::Cos(Math::ToRadians(66.5f)), Math::Sin(Math::ToRadians(66.5f)));
 	float rotSpeedMax = 5.0f * Math::Pi;
 	float rotSpeed = rotSpeedMax * deltaTime;
-	Vector3 v = rotSpeed * mAxis;
-	mMoveComp->SetRotSpeed(v);	
+	mMoveComp->SetRotSpeed(rotSpeed * axis);
 }

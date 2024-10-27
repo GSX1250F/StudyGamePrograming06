@@ -5,8 +5,7 @@ Public Class Dice
     'public
     Sub New(ByRef game As Game)
         MyBase.New(game)
-        Dim v As Vector3 = New Vector3(200.0, -100.0, 0.0)
-        SetPosition(v)
+        SetPosition(New Vector3(200.0, -100.0, 0.0))
         SetScale(100.0)
         Dim mc As MeshComponent = New MeshComponent(Me)
         mc.SetMesh(game.GetRenderer().GetMesh("Assets/Dice.gpmesh"))
@@ -19,8 +18,7 @@ Public Class Dice
         axis.Normalize()
         Dim rotSpeedMax As Single = -30.0 * Math.PI
         Dim rotSpeed As Single = rotSpeedMax * deltaTime
-        Dim v As Vector3 = rotSpeed * axis
-        mMoveComp.SetRotSpeed(v)
+        mMoveComp.SetRotSpeed(rotSpeed * axis)
     End Sub
 
     'private
