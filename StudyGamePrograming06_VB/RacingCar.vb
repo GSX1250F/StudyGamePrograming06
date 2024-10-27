@@ -7,6 +7,8 @@ Public Class RacingCar
         MyBase.New(game)
         Dim v = New Vector3(0.0, 500.0, -100.0)
         SetPosition(v)
+        Dim q = Quaternion.FromAxisAngle(Vector3.UnitZ, Math.PI)
+        SetRotation(q)
         SetScale(1.0)
         Dim mc = New MeshComponent(Me)
         mc.SetMesh(game.GetRenderer.GetMesh("Assets/RacingCar.gpmesh"))
