@@ -15,6 +15,7 @@ RacingCar::RacingCar(Game* game) :Actor(game)
 
 void RacingCar::UpdateActor(float deltaTime)
 {
+	/*
 	float w = Math::PiOver2;
 	float r = Math::Sqrt(GetPosition().x * GetPosition().x + GetPosition().y * GetPosition().y);
 	float x = GetPosition().x * Math::Cos(w * deltaTime) - GetPosition().y * Math::Sin(w * deltaTime);
@@ -24,4 +25,5 @@ void RacingCar::UpdateActor(float deltaTime)
 	Quaternion inc = Quaternion(Vector3::UnitZ, w * deltaTime);
 	q = Quaternion::Concatenate(inc, q);
 	SetRotation(q);
+	*/
 }
