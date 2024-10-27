@@ -18,14 +18,14 @@ Public Class Planes
 		Next
 
 		'左右壁を作成
-		Dim q = Quaternion.FromAxisAngle(Vector3.UnitX, 0.5 * Math.PI)
+		Dim q = Quaternion.FromAxisAngle(Vector3.UnitX, -0.5 * Math.PI)
 		For i As Integer = 0 To 9
 			Dim a As Plane = New Plane(game)
 			a.SetPosition(New Vector3(start + i * size, start - size, 0.0))
 			a.SetScale(10.0)
 			a.SetRotation(q)
 		Next
-		q = Quaternion.FromAxisAngle(Vector3.UnitX, -0.5 * Math.PI)
+		q = Quaternion.FromAxisAngle(Vector3.UnitX, 0.5 * Math.PI)
 		For i As Integer = 0 To 9
 			Dim a As Plane = New Plane(game)
 			a.SetPosition(New Vector3(start + i * size, -start + size, 0.0))

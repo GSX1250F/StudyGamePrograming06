@@ -167,9 +167,10 @@ Public Class Game
         mRenderer.SetAmbientLight(New Vector3(0.1, 0.1, 0.1))
         '平行光源
         Dim dir As DirectionalLight = mRenderer.GetDirectionalLight
-        dir.mDirection = Vector3.Normalize(New Vector3(1.0, 1.0, -1.0))
+        dir.mDirection = Vector3.Normalize(New Vector3(1.0, -1.0, -1.0))
         dir.mDiffuseColor = New Vector3(1.0, 1.0, 1.0)
         dir.mSpecColor = New Vector3(1.0, 1.0, 1.0)
+        mRenderer.SetDirectionalLight(dir)
     End Sub
 
     Private Sub UnloadData()

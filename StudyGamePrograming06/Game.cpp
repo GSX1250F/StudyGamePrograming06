@@ -154,7 +154,7 @@ void Game::LoadData()
 	Actor* spriteActors = new SpriteActors(this);
 
 	// ŒõŒ¹
-	// ŠÂ‹«Œõ
+	// ŠÂ‹«Œõ	
 	mRenderer->SetAmbientLight(Vector3(0.1f, 0.1f, 0.1f));
 	// •½sŒõŒ¹
 	DirectionalLight& dir = mRenderer->GetDirectionalLight();

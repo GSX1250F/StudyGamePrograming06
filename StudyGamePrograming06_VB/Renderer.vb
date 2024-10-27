@@ -198,6 +198,9 @@ Public Class Renderer
     Public Function GetDirectionalLight() As DirectionalLight
         Return mDirLight
     End Function
+    Public Sub SetDirectionalLight(ByRef dir As DirectionalLight)
+        mDirLight = dir
+    End Sub
 
     'private
     Private Sub CreateVertexInfo()

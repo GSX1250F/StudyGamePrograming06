@@ -260,7 +260,7 @@ bool Renderer::LoadShaders()
 	mSpriteShader->SetActive();
 	// スプライトの描画には、平行射影を行う。
 	mView = Matrix4::Identity;
-	mProj = Matrix4::CreateOrtho(mScreenWidth, mScreenHeight, 0.01f, 5000.0f);
+	mProj = Matrix4::CreateSimpleViewProj(mScreenWidth, mScreenHeight);
 	mSpriteShader->SetMatrixUniform("uViewProj", mView * mProj);
 	
 	// メッシュ用シェーダーを生成
