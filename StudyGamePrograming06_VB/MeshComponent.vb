@@ -28,7 +28,7 @@ Public Class MeshComponent
             If t IsNot Nothing Then
                 t.SetActive()
             End If
-            '鏡面反射係数の設定 
+            '鏡面反射指数の設定 
             Dim sp As Single = mMesh.GetSpecPower()
             shader.SetFloatUniform("uSpecPower", mMesh.GetSpecPower())
             'メッシュの頂点情報クラスをアクティブにする。
