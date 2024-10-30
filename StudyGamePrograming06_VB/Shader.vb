@@ -57,21 +57,15 @@ Public Class Shader
         GL.UseProgram(mShaderProgram)
     End Sub
     Public Sub SetMatrixUniform(ByVal name As String, ByRef matrix As Matrix4)
-        'nameと同じuniform変数をシェーダープログラムから探し、そのIDを受け取る。
         Dim uniformId As Integer = GL.GetUniformLocation(mShaderProgram, name)
-        'matrixで上書き
         GL.UniformMatrix4(uniformId, True, matrix)
     End Sub
     Public Sub SetVectorUniform(ByVal name As String, ByRef vector As Vector3)
-        'nameと同じuniform変数をシェーダープログラムから探し、そのIDを受け取る。
         Dim uniformId As Integer = GL.GetUniformLocation(mShaderProgram, name)
-        'matrixで上書き
         GL.Uniform3(uniformId, vector.X, vector.Y, vector.Z)
     End Sub
     Public Sub SetFloatUniform(ByVal name As String, ByRef value As Single)
-        'nameと同じuniform変数をシェーダープログラムから探し、そのIDを受け取る。
         Dim uniformId As Integer = GL.GetUniformLocation(mShaderProgram, name)
-        'matrixで上書き
         GL.Uniform1(uniformId, value)
     End Sub
 
