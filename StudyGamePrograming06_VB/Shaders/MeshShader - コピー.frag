@@ -31,5 +31,5 @@ void main()
 	vec3 Specular = uDirLight.mSpecColor * pow(max(0.0, dot(R, V)), uSpecPower);
 	lightColor += Diffuse + Specular;
 	
-	outColor = texture(uTexture, fragTexCoord);	
+	outColor = texture(uTexture, fragTexCoord) * vec4(lightColor, 1.0);	
 }
