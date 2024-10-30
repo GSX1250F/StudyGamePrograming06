@@ -39,8 +39,10 @@ public:
 	void SetViewMatrix(const Matrix4& matrix) { mView = matrix; }
 	void SetProjMatrix(const Matrix4& matrix) { mProj = matrix; }
 
+	Vector3& GetAmbientLight() { return mAmbientLight; }
 	void SetAmbientLight(const Vector3& ambient) { mAmbientLight = ambient; }
 	DirectionalLight& GetDirectionalLight() { return mDirLight; }
+	void SetDirectionalLight(const DirectionalLight& dir) { mDirLight = dir; }
 
 	float GetScreenWidth() const { return mScreenWidth; }
 	float GetScreenHeight() const { return mScreenHeight; }

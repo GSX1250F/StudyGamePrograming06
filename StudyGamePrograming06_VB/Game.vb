@@ -162,15 +162,15 @@ Public Class Game
         'スプライト描画のアクター類
         'Dim spriteActors As Actor = New SpriteActors(Me)
 
-        ''光源
-        ''環境光
-        'mRenderer.SetAmbientLight(New Vector3(0.1, 0.1, 0.1))
-        ''平行光源
-        'Dim dir As DirectionalLight = mRenderer.GetDirectionalLight
-        'dir.mDirection = Vector3.Normalize(New Vector3(1.0, -1.0, -1.0))
-        'dir.mDiffuseColor = New Vector3(1.0, 1.0, 1.0)
-        'dir.mSpecColor = New Vector3(1.0, 1.0, 1.0)
-        'mRenderer.SetDirectionalLight(dir)
+        '光源
+        '環境光
+        mRenderer.SetAmbientLight(New Vector3(0.1, 0.1, 0.1))
+        '平行光源
+        Dim dir As DirectionalLight = mRenderer.GetDirectionalLight
+        dir.mDirection = Vector3.Normalize(New Vector3(1.0, -1.0, -1.0))
+        dir.mDiffuseColor = New Vector3(1.0, 1.0, 1.0)
+        dir.mSpecColor = New Vector3(1.0, 1.0, 1.0)
+        mRenderer.SetDirectionalLight(dir)
     End Sub
 
     Private Sub UnloadData()
