@@ -160,7 +160,7 @@ Public Class Game
         Dim planes As Actor = New Planes(Me)
 
         'スプライト描画のアクター類
-        Dim spriteActors As Actor = New SpriteActors(Me)
+        'Dim spriteActors As Actor = New SpriteActors(Me)
 
         '光源
         '環境光

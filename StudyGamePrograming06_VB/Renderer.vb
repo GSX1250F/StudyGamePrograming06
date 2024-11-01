@@ -192,6 +192,10 @@ Public Class Renderer
     Public Sub SetProjMatrix(ByRef matrix As Matrix4)
         mProj = matrix
     End Sub
+    Public Function GetAmbientlLight() As Vector3
+        Return mAmbientLight
+    End Function
+
     Public Sub SetAmbientLight(ByRef ambient As Vector3)
         mAmbientLight = ambient
     End Sub

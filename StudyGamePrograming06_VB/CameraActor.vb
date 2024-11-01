@@ -11,7 +11,7 @@ Public Class CameraActor
         mMoveComp = New MoveComponent(Me, 30)
     End Sub
 
-    Public Overrides Sub UpdateActor(deltaTime As Single)
+    Public Overrides Sub UpdateActor(ByVal deltaTime As Single)
         MyBase.UpdateActor(deltaTime)
 
         ' カメラの位置と方向を更新
