@@ -67,7 +67,9 @@ private:
 
 	class VertexInfo* mVertexInfo;
 	class Shader* mSpriteShader;
-	class Shader* mMeshShader;
+	//class Shader* mMeshShader;
+	class Shader* mBasicShader;
+	class Shader* mPhongShader;
 	
 	Matrix4 mView;
 	Matrix4 mProj;
