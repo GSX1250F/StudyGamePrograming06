@@ -147,8 +147,12 @@ xcopy "..\..\external\GLEW\lib\$(PlatformTarget)\*.dll" "$(OutDir)" /i/s/y
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Shaders\BasicMesh.frag" />
+    <None Include="Shaders\BasicMesh.vert" />
     <None Include="Shaders\MeshShader.frag" />
     <None Include="Shaders\MeshShader.vert" />
+    <None Include="Shaders\PhongMesh.frag" />
+    <None Include="Shaders\PhongMesh.vert" />
     <None Include="Shaders\SpriteShader.frag" />
     <None Include="Shaders\SpriteShader.vert" />
   </ItemGroup>

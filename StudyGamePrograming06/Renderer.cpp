@@ -14,7 +14,7 @@ Renderer::Renderer(Game* game)
 	: mGame(game)
 	, mWindow(nullptr)
 	, mSpriteShader(nullptr)
-	, mMeshShader(nullptr)
+	//, mMeshShader(nullptr)
 	, mVertexInfo(nullptr)
 {}
 
@@ -109,8 +109,13 @@ void Renderer::Shutdown()
 	delete mVertexInfo;
 	mSpriteShader->Unload();
 	delete mSpriteShader;
-	mMeshShader->Unload();
-	delete mMeshShader;
+	//mMeshShader->Unload();
+	//delete mMeshShader;
+	for (auto sh : mShaders)
+	{
+		sh.first->Unload();
+		delete sh.first;
+	}
 	SDL_GL_DeleteContext(mContext);
 	SDL_DestroyWindow(mWindow);
 }
@@ -124,16 +129,27 @@ void Renderer::Draw()
 	// 深度有効化、アルファブレンディング無効化
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_BLEND);
-	// メッシュを描画
-	mMeshShader->SetActive();
-	mMeshShader->SetMatrixUniform("uViewProj", mView * mProj);
-
-	// 光源のUniform変数を更新
-	SetLightUniforms(mMeshShader);
-
-	for (auto mc : mMeshComps)
+	
+	// シェーダー毎に描画
+	for (auto sh : mShaders)
 	{
-		mc->Draw(mMeshShader);
+		// メッシュを描画
+		//mMeshShader->SetActive();
+		//mMeshShader->SetMatrixUniform("uViewProj", mView * mProj);
+		sh.first->SetActive();
+		sh.first->SetMatrixUniform("uViewProj", mView * mProj);
+		// 光源のUniform変数を更新
+		//SetLightUniforms(mMeshShader);
+		SetLightUniforms(sh.first);
+
+		for (auto mc : mMeshComps)
+		{
+			std::string shaderName = mc->GetMesh()->GetShaderName();
+			if (shaderName == sh.second)
+			{
+				mc->Draw(sh.first);
+			}
+		}
 	}
 
 	// 深度無効化、アルファブレンディング有効化
@@ -264,20 +280,30 @@ bool Renderer::LoadShaders()
 	mSpriteShader->SetMatrixUniform("uViewProj", mView * mProj);
 	
 	// メッシュ用シェーダーを生成
+	// メッシュの描画には、透視射影を行う。
+	Vector3 cameraPos = Vector3::Zero;
+	Vector3 cameraTarget = Vector3::UnitX;
+	Vector3 cameraUp = Vector3::UnitZ;
+	mView = Matrix4::CreateLookAt(cameraPos, cameraTarget, cameraUp);
+	mProj = Matrix4::CreatePerspectiveFOV(Math::ToRadians(70.0f), mScreenWidth, mScreenHeight, 0.01f, 10000.0f);
 	//BasicShader
-	mBasicShader = new Shader();
-	if (!mBasicShader->Load("Shaders/BasicShader.vert", "Shaders/BasicShader.frag"))
+	class Shader* mMeshShader = new Shader();
+	if (!mMeshShader->Load("Shaders/BasicMesh.vert", "Shaders/BasicMesh.frag"))
 	{
 		return false;
 	}
-	mBasicShader->SetActive();
-	//PhognShader
-	mPhongShader = new Shader();
-	if (!mPhongShader->Load("Shaders/PhongShader.vert", "Shaders/PhongShader.frag"))
+	mMeshShader->SetActive();
+	mMeshShader->SetMatrixUniform("uViewProj", mView * mProj);
+	mShaders.emplace(mMeshShader, "BasicMesh");
+	//PhongShader
+	mMeshShader = new Shader();
+	if (!mMeshShader->Load("Shaders/PhongMesh.vert", "Shaders/PhongMesh.frag"))
 	{
 		return false;
 	}
-	mPhongShader->SetActive();
+	mMeshShader->SetActive();
+	mMeshShader->SetMatrixUniform("uViewProj", mView * mProj);
+	mShaders.emplace(mMeshShader, "PhongMesh");
 	/*
 	mMeshShader = new Shader();
 	if (!mMeshShader->Load("Shaders/MeshShader.vert", "Shaders/MeshShader.frag"))
@@ -286,16 +312,7 @@ bool Renderer::LoadShaders()
 	}
 	mMeshShader->SetActive();
 	*/
-	// メッシュの描画には、透視射影を行う。
-	Vector3 cameraPos = Vector3::Zero;
-	Vector3 cameraTarget = Vector3::UnitX;
-	Vector3 cameraUp = Vector3::UnitZ;
-	mView = Matrix4::CreateLookAt(cameraPos, cameraTarget, cameraUp);
-	mProj = Matrix4::CreatePerspectiveFOV(Math::ToRadians(70.0f), mScreenWidth, mScreenHeight, 0.01f, 10000.0f);
-	//mMeshShader->SetMatrixUniform("uViewProj", mView * mProj);
-	mBasicShader->SetMatrixUniform("uViewProj", mView * mProj);
-	mPhongShader->SetMatrixUniform("uViewProj", mView * mProj);
-
+	
 	return true;
 }
 

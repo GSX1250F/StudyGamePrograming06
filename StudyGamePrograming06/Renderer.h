@@ -53,10 +53,11 @@ private:
 	void SetLightUniforms(class Shader* shader);
 
 	std::unordered_map<std::string, class Texture*> mTextures;
-	std::unordered_map<std::string, class Mesh*> mMeshes; 
+	std::unordered_map<std::string, class Mesh*> mMeshes;
+	std::unordered_map<class Shader*, std::string> mShaders;	//シェーダーとシェーダー名の連想配列
 	std::vector<class SpriteComponent*> mSprites;	
 	std::vector<class MeshComponent*> mMeshComps;
-
+	
 	class Game* mGame;
 	SDL_Window* mWindow;
 	SDL_Renderer* mRenderer;
@@ -68,9 +69,8 @@ private:
 	class VertexInfo* mVertexInfo;
 	class Shader* mSpriteShader;
 	//class Shader* mMeshShader;
-	class Shader* mBasicShader;
-	class Shader* mPhongShader;
 	
+
 	Matrix4 mView;
 	Matrix4 mProj;
 

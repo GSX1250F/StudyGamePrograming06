@@ -136,26 +136,29 @@ void Game::GenerateOutput()
 void Game::LoadData()
 {
 	// カメラ
-	Actor* cameraActor = new CameraActor(this);
+	Actor* a = new CameraActor(this);
 	
 	// サイコロ
-	Actor* dice = new Dice(this);
+	a = new Dice(this);
+	a = new Dice2(this);
 
 	// 球
-	Actor* sphere = new Sphere(this);
+	a = new Sphere(this);
+	a = new Sphere2(this);
 
 	// レーシングカー
-	Actor* racingCar = new RacingCar(this);
+	a = new RacingCar(this);
+	a = new RacingCar2(this);
 
 	// 壁と床
-	Actor* planes = new Planes(this);
+	a = new Planes(this);
 
 	// スプライト描画のアクター類
-	Actor* spriteActors = new SpriteActors(this);
+	a = new SpriteActors(this);
 
 	// 光源
 	// 環境光	
-	mRenderer->SetAmbientLight(Vector3(0.1f, 0.1f, 0.1f));
+	mRenderer->SetAmbientLight(Vector3(0.4f, 0.4f, 0.4f));
 	// 平行光源
 	DirectionalLight& dir = mRenderer->GetDirectionalLight();
 	dir.mDirection = Vector3::Normalize(Vector3(1.0f, 1.0f, -1.0f));

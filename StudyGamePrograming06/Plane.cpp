@@ -6,5 +6,6 @@
 Plane::Plane(Game* game) : Actor(game)
 {
 	MeshComponent* mc = new MeshComponent(this);
-	mc->SetMesh(game->GetRenderer()->GetMesh("Assets/Plane.gpmesh"));
+	//mc->SetMesh(game->GetRenderer()->GetMesh("Assets/Plane.gpmesh"));
+	mc->SetMesh(game->GetRenderer()->GetMesh("Assets/Plane2.gpmesh"));
 }
