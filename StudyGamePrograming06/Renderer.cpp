@@ -295,6 +295,15 @@ bool Renderer::LoadShaders()
 	mMeshShader->SetActive();
 	mMeshShader->SetMatrixUniform("uViewProj", mView * mProj);
 	mShaders.emplace(mMeshShader, "BasicMesh");
+	//LambertShader
+	mMeshShader = new Shader();
+	if (!mMeshShader->Load("Shaders/LambertMesh.vert", "Shaders/LambertMesh.frag"))
+	{
+		return false;
+	}
+	mMeshShader->SetActive();
+	mMeshShader->SetMatrixUniform("uViewProj", mView * mProj);
+	mShaders.emplace(mMeshShader, "LambertMesh");
 	//PhongShader
 	mMeshShader = new Shader();
 	if (!mMeshShader->Load("Shaders/PhongMesh.vert", "Shaders/PhongMesh.frag"))
@@ -304,6 +313,7 @@ bool Renderer::LoadShaders()
 	mMeshShader->SetActive();
 	mMeshShader->SetMatrixUniform("uViewProj", mView * mProj);
 	mShaders.emplace(mMeshShader, "PhongMesh");
+
 	/*
 	mMeshShader = new Shader();
 	if (!mMeshShader->Load("Shaders/MeshShader.vert", "Shaders/MeshShader.frag"))

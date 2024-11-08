@@ -19,3 +19,13 @@ public:
 private:
 	class MoveComponent* mMoveComp;
 };
+
+class Sphere3 : public Actor
+{
+public:
+	Sphere3(class Game* game);
+	void UpdateActor(float deltaTime) override;
+
+private:
+	class MoveComponent* mMoveComp;
+};

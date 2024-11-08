@@ -20,3 +20,12 @@ private:
 	class MoveComponent* mMoveComp;
 };
 
+class Dice3 : public Actor
+{
+public:
+	Dice3(class Game* game);
+	void UpdateActor(float deltaTime) override;
+
+private:
+	class MoveComponent* mMoveComp;
+};

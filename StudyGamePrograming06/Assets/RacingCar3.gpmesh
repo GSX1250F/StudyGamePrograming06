@@ -1,7 +1,7 @@
 {
 	"version":1,
 	"vertexformat":"PosNormTex",
-	"shader":"LambertMesh",
+	"shader":"PhongMesh",
 	"textures":[
 		"Assets/RacingCar.png"
 	],
