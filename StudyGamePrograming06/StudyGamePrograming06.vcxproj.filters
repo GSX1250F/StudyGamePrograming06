@@ -43,6 +43,12 @@
     <None Include="Shaders\PhongMesh.vert">
       <Filter>シェーダーファイル</Filter>
     </None>
+    <None Include="Shaders\LambertMesh.frag">
+      <Filter>シェーダーファイル</Filter>
+    </None>
+    <None Include="Shaders\LambertMesh.vert">
+      <Filter>シェーダーファイル</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp">
