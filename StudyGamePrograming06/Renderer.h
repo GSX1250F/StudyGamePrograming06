@@ -41,8 +41,10 @@ public:
 
 	Vector3& GetAmbientLight() { return mAmbientLight; }
 	void SetAmbientLight(const Vector3& ambient) { mAmbientLight = ambient; }
-	DirectionalLight& GetDirectionalLight() { return mDirLight; }
-	void SetDirectionalLight(const DirectionalLight& dir) { mDirLight = dir; }
+	//DirectionalLight& GetDirectionalLight() { return mDirLight; }
+	std::vector<DirectionalLight> GetDirectionalLight() { return mDirLight; }
+	//void SetDirectionalLight(const DirectionalLight& dir) { mDirLight = dir; }
+	void SetDirectionalLight(const DirectionalLight& dir) { mDirLight.emplace_back(dir); }
 
 	float GetScreenWidth() const { return mScreenWidth; }
 	float GetScreenHeight() const { return mScreenHeight; }
@@ -76,5 +78,6 @@ private:
 
 	// ŠÂ‹«Œõ‚ÆŒõŒ¹
 	Vector3 mAmbientLight;
-	DirectionalLight mDirLight;
+	//DirectionalLight mDirLight;
+	std::vector<DirectionalLight> mDirLight;
 };
