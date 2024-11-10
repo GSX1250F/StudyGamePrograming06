@@ -161,7 +161,7 @@ void Game::LoadData()
 
 	// ŒõŒ¹
 	// ŠÂ‹«Œõ	
-	mRenderer->SetAmbientLight(Vector3(0.4f, 0.4f, 0.4f));
+	mRenderer->SetAmbientLight(Vector3(0.1f, 0.1f, 0.1f));
 	// •½sŒõŒ¹
 	DirectionalLight& dir = mRenderer->GetDirectionalLight();
 	dir.mDirection = Vector3::Normalize(Vector3(1.0f, 1.0f, -1.0f));
