@@ -14,6 +14,14 @@ struct DirectionalLight
 	Vector3 mSpecColor;		// 鏡面反射色
 };
 
+struct PointLight
+{
+	float mAttenuation;		// 距離減衰係数
+	Vector3 mPosition;		// 点光源の位置
+	Vector3 mDiffuseColor;	// 拡散反射色
+	Vector3 mSpecColor;		// 鏡面反射色
+};
+
 class Renderer
 {
 public:
@@ -45,6 +53,9 @@ public:
 	std::vector<DirectionalLight> GetDirectionalLight() { return mDirLights; }
 	//void SetDirectionalLight(const DirectionalLight& dir) { mDirLight = dir; }
 	void SetDirectionalLight(const DirectionalLight& dir) { mDirLights.emplace_back(dir); }
+	std::vector<PointLight> GetPointLight() { return mPointLights; }
+	void SetPointLight(const PointLight& pt) { mPointLights.emplace_back(pt); }
+
 
 	float GetScreenWidth() const { return mScreenWidth; }
 	float GetScreenHeight() const { return mScreenHeight; }
@@ -80,4 +91,5 @@ private:
 	Vector3 mAmbientLight;
 	//DirectionalLight mDirLight;
 	std::vector<DirectionalLight> mDirLights;
+	std::vector<PointLight> mPointLights;
 };

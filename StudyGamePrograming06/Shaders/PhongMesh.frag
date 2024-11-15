@@ -7,16 +7,27 @@ struct DirectionalLight
 	vec3 mSpecColor;
 };
 
+struct PointLight
+{
+	float mAttenuation;
+	vec3 mPosition;
+	vec3 mDiffuseColor;
+	vec3 mSpecColor;
+};
+
 in vec3 fragWorldPos;
 in vec3 fragNormal;
 in vec2 fragTexCoord;
 
 const int uDirLightNum = 2;
+const int uPointLightNum = 1;
+uniform mat4 uWorldTransform;
 uniform sampler2D uTexture;
 uniform vec3 uAmbientLight;
 uniform DirectionalLight uDirLight[uDirLightNum];
 uniform vec3 uCameraPos;
 uniform float uSpecPower;
+uniform PointLight uPointLight[uPointLightNum];
 
 out vec4 outColor;
 
@@ -39,5 +50,25 @@ void main()
 		Specular = uDirLight[i].mSpecColor * pow(max(0.0, dot(R, V)), uSpecPower);
 		lightColor += Diffuse + Specular;
 	}
+	
+	vec4 pos;
+	vec3 pPos;
+	vec3 pDir;
+	float pLen;
+	float pAtt;
+	for (int i = 0; i < uPointLightNum; i++)
+	{
+		pos = vec4(uPointLight[i].mPosition, 1.0) * uWorldTransform;
+		pPos = pos.xyz;
+		pDir = pPos - fragWorldPos;
+		pLen = length(pDir);
+		pAtt = 1.0 / (uPointLight[i].mAttenuation * pLen * pLen);
+		L = normalize(pDir);
+		R = normalize(reflect(-L, N));
+		Diffuse = uPointLight[i].mDiffuseColor * max(0.0, dot(N, L));
+		Specular = uPointLight[i].mSpecColor * pow(max(0.0, dot(R, V)), uSpecPower);
+		lightColor += (Diffuse + Specular);
+	}
+
 	outColor = texture(uTexture, fragTexCoord) * vec4(lightColor, 1.0);	
 }

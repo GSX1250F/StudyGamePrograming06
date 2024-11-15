@@ -160,6 +160,7 @@ void Game::LoadData()
 	a = new SpriteActors(this);
 
 	// ŒõŒ¹
+	/*
 	// ŠÂ‹«Œõ	
 	mRenderer->SetAmbientLight(Vector3(0.1f, 0.1f, 0.1f));
 	// •½sŒõŒ¹
@@ -172,6 +173,16 @@ void Game::LoadData()
 	dir.mDiffuseColor = Vector3(0.0f, 0.7f, 0.0f);
 	dir.mSpecColor = Vector3(0.0f, 0.7f, 0.0f);
 	mRenderer->SetDirectionalLight(dir);
+	*/
+	// “_ŒõŒ¹
+	PointLight pt;
+	pt.mAttenuation = 0.5f;
+	pt.mPosition = Vector3(0.0f, 0.0f, -100.0f);
+	pt.mDiffuseColor = Vector3(1.0f, 1.0f, 1.0f);
+	pt.mSpecColor = Vector3(1.0f, 1.0f, 1.0f);
+	mRenderer->SetPointLight(pt);
+
+
 }
 
 void Game::UnloadData()
