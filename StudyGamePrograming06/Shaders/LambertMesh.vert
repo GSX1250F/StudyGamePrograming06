@@ -15,7 +15,7 @@ void main()
 	vec4 pos = vec4(inPosition, 1.0);
 	pos = pos * uWorldTransform;
 	gl_Position = pos * uViewProj;
-
+	
 	vec4 norm = vec4(inNormal, 0.0);
 	norm = norm * uWorldTransform;
 	fragNormal =  norm.xyz;

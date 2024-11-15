@@ -340,14 +340,14 @@ void Renderer::SetLightUniforms(Shader* shader)
 	shader->SetVectorUniform("uDirLight.mDiffuseColor", mDirLight.mDiffuseColor);
 	shader->SetVectorUniform("uDirLight.mSpecColor", mDirLight.mSpecColor);
 	*/
-	for (int i = 0; i < mDirLight.size(); i++)
+	for (int i = 0; i < mDirLights.size(); i++)
 	{
 		std::string str;
 		str = "uDirLight[" + std::to_string(i) + "].mDirection";
-		shader->SetVectorUniform(str.c_str(), mDirLight[i].mDirection);
+		shader->SetVectorUniform(str.c_str(), mDirLights[i].mDirection);
 		str = "uDirLight[" + std::to_string(i) + "].mDiffuseColor";
-		shader->SetVectorUniform(str.c_str(), mDirLight[i].mDiffuseColor);
+		shader->SetVectorUniform(str.c_str(), mDirLights[i].mDiffuseColor);
 		str = "uDirLight[" + std::to_string(i) + "].mSpecColor";
-		shader->SetVectorUniform(str.c_str(), mDirLight[i].mSpecColor);
+		shader->SetVectorUniform(str.c_str(), mDirLights[i].mSpecColor);
 	}	
 }
