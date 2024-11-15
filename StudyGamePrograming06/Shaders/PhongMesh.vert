@@ -10,6 +10,7 @@ uniform mat4 uViewProj;
 out vec3 fragWorldPos;
 out vec3 fragNormal;
 out vec2 fragTexCoord;
+out mat4 fragWorldTransform;
 
 void main()
 {

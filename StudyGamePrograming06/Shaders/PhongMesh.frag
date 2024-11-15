@@ -18,10 +18,10 @@ struct PointLight
 in vec3 fragWorldPos;
 in vec3 fragNormal;
 in vec2 fragTexCoord;
+in mat4 fragWorldTransform;
 
 const int uDirLightNum = 2;
 const int uPointLightNum = 1;
-uniform mat4 uWorldTransform;
 uniform sampler2D uTexture;
 uniform vec3 uAmbientLight;
 uniform DirectionalLight uDirLight[uDirLightNum];
@@ -58,7 +58,7 @@ void main()
 	float pAtt;
 	for (int i = 0; i < uPointLightNum; i++)
 	{
-		pos = vec4(uPointLight[i].mPosition, 1.0) * uWorldTransform;
+		pos = vec4(uPointLight[i].mPosition, 1.0) * fragWorldTransform;
 		pPos = pos.xyz;
 		pDir = pPos - fragWorldPos;
 		pLen = length(pDir);
@@ -67,7 +67,7 @@ void main()
 		R = normalize(reflect(-L, N));
 		Diffuse = uPointLight[i].mDiffuseColor * max(0.0, dot(N, L));
 		Specular = uPointLight[i].mSpecColor * pow(max(0.0, dot(R, V)), uSpecPower);
-		lightColor += (Diffuse + Specular);
+		lightColor += pAtt * (Diffuse + Specular);
 	}
 
 	outColor = texture(uTexture, fragTexCoord) * vec4(lightColor, 1.0);	
