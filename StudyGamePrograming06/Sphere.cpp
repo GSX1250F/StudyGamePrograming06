@@ -6,7 +6,7 @@
 
 Sphere::Sphere(Game* game) :Actor(game)
 {
-	SetPosition(Vector3(-500.0f, 200.0f, 0.0f));
+	SetPosition(Vector3(-250.0f, -500.0f, 0.0f));
 	Quaternion q(Vector3::UnitX, Math::ToRadians(-23.5f));
 	SetRotation(q);
 	SetScale(5.0f);
@@ -27,7 +27,7 @@ void Sphere::UpdateActor(float deltaTime)
 
 Sphere2::Sphere2(Game* game) :Actor(game)
 {
-	SetPosition(Vector3(-500.0f, 0.0f, 0.0f));
+	SetPosition(Vector3(0.0f, -500.0f, 0.0f));
 	Quaternion q(Vector3::UnitX, Math::ToRadians(-23.5f));
 	SetRotation(q);
 	SetScale(5.0f);
@@ -48,7 +48,7 @@ void Sphere2::UpdateActor(float deltaTime)
 
 Sphere3::Sphere3(Game* game) :Actor(game)
 {
-	SetPosition(Vector3(-500.0f, -200.0f, 0.0f));
+	SetPosition(Vector3(250.0f, -500.0f, 0.0f));
 	Quaternion q(Vector3::UnitX, Math::ToRadians(-23.5f));
 	SetRotation(q);
 	SetScale(5.0f);

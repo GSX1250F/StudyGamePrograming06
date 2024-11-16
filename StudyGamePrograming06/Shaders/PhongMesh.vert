@@ -24,4 +24,5 @@ void main()
 	fragNormal =  norm.xyz;
 
 	fragTexCoord = inTexCoord;
+	fragWorldTransform = uWorldTransform;
 }

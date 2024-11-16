@@ -21,7 +21,7 @@ in vec2 fragTexCoord;
 in mat4 fragWorldTransform;
 
 const int uDirLightNum = 2;
-const int uPointLightNum = 1;
+const int uPointLightNum = 4;
 uniform sampler2D uTexture;
 uniform vec3 uAmbientLight;
 uniform DirectionalLight uDirLight[uDirLightNum];
@@ -43,12 +43,15 @@ void main()
 		
 	for (int i = 0; i < uDirLightNum; i++)
 	{
-		L = normalize(-uDirLight[i].mDirection);
-		R = normalize(reflect(-L, N));
+		if (length(uDirLight[i].mDirection) > 0)
+		{
+			L = normalize(-uDirLight[i].mDirection);
+			R = normalize(reflect(-L, N));
 
-		Diffuse = uDirLight[i].mDiffuseColor * max(0.0, dot(N, L));
-		Specular = uDirLight[i].mSpecColor * pow(max(0.0, dot(R, V)), uSpecPower);
-		lightColor += Diffuse + Specular;
+			Diffuse = uDirLight[i].mDiffuseColor * max(0.0, dot(N, L));
+			Specular = uDirLight[i].mSpecColor * pow(max(0.0, dot(R, V)), uSpecPower);
+			lightColor += Diffuse + Specular;
+		}
 	}
 	
 	vec4 pos;
@@ -58,16 +61,19 @@ void main()
 	float pAtt;
 	for (int i = 0; i < uPointLightNum; i++)
 	{
-		pos = vec4(uPointLight[i].mPosition, 1.0) * fragWorldTransform;
-		pPos = pos.xyz;
-		pDir = pPos - fragWorldPos;
-		pLen = length(pDir);
-		pAtt = 1.0 / (uPointLight[i].mAttenuation * pLen * pLen);
-		L = normalize(pDir);
-		R = normalize(reflect(-L, N));
-		Diffuse = uPointLight[i].mDiffuseColor * max(0.0, dot(N, L));
-		Specular = uPointLight[i].mSpecColor * pow(max(0.0, dot(R, V)), uSpecPower);
-		lightColor += pAtt * (Diffuse + Specular);
+		if (uPointLight[i].mAttenuation > 0)
+		{
+			pos = vec4(uPointLight[i].mPosition, 1.0);
+			pPos = pos.xyz;
+			pDir = pPos - fragWorldPos;
+			pLen = length(pDir) * 0.001;
+			pAtt = 1.0 / (uPointLight[i].mAttenuation * pLen * pLen);
+			L = normalize(pDir);
+			R = normalize(reflect(-L, N));
+			Diffuse = uPointLight[i].mDiffuseColor * max(0.0, dot(N, L));
+			Specular = uPointLight[i].mSpecColor * pow(max(0.0, dot(R, V)), uSpecPower);
+			lightColor += pAtt * (Diffuse + Specular);
+		}		
 	}
 
 	outColor = texture(uTexture, fragTexCoord) * vec4(lightColor, 1.0);	
