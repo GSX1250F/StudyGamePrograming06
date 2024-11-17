@@ -343,23 +343,23 @@ void Renderer::SetLightUniforms(Shader* shader)
 	for (int i = 0; i < mDirLights.size(); i++)
 	{
 		std::string str;
-		str = "uDirLight[" + std::to_string(i) + "].mDirection";
+		str = "uDirLights[" + std::to_string(i) + "].mDirection";
 		shader->SetVectorUniform(str.c_str(), mDirLights[i].mDirection);
-		str = "uDirLight[" + std::to_string(i) + "].mDiffuseColor";
+		str = "uDirLights[" + std::to_string(i) + "].mDiffuseColor";
 		shader->SetVectorUniform(str.c_str(), mDirLights[i].mDiffuseColor);
-		str = "uDirLight[" + std::to_string(i) + "].mSpecColor";
+		str = "uDirLights[" + std::to_string(i) + "].mSpecColor";
 		shader->SetVectorUniform(str.c_str(), mDirLights[i].mSpecColor);
 	}
 	for (int i = 0; i < mPointLights.size(); i++)
 	{
 		std::string str;
-		str = "uPointLight[" + std::to_string(i) + "].mAttenuation";
+		str = "uPointLights[" + std::to_string(i) + "].mAttenuation";
 		shader->SetFloatUniform(str.c_str(), mPointLights[i].mAttenuation);
-		str = "uPointLight[" + std::to_string(i) + "].mPosition";
+		str = "uPointLights[" + std::to_string(i) + "].mPosition";
 		shader->SetVectorUniform(str.c_str(), mPointLights[i].mPosition);
-		str = "uPointLight[" + std::to_string(i) + "].mDiffuseColor";
+		str = "uPointLights[" + std::to_string(i) + "].mDiffuseColor";
 		shader->SetVectorUniform(str.c_str(), mPointLights[i].mDiffuseColor);
-		str = "uPointLight[" + std::to_string(i) + "].mSpecColor";
+		str = "uPointLights[" + std::to_string(i) + "].mSpecColor";
 		shader->SetVectorUniform(str.c_str(), mPointLights[i].mSpecColor);
 	}
 }
