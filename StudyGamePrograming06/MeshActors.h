@@ -1,29 +1,40 @@
 #pragma once
-#include "Actor.h"
+class MeshActors
+{
+public:
+	MeshActors(class Game* game);
+};
+
 class Dice : public Actor
 {
 public:
-	Dice(class Game* game);
+	Dice(class Game* game, std::string meshfile);
 	void UpdateActor(float deltaTime) override;
 
 private:
 	class MoveComponent* mMoveComp;
 };
 
-class Dice2 : public Actor
+class Plane : public Actor
 {
 public:
-	Dice2(class Game* game);
+	Plane(class Game* game);
+};
+
+class RacingCar : public Actor
+{
+public:
+	RacingCar(class Game* game);
 	void UpdateActor(float deltaTime) override;
 
 private:
 	class MoveComponent* mMoveComp;
 };
 
-class Dice3 : public Actor
+class Sphere : public Actor
 {
 public:
-	Dice3(class Game* game);
+	Sphere(class Game* game);
 	void UpdateActor(float deltaTime) override;
 
 private:
