@@ -169,12 +169,8 @@ xcopy "..\..\external\GLEW\lib\$(PlatformTarget)\*.dll" "$(OutDir)" /i/s/y
     <ClCompile Include="MeshActors.cpp" />
     <ClCompile Include="MeshComponent.cpp" />
     <ClCompile Include="MoveComponent.cpp" />
-    <ClCompile Include="Plane.cpp" />
-    <ClCompile Include="Planes.cpp" />
-    <ClCompile Include="RacingCar.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="SpriteActors.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -190,12 +186,8 @@ xcopy "..\..\external\GLEW\lib\$(PlatformTarget)\*.dll" "$(OutDir)" /i/s/y
     <ClInclude Include="MeshActors.h" />
     <ClInclude Include="MeshComponent.h" />
     <ClInclude Include="MoveComponent.h" />
-    <ClInclude Include="Plane.h" />
-    <ClInclude Include="Planes.h" />
-    <ClInclude Include="RacingCar.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Shader.h" />
-    <ClInclude Include="Sphere.h" />
     <ClInclude Include="SpriteActors.h" />
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="Texture.h" />

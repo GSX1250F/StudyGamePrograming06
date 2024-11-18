@@ -7,10 +7,7 @@
 #include "Renderer.h"
 #include "Actor.h"
 #include "CameraActor.h"
-#include "Dice.h"
-#include "Sphere.h"
-#include "RacingCar.h"
-#include "Planes.h"
+#include "MeshActors.h"
 #include "SpriteActors.h"
 
 
@@ -139,52 +136,54 @@ void Game::LoadData()
 	Actor* a = new CameraActor(this);
 	
 	// メッシュアクター
-	
+	a = new MeshActors(this);
 	// スプライト描画のアクター類
 	a = new SpriteActors(this);
 
 	// 光源
-	/*
-	// 環境光	
-	mRenderer->SetAmbientLight(Vector3(0.1f, 0.1f, 0.1f));
+	Vector3 color;
+	// 環境光
+	//color = Vector3(0.7f, 0.7f, 0.7f);
+	//mRenderer->SetAmbientLight(color);
 	// 平行光源
+	/*
 	DirectionalLight dir;
 	dir.mDirection = Vector3::Normalize(Vector3(1.0f, 1.0f, -1.0f));
-	Vector3 dirC = Vector3(0.7f, 0.0f, 0.0f);
-	dir.mDiffuseColor = dirC;
-	dir.mSpecColor = dirC;
+	color = Vector3(0.7f, 0.0f, 0.0f);
+	dir.mDiffuseColor = color;
+	dir.mSpecColor = color;
 	mRenderer->SetDirectionalLight(dir);
 	dir.mDirection = Vector3::Normalize(Vector3(-1.0f, -1.0f, -1.0f));
-	dirC = Vector3(0.0f, 0.7f, 0.0f)
-	dir.mDiffuseColor = dirC;
-	dir.mSpecColor = dirC;
+	color = Vector3(0.0f, 0.7f, 0.0f);
+	dir.mDiffuseColor = color;
+	dir.mSpecColor = color;
 	mRenderer->SetDirectionalLight(dir);
 	*/
 	// 点光源
 	PointLight pt;
 	pt.mAttenuation = 0.9f;
 	pt.mPosition = Vector3(1250.0f, 1250.0f, 500.0f);
-	Vector3 pC = Vector3(1.0f, 1.0f, 0.0f);
-	pt.mDiffuseColor = pC;
-	pt.mSpecColor = pC;
+	color = Vector3(1.0f, 1.0f, 0.0f);
+	pt.mDiffuseColor = color;
+	pt.mSpecColor = color;
 	mRenderer->SetPointLight(pt);
 	pt.mAttenuation = 0.9f;
 	pt.mPosition = Vector3(1250.0f, -1250.0f, 500.0f);
-	pC = Vector3(1.0f, 0.0f, 0.0f);
-	pt.mDiffuseColor = pC;
-	pt.mSpecColor = pC;
+	color = Vector3(1.0f, 0.0f, 0.0f);
+	pt.mDiffuseColor = color;
+	pt.mSpecColor = color;
 	mRenderer->SetPointLight(pt);
 	pt.mAttenuation = 0.9f;
 	pt.mPosition = Vector3(-1250.0f, 1250.0f, 500.0f);
-	pC = Vector3(0.0f, 1.0f, 0.0f);
-	pt.mDiffuseColor = pC;
-	pt.mSpecColor = pC;
+	color = Vector3(0.0f, 1.0f, 0.0f);
+	pt.mDiffuseColor = color;
+	pt.mSpecColor = color;
 	mRenderer->SetPointLight(pt);
 	pt.mAttenuation = 0.9f;
 	pt.mPosition = Vector3(-1250.0f, -1250.0f, 500.0f);
-	pC = Vector3(0.0f, 0.0f, 1.0f);
-	pt.mDiffuseColor = pC;
-	pt.mSpecColor = pC;
+	color = Vector3(0.0f, 0.0f, 1.0f);
+	pt.mDiffuseColor = color;
+	pt.mSpecColor = color;
 	mRenderer->SetPointLight(pt);
 }
 

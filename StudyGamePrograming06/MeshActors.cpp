@@ -5,51 +5,102 @@
 #include "Renderer.h"
 #include "Actor.h"
 
-MeshActors::MeshActors(Game* game)
+MeshActors::MeshActors(Game* game) :Actor(game)
 {
 	Actor* a;
 	std::string meshfile;
 	// サイコロ
-	meshfile = "Assets/Dice.gpmesh";
-	a = new Dice(game, meshfile);		// BasicMesh
-	a->SetPosition(Vector3(500.0f, -200.0f, 0.0f));
-	a->SetScale(100.0f);
-	MeshComponent* mc = new MeshComponent(a);
-	mc->SetMesh(game->GetRenderer()->GetMesh("Assets/Dice.gpmesh"));
-	MoveComponent* m = new MoveComponent(a);
+	meshfile = "Assets/Dice.gpmesh";		// BasicMesh	
+	a = new Dice(game, meshfile);
+	a->SetPosition(Vector3(700.0f, -500.0f, 0.0f));
+	
+	meshfile = "Assets/Dice2.gpmesh";		// LambertMesh
+	a = new Dice(game, meshfile);
+	a->SetPosition(Vector3(700.0f, 0.0f, 0.0f));
 
-	a = new Dice2(game);		// LambertMesh
-
-	a = new Dice3(game);		// PhongMesh
+	meshfile = "Assets/Dice3.gpmesh";		// PhongMesh
+	a = new Dice(game, meshfile);
+	a->SetPosition(Vector3(700.0f, 500.0f, 0.0f));
 
 	// 球
-	a = new Sphere(this);		// BasicMesh
-	a = new Sphere2(this);		// LambertMesh
-	a = new Sphere3(this);		// PhongMesh
+	meshfile = "Assets/Sphere.gpmesh";		// BasicMesh	
+	a = new Sphere(game, meshfile);
+	a->SetPosition(Vector3(-500.0f, -700.0f, 0.0f));
+
+	meshfile = "Assets/Sphere2.gpmesh";		// LambertMesh
+	a = new Sphere(game, meshfile);
+	a->SetPosition(Vector3(0.0f, -700.0f, 0.0f));
+
+	meshfile = "Assets/Sphere3.gpmesh";		// PhongMesh
+	a = new Sphere(game, meshfile);
+	a->SetPosition(Vector3(500.0f, -700.0f, 0.0f));
 
 	// レーシングカー
-	a = new RacingCar(this);		// BasicMesh
-	a = new RacingCar2(this);		// LambertMesh
-	a = new RacingCar3(this);		// PhongMesh
+	meshfile = "Assets/RacingCar.gpmesh";		// BasicMesh	
+	a = new RacingCar(game, meshfile);
+	a->SetPosition(Vector3(500.0f, 700.0f, -100.0f));
+
+	meshfile = "Assets/RacingCar2.gpmesh";		// LambertMesh
+	a = new RacingCar(game, meshfile);
+	a->SetPosition(Vector3(0.0f, 700.0f, -100.0f));
+
+	meshfile = "Assets/RacingCar3.gpmesh";		// PhongMesh
+	a = new RacingCar(game, meshfile);
+	a->SetPosition(Vector3(-500.0f, 700.0f, -100.0f));
 
 	// 壁と床
-	a = new Plane(this);		// PhongMesh
+	meshfile = "Assets/Plane3.gpmesh";		// PhongMesh
+	const float start = -1250.0f;
+	const float size = 250.0f;
+	// 10個ずつ縦横に並べる
+	for (int i = 0; i < 10; i++)
+	{
+		for (int j = 0; j < 10; j++)
+		{
+			a = new Plane(game, meshfile);
+			a->SetPosition(Vector3(start + i * size, start + j * size, -100.0f));
+		}
+	}
 
+	// 左右壁を作成
+	Quaternion q = Quaternion(Vector3::UnitX, -0.5f * Math::Pi);
+	for (int i = 0; i < 10; i++)
+	{
+		a = new Plane(game, meshfile);
+		a->SetPosition(Vector3(start + i * size, start - size, 0.0f));
+		a->SetRotation(q);
+	}
+	q = Quaternion(Vector3::UnitX, 0.5f * Math::Pi);
+	for (int i = 0; i < 10; i++)
+	{
+		a = new Plane(game, meshfile);
+		a->SetPosition(Vector3(start + i * size, -start + size, 0.0f));
+		a->SetRotation(q);
+	}
+
+	// 前後壁を作成
+	q = Quaternion::Concatenate(q, Quaternion(Vector3::UnitZ, 0.5f * Math::Pi));
+	for (int i = 0; i < 10; i++)
+	{
+		a = new Plane(game, meshfile);
+		a->SetPosition(Vector3(start - size, start + i * size, 0.0f));
+		a->SetRotation(q);
+	}
+	q = Quaternion::Concatenate(q, Quaternion(Vector3::UnitZ, Math::Pi));
+	for (int i = 0; i < 10; i++)
+	{
+		a = new Plane(game, meshfile);
+		a->SetPosition(Vector3(-start + size, start + i * size, 0.0f));
+		a->SetRotation(q);
+	}
 }
 
-Dice::Dice(Game* game) :Actor(game)
+Dice::Dice(Game* game, std::string meshfile) :Actor(game)
 {
-	SetPosition(Vector3(500.0f, -200.0f, 0.0f));
 	SetScale(100.0f);
 	MeshComponent* mc = new MeshComponent(this);
-	mc->SetMesh(game->GetRenderer()->GetMesh("Assets/Dice.gpmesh"));
+	mc->SetMesh(game->GetRenderer()->GetMesh(meshfile));
 	mMoveComp = new MoveComponent(this);
-}
-
-
-
-Dice::Dice(Game* game, std::string meshfile) : Actor(game)
-{
 }
 
 void Dice::UpdateActor(float deltaTime)
@@ -62,40 +113,52 @@ void Dice::UpdateActor(float deltaTime)
 	mMoveComp->SetRotSpeed(rotSpeed * axis);
 }
 
-Dice2::Dice2(Game* game) :Actor(game)
+Sphere::Sphere(Game* game, std::string meshfile) :Actor(game)
 {
-	SetPosition(Vector3(500.0f, 0.0f, 0.0f));
-	SetScale(100.0f);
+	Quaternion q(Vector3::UnitX, Math::ToRadians(-23.5f));
+	SetRotation(q);
+	SetScale(5.0f);
 	MeshComponent* mc = new MeshComponent(this);
-	mc->SetMesh(game->GetRenderer()->GetMesh("Assets/Dice2.gpmesh"));
+	mc->SetMesh(game->GetRenderer()->GetMesh(meshfile));
 	mMoveComp = new MoveComponent(this);
 }
 
-void Dice2::UpdateActor(float deltaTime)
+void Sphere::UpdateActor(float deltaTime)
 {
 	Actor::UpdateActor(deltaTime);
 
-	Vector3 axis = Vector3::Normalize(Vector3(1.0f, -1.0f, 1.0f));
-	float rotSpeedMax = 30.0f * Math::Pi;
+	Vector3 axis = Vector3(0.0f, Math::Cos(Math::ToRadians(66.5f)), Math::Sin(Math::ToRadians(66.5f)));
+	float rotSpeedMax = 5.0f * Math::Pi;
 	float rotSpeed = rotSpeedMax * deltaTime;
 	mMoveComp->SetRotSpeed(rotSpeed * axis);
 }
 
-Dice3::Dice3(Game* game) :Actor(game)
+RacingCar::RacingCar(Game* game, std::string meshfile) :Actor(game)
 {
-	SetPosition(Vector3(500.0f, 200.0f, 0.0f));
-	SetScale(100.0f);
+	SetScale(1.0f);
 	MeshComponent* mc = new MeshComponent(this);
-	mc->SetMesh(game->GetRenderer()->GetMesh("Assets/Dice3.gpmesh"));
+	mc->SetMesh(game->GetRenderer()->GetMesh(meshfile));
 	mMoveComp = new MoveComponent(this);
 }
 
-void Dice3::UpdateActor(float deltaTime)
+void RacingCar::UpdateActor(float deltaTime)
 {
-	Actor::UpdateActor(deltaTime);
+	float w = Math::Pi * 0.25f;
+	/*
+	float r = Math::Sqrt(GetPosition().x * GetPosition().x + GetPosition().y * GetPosition().y);
+	float x = GetPosition().x * Math::Cos(w * deltaTime) - GetPosition().y * Math::Sin(w * deltaTime);
+	float y = GetPosition().y * Math::Cos(w * deltaTime) + GetPosition().x * Math::Sin(w * deltaTime);
+	SetPosition(Vector3(x, y, -100.0f));
+	*/
+	Quaternion q = GetRotation();
+	Quaternion inc = Quaternion(Vector3::UnitZ, w * deltaTime);
+	q = Quaternion::Concatenate(inc, q);
+	SetRotation(q);
+}
 
-	Vector3 axis = Vector3::Normalize(Vector3(1.0f, -1.0f, 1.0f));
-	float rotSpeedMax = 30.0f * Math::Pi;
-	float rotSpeed = rotSpeedMax * deltaTime;
-	mMoveComp->SetRotSpeed(rotSpeed * axis);
+Plane::Plane(Game* game, std::string meshfile) : Actor(game)
+{
+	SetScale(10.0f);
+	MeshComponent* mc = new MeshComponent(this);
+	mc->SetMesh(game->GetRenderer()->GetMesh(meshfile));
 }
