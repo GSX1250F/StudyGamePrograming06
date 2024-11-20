@@ -16,7 +16,7 @@ struct DirectionalLight
 
 struct PointLight
 {
-	float mAttenuation;		// ‹——£Œ¸ŠŒW”
+	float mAttenuation;		// Œ¸ŠŒW”
 	Vector3 mPosition;		// “_ŒõŒ¹‚ÌˆÊ’u
 	Vector3 mDiffuseColor;	// ŠgU”½ËF
 	Vector3 mSpecColor;		// ‹¾–Ê”½ËF
@@ -81,8 +81,7 @@ private:
 
 	class VertexInfo* mVertexInfo;
 	class Shader* mSpriteShader;
-	//class Shader* mMeshShader;
-	
+	//class Shader* mMeshShader;	
 
 	Matrix4 mView;
 	Matrix4 mProj;
