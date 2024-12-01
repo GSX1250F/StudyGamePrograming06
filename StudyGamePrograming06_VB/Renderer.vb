@@ -318,22 +318,22 @@ Public Class Renderer
         'shader.SetVectorUniform("uDirLight.mSpecColor", mDirLight.mSpecColor)
         Dim str As String
         For i As Integer = 0 To mDirLights.Count() - 1
-            Str = "uDirLights[" + ToString(i) + "].mDirection"
+            str = "uDirLights[" + i.ToString + "].mDirection"
             shader.SetVectorUniform(str, mDirLights(i).mDirection)
-            str = "uDirLights[" + ToString(i) + "].mDiffuseColor"
+            str = "uDirLights[" + i.ToString + "].mDiffuseColor"
             shader.SetVectorUniform(str, mDirLights(i).mDiffuseColor)
-            str = "uDirLights[" + ToString(i) + "].mSpecColor"
+            str = "uDirLights[" + i.ToString + "].mSpecColor"
             shader.SetVectorUniform(str, mDirLights(i).mSpecColor)
         Next
         '点光源
-        For i As Integer = 0 To mPointLights.Count()
-            str = "uPointLights[" + ToString(i) + "].mAttenuation"
+        For i As Integer = 0 To mPointLights.Count() - 1
+            str = "uPointLights[" + i.ToString + "].mAttenuation"
             shader.SetFloatUniform(str, mPointLights(i).mAttenuation)
-            str = "uPointLights[" + ToString(i) + "].mPosition"
+            str = "uPointLights[" + i.ToString + "].mPosition"
             shader.SetVectorUniform(str, mPointLights(i).mPosition)
-            str = "uPointLights[" + ToString(i) + "].mDiffuseColor"
+            str = "uPointLights[" + i.ToString + "].mDiffuseColor"
             shader.SetVectorUniform(str, mPointLights(i).mDiffuseColor)
-            str = "uPointLights[" + ToString(i) + "].mSpecColor"
+            str = "uPointLights[" + i.ToString + "].mSpecColor"
             shader.SetVectorUniform(str, mPointLights(i).mSpecColor)
         Next
     End Sub

@@ -154,14 +154,22 @@ Public Class Game
         Dim spriteActors As Actor = New SpriteActors(Me)
 
         '光源
+        Dim color As Vector3
         '環境光
-        mRenderer.SetAmbientLight(New Vector3(0.5, 0.5, 0.5))
+        'color = New Vector3(0.7, 0.7, 0.7)
+        'mRenderer.SetAmbientLight(color)
         ''平行光源
-        'Dim dir As DirectionalLight = mRenderer.GetDirectionalLight
-        'dir.mDirection = Vector3.Normalize(New Vector3(1.0, -1.0, -1.0))
-        'dir.mDiffuseColor = New Vector3(1.0, 1.0, 1.0)
-        'dir.mSpecColor = New Vector3(1.0, 1.0, 1.0)
-        'mRenderer.SetDirectionalLight(dir)
+        Dim dir As DirectionalLight
+        dir.mDirection = Vector3.Normalize(New Vector3(1.0, 1.0, -1.0))
+        color = New Vector3(0.7, 0.0, 0.0)
+        dir.mDiffuseColor = color
+        dir.mSpecColor = color
+        mRenderer.SetDirectionalLight(dir)
+        dir.mDirection = Vector3.Normalize(New Vector3(-1.0, -1.0, -1.0))
+        color = New Vector3(0.0, 0.7, 0.0)
+        dir.mDiffuseColor = color
+        dir.mSpecColor = color
+        mRenderer.SetDirectionalLight(dir)
     End Sub
 
     Private Sub UnloadData()
