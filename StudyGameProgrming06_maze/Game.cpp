@@ -139,7 +139,7 @@ void Game::LoadData()
 
 	// ŒõŒ¹
 	// ŠÂ‹«Œõ	
-	mRenderer->SetAmbientLight(Vector3(0.7f, 0.7f, 0.7f));
+	mRenderer->SetAmbientLight(Vector3(0.2f, 0.2f, 0.2f));
 }
 
 void Game::UnloadData()
