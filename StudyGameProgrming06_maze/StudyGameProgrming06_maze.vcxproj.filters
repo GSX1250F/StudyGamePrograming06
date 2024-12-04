@@ -133,10 +133,29 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Shaders\BasicMesh.frag">
+      <Filter>シェーダーファイル</Filter>
+    </None>
+    <None Include="Shaders\BasicMesh.vert">
+      <Filter>シェーダーファイル</Filter>
+    </None>
+    <None Include="Shaders\LambertMesh.frag">
+      <Filter>シェーダーファイル</Filter>
+    </None>
+    <None Include="Shaders\LambertMesh.vert">
+      <Filter>シェーダーファイル</Filter>
+    </None>
     <None Include="Shaders\MeshShader.frag">
       <Filter>シェーダーファイル</Filter>
     </None>
     <None Include="Shaders\MeshShader.vert">
+      <Filter>シェーダーファイル</Filter>
+    </None>
+    <None Include="Shaders\PhongMesh.frag">
+      <Filter>シェーダーファイル</Filter>
+    </None>
+    <None Include="Shaders\PhongMesh.vert">
       <Filter>シェーダーファイル</Filter>
     </None>
     <None Include="Shaders\SpriteShader.frag">
@@ -145,6 +164,5 @@
     <None Include="Shaders\SpriteShader.vert">
       <Filter>シェーダーファイル</Filter>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
 </Project>
