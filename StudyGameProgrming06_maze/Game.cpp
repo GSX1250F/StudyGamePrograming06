@@ -6,10 +6,8 @@
 #include "Renderer.h"
 #include "Random.h"
 #include "Maze.h"
-#include "Brave.h"
-#include "ClearPict.h"
-#include "Tile.h"
-#include "Treasure.h"
+#include "MeshActors.h"
+#include "SpriteActors.h"
 #include <thread>
 #include <chrono>
 

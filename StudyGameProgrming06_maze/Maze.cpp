@@ -1,14 +1,11 @@
 #include "Maze.h"
 #include "MazeCreator.h"
 #include "Game.h"
-#include "Brave.h"
-#include "Treasure.h"
-#include "ClearPict.h"
-#include "Tile.h"
-#include "Plane.h"
 #include "CircleComponent.h"
 #include "SpriteComponent.h"
 #include "MeshComponent.h"
+#include "MeshActors.h"
+#include "SpriteActors.h"
 #include <queue>
 #include <unordered_map>
 #include <algorithm>
@@ -44,6 +41,7 @@ Maze::Maze(Game* game, int mapWidth, int mapHeight)
 	//mTileSize = mTiles[0][0]->GetTexSize();
 	mTileSize = 150.0f;
 
+	//メッシュアクター
 	mBrave = new Brave(game);			//プレイヤー
 	mTreasure = new Treasure(game);		//ゴール
 	mClearPict = new ClearPict(game);	//ゲームクリア画像
