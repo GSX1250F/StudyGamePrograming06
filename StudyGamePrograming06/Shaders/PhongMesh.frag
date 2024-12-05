@@ -9,19 +9,19 @@ struct DirectionalLight
 
 struct PointLight
 {
-	float mAttenuation;
 	vec3 mPosition;
 	vec3 mDiffuseColor;
 	vec3 mSpecColor;
+	float mAttenuation;
 };
 
 struct SpotLight
 {
-	float mAttenuation;
 	vec3 mPosition;
+	vec3 mDirection;
 	vec3 mDiffuseColor;
 	vec3 mSpecColor;
-	vec3 mDirection;
+	float mAttenuation;
 	float mCornAngle;
 };
 
@@ -96,7 +96,7 @@ void main()
 			L = normalize(pDir);
 			spotDir = normalize(uSpotLights[i].mDirection);
 			dotLD = dot(-L, spotDir);
-			if(dotLD > cos(uSpotLights[i].mCornAngle / 2))
+			if(dotLD >= cos(uSpotLights[i].mCornAngle / 2))
 			{
 				R = normalize(reflect(-L, N));
 				Diffuse = uSpotLights[i].mDiffuseColor * max(0.0, dot(N, L));

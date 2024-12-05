@@ -20,7 +20,6 @@ struct PointLight
 	Vector3 mDiffuseColor;	// ägéUîΩéÀêF
 	Vector3 mSpecColor;		// ãæñ îΩéÀêF
 	float mAttenuation;		// å∏êäåWêî
-
 };
 
 struct SpotLight
@@ -59,15 +58,15 @@ public:
 	void SetProjMatrix(const Matrix4& matrix) { mProj = matrix; }
 
 	Vector3& GetAmbientLight() { return mAmbientLight; }
-	void SetAmbientLight(const Vector3 ambient) { mAmbientLight = ambient; }
+	void SetAmbientLight(const Vector3& ambient) { mAmbientLight = ambient; }
 	//DirectionalLight& GetDirectionalLight() { return mDirLight; }
 	std::vector<DirectionalLight>& GetDirectionalLight() { return mDirLights; }
 	//void SetDirectionalLight(const DirectionalLight& dir) { mDirLight = dir; }
-	void SetDirectionalLight(const DirectionalLight dir) { mDirLights.emplace_back(dir); }
+	void SetDirectionalLight(const DirectionalLight& dir) { mDirLights.emplace_back(dir); }
 	std::vector<PointLight>& GetPointLight() { return mPointLights; }
-	void SetPointLight(const PointLight pt) { mPointLights.emplace_back(pt); }
+	void SetPointLight(const PointLight& pt) { mPointLights.emplace_back(pt); }
 	std::vector<SpotLight>& GetSpotLight() { return mSpotLights; }
-	void SetSpotLight(const SpotLight pt) { mSpotLights.emplace_back(pt); }
+	void SetSpotLight(const SpotLight& pt) { mSpotLights.emplace_back(pt); }
 
 	float GetScreenWidth() const { return mScreenWidth; }
 	float GetScreenHeight() const { return mScreenHeight; }
