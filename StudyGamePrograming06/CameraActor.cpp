@@ -8,6 +8,17 @@ CameraActor::CameraActor(Game* game)
 {
 	SetPosition(Vector3(0.0f, 0.0f, 100.0f));
 	mMoveComp = new MoveComponent(this);
+
+	//スポットライト
+	SpotLight sl;
+	sl.mPosition = GetPosition();
+	sl.mDirection = GetForward();
+	Vector3 color = Vector3(1.0f, 1.0f, 1.0f);
+	sl.mDiffuseColor = color;
+	sl.mSpecColor = color;
+	sl.mAttenuation = 0.9f;
+	sl.mCornAngle = Math::Pi / 6.0f;
+	game->GetRenderer()->SetSpotLight(sl);
 }
 
 void CameraActor::UpdateActor(float deltaTime)
@@ -21,6 +32,11 @@ void CameraActor::UpdateActor(float deltaTime)
 
 	Matrix4 view = Matrix4::CreateLookAt(cameraPos, cameraTarget, cameraUp);
 	GetGame()->GetRenderer()->SetViewMatrix(view);
+
+	//スポットライトの位置と方向を更新
+	SpotLight& sl = GetGame()->GetRenderer()->GetSpotLight()[0];
+	sl.mPosition = GetPosition();
+	sl.mDirection = GetForward();
 }
 
 void CameraActor::ActorInput(const SDL_Event& event)

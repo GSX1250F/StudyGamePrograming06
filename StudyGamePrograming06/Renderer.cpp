@@ -362,4 +362,21 @@ void Renderer::SetLightUniforms(Shader* shader)
 		str = "uPointLights[" + std::to_string(i) + "].mSpecColor";
 		shader->SetVectorUniform(str.c_str(), mPointLights[i].mSpecColor);
 	}
+
+	// スポットライト
+	for (int i = 0; i < mSpotLights.size(); i++)
+	{
+		str = "uSpotLights[" + std::to_string(i) + "].mAttenuation";
+		shader->SetFloatUniform(str.c_str(), mSpotLights[i].mAttenuation);
+		str = "uSpotLights[" + std::to_string(i) + "].mPosition";
+		shader->SetVectorUniform(str.c_str(), mSpotLights[i].mPosition);
+		str = "uSpotLights[" + std::to_string(i) + "].mDiffuseColor";
+		shader->SetVectorUniform(str.c_str(), mSpotLights[i].mDiffuseColor);
+		str = "uSpotLights[" + std::to_string(i) + "].mSpecColor";
+		shader->SetVectorUniform(str.c_str(), mSpotLights[i].mSpecColor);
+		str = "uSpotLights[" + std::to_string(i) + "].mDirection";
+		shader->SetVectorUniform(str.c_str(), mSpotLights[i].mDirection);
+		str = "uSpotLights[" + std::to_string(i) + "].mCornAngle";
+		shader->SetFloatUniform(str.c_str(), mSpotLights[i].mCornAngle);
+	}
 }

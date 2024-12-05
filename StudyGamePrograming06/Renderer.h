@@ -16,10 +16,21 @@ struct DirectionalLight
 
 struct PointLight
 {
-	float mAttenuation;		// Œ¸ŠŒW”
-	Vector3 mPosition;		// “_ŒõŒ¹‚ÌˆÊ’u
+	Vector3 mPosition;		// ŒõŒ¹‚ÌˆÊ’u
 	Vector3 mDiffuseColor;	// ŠgU”½ËF
 	Vector3 mSpecColor;		// ‹¾–Ê”½ËF
+	float mAttenuation;		// Œ¸ŠŒW”
+
+};
+
+struct SpotLight
+{
+	Vector3 mPosition;		// ŒõŒ¹‚ÌˆÊ’u
+	Vector3 mDirection;		// Œõ‚Ì’†S•ûŒü
+	Vector3 mDiffuseColor;	// ŠgU”½ËF
+	Vector3 mSpecColor;		// ‹¾–Ê”½ËF
+	float mAttenuation;		// Œ¸ŠŒW”
+	float mCornAngle;		// CornŠp“x
 };
 
 class Renderer
@@ -48,14 +59,15 @@ public:
 	void SetProjMatrix(const Matrix4& matrix) { mProj = matrix; }
 
 	Vector3& GetAmbientLight() { return mAmbientLight; }
-	void SetAmbientLight(const Vector3& ambient) { mAmbientLight = ambient; }
+	void SetAmbientLight(const Vector3 ambient) { mAmbientLight = ambient; }
 	//DirectionalLight& GetDirectionalLight() { return mDirLight; }
-	std::vector<DirectionalLight> GetDirectionalLight() { return mDirLights; }
+	std::vector<DirectionalLight>& GetDirectionalLight() { return mDirLights; }
 	//void SetDirectionalLight(const DirectionalLight& dir) { mDirLight = dir; }
-	void SetDirectionalLight(const DirectionalLight& dir) { mDirLights.emplace_back(dir); }
-	std::vector<PointLight> GetPointLight() { return mPointLights; }
-	void SetPointLight(const PointLight& pt) { mPointLights.emplace_back(pt); }
-
+	void SetDirectionalLight(const DirectionalLight dir) { mDirLights.emplace_back(dir); }
+	std::vector<PointLight>& GetPointLight() { return mPointLights; }
+	void SetPointLight(const PointLight pt) { mPointLights.emplace_back(pt); }
+	std::vector<SpotLight>& GetSpotLight() { return mSpotLights; }
+	void SetSpotLight(const SpotLight pt) { mSpotLights.emplace_back(pt); }
 
 	float GetScreenWidth() const { return mScreenWidth; }
 	float GetScreenHeight() const { return mScreenHeight; }
@@ -91,4 +103,5 @@ private:
 	//DirectionalLight mDirLight;
 	std::vector<DirectionalLight> mDirLights;
 	std::vector<PointLight> mPointLights;
+	std::vector<SpotLight> mSpotLights;
 };
