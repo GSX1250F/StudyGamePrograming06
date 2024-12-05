@@ -29,7 +29,7 @@ struct SpotLight
 	Vector3 mDiffuseColor;	// ägéUîΩéÀêF
 	Vector3 mSpecColor;		// ãæñ îΩéÀêF
 	float mAttenuation;		// å∏êäåWêî
-	float mCornAngle;		// Cornäpìx
+	float mCornAngle;		// è∆éÀäpìx
 };
 
 class Renderer
@@ -58,15 +58,15 @@ public:
 	void SetProjMatrix(const Matrix4& matrix) { mProj = matrix; }
 
 	Vector3& GetAmbientLight() { return mAmbientLight; }
-	void SetAmbientLight(const Vector3& ambient) { mAmbientLight = ambient; }
+	void SetAmbientLight(const Vector3 ambient) { mAmbientLight = ambient; }
 	//DirectionalLight& GetDirectionalLight() { return mDirLight; }
-	std::vector<DirectionalLight>& GetDirectionalLight() { return mDirLights; }
+	std::vector<DirectionalLight>& GetDirectionalLights() { return mDirLights; }
 	//void SetDirectionalLight(const DirectionalLight& dir) { mDirLight = dir; }
-	void SetDirectionalLight(const DirectionalLight& dir) { mDirLights.emplace_back(dir); }
-	std::vector<PointLight>& GetPointLight() { return mPointLights; }
-	void SetPointLight(const PointLight& pt) { mPointLights.emplace_back(pt); }
-	std::vector<SpotLight>& GetSpotLight() { return mSpotLights; }
-	void SetSpotLight(const SpotLight& pt) { mSpotLights.emplace_back(pt); }
+	void AddDirectionalLight(const DirectionalLight dl) { mDirLights.emplace_back(dl); }
+	std::vector<PointLight>& GetPointLights() { return mPointLights; }
+	void AddPointLight(const PointLight pl) { mPointLights.emplace_back(pl); }
+	std::vector<SpotLight>& GetSpotLights() { return mSpotLights; }
+	void AddSpotLight(const SpotLight sl) { mSpotLights.emplace_back(sl); }
 
 	float GetScreenWidth() const { return mScreenWidth; }
 	float GetScreenHeight() const { return mScreenHeight; }

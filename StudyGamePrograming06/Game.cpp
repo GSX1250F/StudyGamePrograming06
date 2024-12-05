@@ -152,12 +152,12 @@ void Game::LoadData()
 	color = Vector3(0.7f, 0.0f, 0.0f);
 	dl.mDiffuseColor = color;
 	dl.mSpecColor = color;
-	mRenderer->SetDirectionalLight(dl);
+	mRenderer->AddDirectionalLight(dl);
 	dl.mDirection = Vector3::Normalize(Vector3(-1.0f, -1.0f, -1.0f));
 	color = Vector3(0.0f, 0.7f, 0.0f);
 	dl.mDiffuseColor = color;
 	dl.mSpecColor = color;
-	mRenderer->SetDirectionalLight(dl);
+	mRenderer->AddDirectionalLight(dl);
 	*/
 	// “_ŒõŒ¹
 	PointLight pl;
@@ -166,25 +166,25 @@ void Game::LoadData()
 	color = Vector3(1.0f, 1.0f, 0.0f);
 	pl.mDiffuseColor = color;
 	pl.mSpecColor = color;
-	mRenderer->SetPointLight(pl);
+	mRenderer->AddPointLight(pl);
 	pl.mAttenuation = 0.9f;
 	pl.mPosition = Vector3(1250.0f, -1250.0f, 500.0f);
 	color = Vector3(1.0f, 0.0f, 0.0f);
 	pl.mDiffuseColor = color;
 	pl.mSpecColor = color;
-	mRenderer->SetPointLight(pl);
+	mRenderer->AddPointLight(pl);
 	pl.mAttenuation = 0.9f;
 	pl.mPosition = Vector3(-1250.0f, 1250.0f, 500.0f);
 	color = Vector3(0.0f, 1.0f, 0.0f);
 	pl.mDiffuseColor = color;
 	pl.mSpecColor = color;
-	mRenderer->SetPointLight(pl);
+	mRenderer->AddPointLight(pl);
 	pl.mAttenuation = 0.9f;
 	pl.mPosition = Vector3(-1250.0f, -1250.0f, 500.0f);
 	color = Vector3(0.0f, 0.0f, 1.0f);
 	pl.mDiffuseColor = color;
 	pl.mSpecColor = color;
-	mRenderer->SetPointLight(pl);
+	mRenderer->AddPointLight(pl);
 }
 
 void Game::UnloadData()

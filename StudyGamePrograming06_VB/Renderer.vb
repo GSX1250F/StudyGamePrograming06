@@ -12,10 +12,18 @@ Public Structure DirectionalLight
     Dim mSpecColor As Vector3       '鏡面反射色
 End Structure
 Public Structure PointLight
-    Dim mAttenuation As Single      '減衰係数
-    Dim mPosition As Vector3        '点光源の位置
+    Dim mPosition As Vector3        '光源の位置
     Dim mDiffuseColor As Vector3    '拡散反射色
     Dim mSpecColor As Vector3       '鏡面反射色
+    Dim mAttenuation As Single      '減衰係数
+End Structure
+Public Structure SpotLight
+    Dim mPosition As Vector3        '点光源の位置
+    Dim mDirection As Vector3       '光の方向
+    Dim mDiffuseColor As Vector3    '拡散反射色
+    Dim mSpecColor As Vector3       '鏡面反射色
+    Dim mAttenuation As Single      '減衰係数
+    Dim mCornAngle As Single        '照射角度
 End Structure
 
 Public Class Renderer
@@ -221,17 +229,32 @@ Public Class Renderer
     'Public Sub SetDirectionalLight(ByRef dir As DirectionalLight)
     '    mDirLight = dir
     'End Sub
-    Public Function GetDirectionalLight() As List(Of DirectionalLight)
+    Public Function GetDirectionalLights() As List(Of DirectionalLight)
         Return mDirLights
     End Function
-    Public Sub SetDirectionalLight(ByRef dir As DirectionalLight)
-        mDirLights.Add(dir)
+    Public Sub AddDirectionalLight(ByVal dl As DirectionalLight)
+        mDirLights.Add(dl)
     End Sub
-    Public Function GetPointLight() As List(Of PointLight)
+    Public Sub SetDirectionalLights(ByVal dl As List(Of DirectionalLight))
+        mDirLights = dl
+    End Sub
+    Public Function GetPointLights() As List(Of PointLight)
         Return mPointLights
     End Function
-    Public Sub SetPointLight(ByRef pt As PointLight)
-        mPointLights.Add(pt)
+    Public Sub AddPointLight(ByVal pl As PointLight)
+        mPointLights.Add(pl)
+    End Sub
+    Public Sub SetPointLights(ByVal pl As List(Of PointLight))
+        mPointLights = pl
+    End Sub
+    Public Function GetSpotLights() As List(Of SpotLight)
+        Return mSpotLights
+    End Function
+    Public Sub AddSpotLight(ByVal sl As SpotLight)
+        mSpotLights.Add(sl)
+    End Sub
+    Public Sub SetSpotLights(ByVal sl As List(Of SpotLight))
+        mSpotLights = sl
     End Sub
 
     'private
@@ -327,14 +350,29 @@ Public Class Renderer
         Next
         '点光源
         For i As Integer = 0 To mPointLights.Count() - 1
-            str = "uPointLights[" + i.ToString + "].mAttenuation"
-            shader.SetFloatUniform(str, mPointLights(i).mAttenuation)
             str = "uPointLights[" + i.ToString + "].mPosition"
             shader.SetVectorUniform(str, mPointLights(i).mPosition)
             str = "uPointLights[" + i.ToString + "].mDiffuseColor"
             shader.SetVectorUniform(str, mPointLights(i).mDiffuseColor)
             str = "uPointLights[" + i.ToString + "].mSpecColor"
             shader.SetVectorUniform(str, mPointLights(i).mSpecColor)
+            str = "uPointLights[" + i.ToString + "].mAttenuation"
+            shader.SetFloatUniform(str, mPointLights(i).mAttenuation)
+        Next
+        'スポットライト
+        For i As Integer = 0 To mSpotLights.Count() - 1
+            str = "uSpotLights[" + i.ToString + "].mPosition"
+            shader.SetVectorUniform(str, mSpotLights(i).mPosition)
+            str = "uSpotLights[" + i.ToString + "].mDirection"
+            shader.SetVectorUniform(str, mSpotLights(i).mDirection)
+            str = "uSpotLights[" + i.ToString + "].mDiffuseColor"
+            shader.SetVectorUniform(str, mSpotLights(i).mDiffuseColor)
+            str = "uSpotLights[" + i.ToString + "].mSpecColor"
+            shader.SetVectorUniform(str, mSpotLights(i).mSpecColor)
+            str = "uSpotLights[" + i.ToString + "].mAttenuation"
+            shader.SetFloatUniform(str, mSpotLights(i).mAttenuation)
+            str = "uSpotLights[" + i.ToString + "].mCornAngle"
+            shader.SetFloatUniform(str, mSpotLights(i).mCornAngle)
         Next
     End Sub
 
@@ -356,4 +394,5 @@ Public Class Renderer
     'Private mDirLight As DirectionalLight
     Private mDirLights As New List(Of DirectionalLight)
     Private mPointLights As New List(Of PointLight)
+    Private mSpotLights As New List(Of SpotLight)
 End Class

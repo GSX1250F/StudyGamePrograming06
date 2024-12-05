@@ -160,42 +160,42 @@ Public Class Game
         'mRenderer.SetAmbientLight(color)
         ''平行光源
         'Dim dir As DirectionalLight
-        'dir.mDirection = Vector3.Normalize(New Vector3(1.0, 1.0, -1.0))
+        'dl.mDirection = Vector3.Normalize(New Vector3(1.0, 1.0, -1.0))
         'color = New Vector3(0.7, 0.0, 0.0)
-        'dir.mDiffuseColor = color
-        'dir.mSpecColor = color
-        'mRenderer.SetDirectionalLight(dir)
-        'dir.mDirection = Vector3.Normalize(New Vector3(-1.0, -1.0, -1.0))
+        'dl.mDiffuseColor = color
+        'dl.mSpecColor = color
+        'mRenderer.AddDirectionalLight(dir)
+        'dl.mDirection = Vector3.Normalize(New Vector3(-1.0, -1.0, -1.0))
         'color = New Vector3(0.0, 0.7, 0.0)
-        'dir.mDiffuseColor = color
-        'dir.mSpecColor = color
-        'mRenderer.SetDirectionalLight(dir)
+        'dl.mDiffuseColor = color
+        'dl.mSpecColor = color
+        'mRenderer.AddDirectionalLight(dl)
         '点光源
-        Dim pt As PointLight
-        pt.mAttenuation = 0.9
-        pt.mPosition = New Vector3(1250.0, 1250.0, 500.0)
+        Dim pl As PointLight
+        pl.mAttenuation = 0.9
+        pl.mPosition = New Vector3(1250.0, 1250.0, 500.0)
         color = New Vector3(1.0, 1.0, 0.0)
-        pt.mDiffuseColor = color
-        pt.mSpecColor = color
-        mRenderer.SetPointLight(pt)
-        pt.mAttenuation = 0.9
-        pt.mPosition = New Vector3(1250.0, -1250.0, 500.0)
+        pl.mDiffuseColor = color
+        pl.mSpecColor = color
+        mRenderer.AddPointLight(pl)
+        pl.mAttenuation = 0.9
+        pl.mPosition = New Vector3(1250.0, -1250.0, 500.0)
         color = New Vector3(1.0, 0.0, 0.0)
-        pt.mDiffuseColor = color
-        pt.mSpecColor = color
-        mRenderer.SetPointLight(pt)
-        pt.mAttenuation = 0.9
-        pt.mPosition = New Vector3(-1250.0, 1250.0, 500.0)
+        pl.mDiffuseColor = color
+        pl.mSpecColor = color
+        mRenderer.AddPointLight(pl)
+        pl.mAttenuation = 0.9
+        pl.mPosition = New Vector3(-1250.0, 1250.0, 500.0)
         color = New Vector3(0.0, 1.0, 0.0)
-        pt.mDiffuseColor = color
-        pt.mSpecColor = color
-        mRenderer.SetPointLight(pt)
-        pt.mAttenuation = 0.9
-        pt.mPosition = New Vector3(-1250.0, -1250.0, 500.0)
+        pl.mDiffuseColor = color
+        pl.mSpecColor = color
+        mRenderer.AddPointLight(pl)
+        pl.mAttenuation = 0.9
+        pl.mPosition = New Vector3(-1250.0, -1250.0, 500.0)
         color = New Vector3(0.0, 0.0, 1.0)
-        pt.mDiffuseColor = color
-        pt.mSpecColor = color
-        mRenderer.SetPointLight(pt)
+        pl.mDiffuseColor = color
+        pl.mSpecColor = color
+        mRenderer.AddPointLight(pl)
     End Sub
 
     Private Sub UnloadData()

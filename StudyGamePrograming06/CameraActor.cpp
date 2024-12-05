@@ -18,7 +18,7 @@ CameraActor::CameraActor(Game* game)
 	sl.mSpecColor = color;
 	sl.mAttenuation = 0.9f;
 	sl.mCornAngle = Math::Pi / 6.0f;
-	game->GetRenderer()->SetSpotLight(sl);
+	game->GetRenderer()->AddSpotLight(sl);
 }
 
 void CameraActor::UpdateActor(float deltaTime)
@@ -34,7 +34,7 @@ void CameraActor::UpdateActor(float deltaTime)
 	GetGame()->GetRenderer()->SetViewMatrix(view);
 
 	//スポットライトの位置と方向を更新
-	SpotLight& sl = GetGame()->GetRenderer()->GetSpotLight()[0];
+	SpotLight& sl = GetGame()->GetRenderer()->GetSpotLights()[0];
 	sl.mPosition = GetPosition();
 	sl.mDirection = GetForward();
 }
