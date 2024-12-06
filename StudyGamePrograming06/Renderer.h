@@ -30,6 +30,7 @@ struct SpotLight
 	Vector3 mSpecColor;		// 鏡面反射色
 	float mAttenuation;		// 減衰係数
 	float mCornAngle;		// 照射角度
+	float mFalloff;			// 照射角度外減衰指数
 };
 
 class Renderer

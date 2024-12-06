@@ -378,5 +378,7 @@ void Renderer::SetLightUniforms(Shader* shader)
 		shader->SetFloatUniform(str.c_str(), mSpotLights[i].mAttenuation);
 		str = "uSpotLights[" + std::to_string(i) + "].mCornAngle";
 		shader->SetFloatUniform(str.c_str(), mSpotLights[i].mCornAngle);
+		str = "uSpotLights[" + std::to_string(i) + "].mFalloff";
+		shader->SetFloatUniform(str.c_str(), mSpotLights[i].mFalloff);
 	}
 }

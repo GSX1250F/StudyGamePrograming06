@@ -23,8 +23,8 @@ struct SpotLight
 	vec3 mSpecColor;
 	float mAttenuation;
 	float mCornAngle;
+	float mFalloff;
 };
-
 
 in vec3 fragWorldPos;
 in vec3 fragNormal;
@@ -36,10 +36,10 @@ const int uSpotLightNum = 4;
 uniform sampler2D uTexture;
 uniform vec3 uAmbientLight;
 uniform DirectionalLight uDirLights[uDirLightNum];
-uniform vec3 uCameraPos;
-uniform float uSpecPower;
 uniform PointLight uPointLights[uPointLightNum];
 uniform SpotLight uSpotLights[uSpotLightNum];
+uniform vec3 uCameraPos;
+uniform float uSpecPower;
 
 out vec4 outColor;
 
@@ -84,8 +84,9 @@ void main()
 		}		
 	}
 
-	float dotLD;
-	vec3 spotDir;
+	vec3 sDir;
+	float dAng;
+	float sAtt;
 	for (int i = 0; i < uSpotLightNum; i++)
 	{
 		if (uSpotLights[i].mAttenuation > 0)
@@ -94,18 +95,25 @@ void main()
 			pLen = length(pDir) * 0.001;
 			pAtt = 1.0 / (uSpotLights[i].mAttenuation * pLen * pLen);
 			L = normalize(pDir);
-			spotDir = normalize(uSpotLights[i].mDirection);
-			dotLD = dot(-L, spotDir);
-			if(dotLD >= cos(uSpotLights[i].mCornAngle / 2))
+			sDir = normalize(uSpotLights[i].mDirection);
+			if(dot(-L, sDir) >=0)
 			{
+				dAng = acos(dot(-L, sDir));
+				if(dAng <= uSpotLights[i].mCornAngle / 2)
+				{
+					sAtt = 1.0f;
+				}
+				else
+				{
+					sAtt = pow(cos(dAng - uSpotLights[i].mCornAngle / 2) , uSpotLights[i].mFalloff);
+				}				
 				R = normalize(reflect(-L, N));
 				Diffuse = uSpotLights[i].mDiffuseColor * max(0.0, dot(N, L));
 				Specular = uSpotLights[i].mSpecColor * pow(max(0.0, dot(R, V)), uSpecPower);
-				lightColor += pAtt * (Diffuse + Specular);	
+				lightColor += pAtt * (Diffuse + Specular) * sAtt;
 			}			
 		}		
 	}
-
 
 	outColor = texture(uTexture, fragTexCoord) * vec4(lightColor, 1.0);	
 }

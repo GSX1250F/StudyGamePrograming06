@@ -17,7 +17,8 @@ CameraActor::CameraActor(Game* game)
 	sl.mDiffuseColor = color;
 	sl.mSpecColor = color;
 	sl.mAttenuation = 0.9f;
-	sl.mCornAngle = Math::Pi / 6.0f;
+	sl.mCornAngle = Math::Pi / 8.0f;
+	sl.mFalloff = 200.0f;
 	game->GetRenderer()->AddSpotLight(sl);
 }
 
