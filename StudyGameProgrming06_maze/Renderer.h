@@ -16,10 +16,21 @@ struct DirectionalLight
 
 struct PointLight
 {
-	float mAttenuation;		// 減衰係数
-	Vector3 mPosition;		// 点光源の位置
+	Vector3 mPosition;		// 光源の位置
 	Vector3 mDiffuseColor;	// 拡散反射色
 	Vector3 mSpecColor;		// 鏡面反射色
+	float mAttenuation;		// 減衰係数
+};
+
+struct SpotLight
+{
+	Vector3 mPosition;		// 光源の位置
+	Vector3 mDirection;		// 光の中心方向
+	Vector3 mDiffuseColor;	// 拡散反射色
+	Vector3 mSpecColor;		// 鏡面反射色
+	float mAttenuation;		// 減衰係数
+	float mCornAngle;		// 照射角度
+	float mFalloff;			// 照射角度外減衰指数
 };
 
 class Renderer
@@ -48,14 +59,15 @@ public:
 	void SetProjMatrix(const Matrix4& matrix) { mProj = matrix; }
 
 	Vector3& GetAmbientLight() { return mAmbientLight; }
-	void SetAmbientLight(const Vector3& ambient) { mAmbientLight = ambient; }
+	void SetAmbientLight(const Vector3 ambient) { mAmbientLight = ambient; }
 	//DirectionalLight& GetDirectionalLight() { return mDirLight; }
-	std::vector<DirectionalLight> GetDirectionalLight() { return mDirLights; }
+	std::vector<DirectionalLight>& GetDirectionalLights() { return mDirLights; }
 	//void SetDirectionalLight(const DirectionalLight& dir) { mDirLight = dir; }
-	void SetDirectionalLight(const DirectionalLight& dir) { mDirLights.emplace_back(dir); }
-	std::vector<PointLight> GetPointLight() { return mPointLights; }
-	void SetPointLight(const PointLight& pt) { mPointLights.emplace_back(pt); }
-
+	void AddDirectionalLight(const DirectionalLight dl) { mDirLights.emplace_back(dl); }
+	std::vector<PointLight>& GetPointLights() { return mPointLights; }
+	void AddPointLight(const PointLight pl) { mPointLights.emplace_back(pl); }
+	std::vector<SpotLight>& GetSpotLights() { return mSpotLights; }
+	void AddSpotLight(const SpotLight sl) { mSpotLights.emplace_back(sl); }
 
 	float GetScreenWidth() const { return mScreenWidth; }
 	float GetScreenHeight() const { return mScreenHeight; }
@@ -91,4 +103,5 @@ private:
 	//DirectionalLight mDirLight;
 	std::vector<DirectionalLight> mDirLights;
 	std::vector<PointLight> mPointLights;
+	std::vector<SpotLight> mSpotLights;
 };

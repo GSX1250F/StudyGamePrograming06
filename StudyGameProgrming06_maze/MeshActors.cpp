@@ -20,6 +20,18 @@ Brave::Brave(Game* game)
 
 	//MoveComponent作成
 	mc = new MoveComponent(this);
+
+	//スポットライト
+	SpotLight sl;
+	sl.mPosition = GetPosition();
+	sl.mDirection = GetForward();
+	Vector3 color = Vector3(0.3f, 0.3f, 0.2f);
+	sl.mDiffuseColor = color;
+	sl.mSpecColor = color;
+	sl.mAttenuation = 3.0f;
+	sl.mCornAngle = Math::Pi / 100.0f;
+	sl.mFalloff = 10.0f;
+	game->GetRenderer()->AddSpotLight(sl);
 }
 
 void Brave::ActorInput(const SDL_Event& event) {
@@ -77,6 +89,11 @@ void Brave::UpdateActor(float deltaTime) {
 
 		Matrix4 view = Matrix4::CreateLookAt(cameraPos, cameraTarget, cameraUp);
 		GetGame()->GetRenderer()->SetViewMatrix(view);
+
+		//スポットライトの位置と方向を更新
+		SpotLight& sl = GetGame()->GetRenderer()->GetSpotLights()[0];
+		sl.mPosition = GetPosition();
+		sl.mDirection = GetForward();
 	}
 }
 
@@ -86,8 +103,6 @@ Plane::Plane(Game* game)
 	SetScale(3.0f);
 	MeshComponent* mc = new MeshComponent(this);
 	mc->SetMesh(game->GetRenderer()->GetMesh("Assets/Plane.gpmesh"));
-	//Quaternion q = Quaternion(Vector3::UnitX, Math::PiOver2);
-	//SetRotation(q);
 }
 
 Tile::Tile(class Game* game)
