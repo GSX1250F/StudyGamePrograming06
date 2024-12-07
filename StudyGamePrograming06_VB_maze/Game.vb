@@ -153,9 +153,6 @@ Public Class Game
     Private Sub LoadData()
         'mMaze = New Maze(Me, 51, 29)        '迷路クラス
         mMaze = New Maze(Me, 7, 7)        'テスト用
-        ' 光源
-        ' 環境光	
-        mRenderer.SetAmbientLight(New Vector3(0.7, 0.7, 0.7))
     End Sub
 
     Private Sub UnloadData()

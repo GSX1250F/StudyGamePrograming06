@@ -1,6 +1,7 @@
 #include "Maze.h"
 #include "MazeCreator.h"
 #include "Game.h"
+#include "Renderer.h"
 #include "CircleComponent.h"
 #include "SpriteComponent.h"
 #include "MeshComponent.h"
@@ -53,8 +54,16 @@ Maze::Maze(Game* game, int mapWidth, int mapHeight)
 		{
 			Actor* floor = new Plane(game);
 			floor->SetPosition(Vector3(GetTilePos(i, j).x, GetTilePos(i,j).y, mTileSize * 0.5f));
+			Quaternion q = Quaternion(Vector3::UnitX, Math::Pi);
+			floor->SetRotation(q);
+			floor = new Plane(game);
+			floor->SetPosition(Vector3(GetTilePos(i, j).x, GetTilePos(i, j).y, -mTileSize * 0.5f));
 		}
 	}
+
+	// ŒõŒ¹
+	// ŠÂ‹«Œõ	
+	game->GetRenderer()->SetAmbientLight(Vector3(0.01f, 0.01f, 0.01f));
 }
 
 void Maze::ActorInput(const SDL_Event& event)
