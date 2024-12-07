@@ -23,6 +23,7 @@ struct SpotLight
 	vec3 mSpecColor;
 	float mAttenuation;
 	float mCornAngle;
+	float mFalloff;
 };
 
 in vec3 fragWorldPos;
@@ -74,8 +75,9 @@ void main()
 		}		
 	}
 
-	float dotLD;
-	vec3 spotDir;
+	vec3 sDir;
+	float dAng;
+	float sAtt;
 	for (int i = 0; i < uSpotLightNum; i++)
 	{
 		if (uSpotLights[i].mAttenuation > 0)
@@ -84,12 +86,20 @@ void main()
 			pLen = length(pDir) * 0.001;
 			pAtt = 1.0 / (uSpotLights[i].mAttenuation * pLen * pLen);
 			L = normalize(pDir);
-			spotDir = normalize(uSpotLights[i].mDirection);
-			dotLD = dot(-L, spotDir);
-			if(dotLD >= cos(uSpotLights[i].mCornAngle / 2))
+			sDir = normalize(uSpotLights[i].mDirection);
+			if(dot(-L, sDir) >=0)
 			{
+				dAng = acos(dot(-L, sDir));
+				if(dAng <= uSpotLights[i].mCornAngle / 2)
+				{
+					sAtt = 1.0f;
+				}
+				else
+				{
+					sAtt = pow(cos(dAng - uSpotLights[i].mCornAngle / 2) , uSpotLights[i].mFalloff);
+				}
 				Diffuse = uSpotLights[i].mDiffuseColor * max(0.0, dot(N, L));
-				lightColor += pAtt * Diffuse;	
+				lightColor += pAtt * Diffuse * sAtt;
 			}			
 		}		
 	}

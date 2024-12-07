@@ -19,7 +19,8 @@ Public Class CameraActor
         sl.mDiffuseColor = color
         sl.mSpecColor = color
         sl.mAttenuation = 0.9
-        sl.mCornAngle = Math.PI / 6.0
+        sl.mCornAngle = Math.PI / 8.0
+        sl.mFalloff = 200.0
         game.GetRenderer().AddSpotLight(sl)
     End Sub
 

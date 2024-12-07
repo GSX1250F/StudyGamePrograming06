@@ -24,6 +24,7 @@ Public Structure SpotLight
     Dim mSpecColor As Vector3       '鏡面反射色
     Dim mAttenuation As Single      '減衰係数
     Dim mCornAngle As Single        '照射角度
+    Dim mFalloff As Single          '照射角度外減衰指数
 End Structure
 
 Public Class Renderer
@@ -373,6 +374,8 @@ Public Class Renderer
             shader.SetFloatUniform(str, mSpotLights(i).mAttenuation)
             str = "uSpotLights[" + i.ToString + "].mCornAngle"
             shader.SetFloatUniform(str, mSpotLights(i).mCornAngle)
+            str = "uSpotLights[" + i.ToString + "].mFalloff"
+            shader.SetFloatUniform(str, mSpotLights(i).mFalloff)
         Next
     End Sub
 
